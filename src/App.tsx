@@ -9,6 +9,15 @@ import Profile from './components/Profile';
 import Connections from './components/Connections';
 import Chat from './components/Chat';
 import Auth from './components/Auth';
+import Workflows from './components/Workflows';
+import Performance from './components/Performance';
+import ApiKeys from './components/ApiKeys';
+import Webhooks from './components/Webhooks';
+import Documentation from './components/Documentation';
+import HelpCenter from './components/HelpCenter';
+import Billing from './components/Billing';
+import Settings from './components/Settings';
+import Security from './components/Security';
 
 function AppContent() {
   const [currentPage, setCurrentPage] = useState('studio');
@@ -24,18 +33,34 @@ function AppContent() {
     switch (currentPage) {
       case 'studio':
         return <Studio />;
+      case 'workflows':
+        return <Workflows />;
       case 'marketplace':
         return <Marketplace />;
       case 'statistics':
         return <Statistics />;
+      case 'performance':
+        return <Performance />;
       case 'connections':
         return <Connections />;
-      case 'pricing':
-        return <Pricing />;
-      case 'profile':
-        return <Profile />;
+      case 'api':
+        return <ApiKeys />;
+      case 'webhooks':
+        return <Webhooks />;
       case 'chat':
         return <Chat />;
+      case 'documentation':
+        return <Documentation />;
+      case 'help':
+        return <HelpCenter />;
+      case 'profile':
+        return <Profile />;
+      case 'billing':
+        return <Billing />;
+      case 'settings':
+        return <Settings />;
+      case 'security':
+        return <Security />;
       default:
         return <Studio />;
     }
