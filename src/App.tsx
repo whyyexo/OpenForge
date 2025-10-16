@@ -13,6 +13,7 @@ import Auth from './components/Auth';
 function AppContent() {
   const [currentPage, setCurrentPage] = useState('studio');
   const [showAuth, setShowAuth] = useState(false);
+  const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
   const { user, loading } = useAuth();
 
   // Debug logs (removed for production)
@@ -81,8 +82,14 @@ function AppContent() {
 
   return (
     <div className="flex h-screen bg-slate-900">
-      <Sidebar currentPage={currentPage} onPageChange={setCurrentPage} />
-      <main className="flex-1 ml-16">
+      <Sidebar 
+        currentPage={currentPage} 
+        onPageChange={setCurrentPage} 
+        onExpandedChange={setIsSidebarExpanded}
+      />
+      <main className={`flex-1 transition-all duration-300 ease-in-out ${
+        isSidebarExpanded ? 'ml-56' : 'ml-16'
+      }`}>
         {renderPage()}
       </main>
     </div>

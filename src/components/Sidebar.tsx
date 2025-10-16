@@ -15,6 +15,7 @@ import { useAuth } from '../contexts/AuthContext';
 interface SidebarProps {
   currentPage: string;
   onPageChange: (page: string) => void;
+  onExpandedChange: (expanded: boolean) => void;
 }
 
 const menuItems = [
@@ -27,17 +28,27 @@ const menuItems = [
   { id: 'chat', icon: MessageSquare, label: 'AI Chat' },
 ];
 
-export default function Sidebar({ currentPage, onPageChange }: SidebarProps) {
+export default function Sidebar({ currentPage, onPageChange, onExpandedChange }: SidebarProps) {
   const [isExpanded, setIsExpanded] = useState(false);
   const { profile, signOut } = useAuth();
+
+  const handleMouseEnter = () => {
+    setIsExpanded(true);
+    onExpandedChange(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsExpanded(false);
+    onExpandedChange(false);
+  };
 
   return (
     <div
       className={`fixed left-0 top-0 h-screen bg-slate-950 border-r border-slate-800 transition-all duration-300 z-50 ${
         isExpanded ? 'w-56' : 'w-16'
       }`}
-      onMouseEnter={() => setIsExpanded(true)}
-      onMouseLeave={() => setIsExpanded(false)}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
       <div className="flex flex-col h-full">
         <div className="flex items-center h-16 px-4 border-b border-slate-800">
@@ -60,10 +71,10 @@ export default function Sidebar({ currentPage, onPageChange }: SidebarProps) {
               <button
                 key={item.id}
                 onClick={() => onPageChange(item.id)}
-                className={`w-full flex items-center px-4 py-3 transition-all ${
+                className={`w-full flex items-center px-4 py-3 transition-all duration-300 ease-in-out ${
                   isActive
                     ? 'bg-blue-500/10 text-blue-400 border-l-2 border-blue-500'
-                    : 'text-slate-400 hover:text-white hover:bg-slate-800/50'
+                    : 'text-slate-400 hover:text-white hover:bg-slate-800/50 border-l-2 border-transparent'
                 }`}
               >
                 <Icon className={`w-5 h-5 flex-shrink-0 ${isActive ? 'text-blue-400' : ''}`} />
