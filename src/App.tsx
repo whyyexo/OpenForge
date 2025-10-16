@@ -15,6 +15,10 @@ function AppContent() {
   const [showAuth, setShowAuth] = useState(false);
   const { user, loading } = useAuth();
 
+  // Debug logs (removed for production)
+  // console.log('AppContent - User:', user);
+  // console.log('AppContent - Loading:', loading);
+
   const renderPage = () => {
     switch (currentPage) {
       case 'studio':

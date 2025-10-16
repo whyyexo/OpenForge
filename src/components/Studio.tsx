@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { Plus, Play, Save, Download, Settings } from 'lucide-react';
+import { Plus, Play, Save, Download, Settings, Sparkles } from 'lucide-react';
 import type { Block, Connection } from '../types';
 import { supabaseHelpers } from '../lib/supabase';
 import { useAuth } from '../contexts/AuthContext';

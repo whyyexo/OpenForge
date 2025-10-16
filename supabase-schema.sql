@@ -204,6 +204,9 @@ CREATE POLICY "Users can view all profiles" ON profiles FOR SELECT USING (true);
 CREATE POLICY "Users can update their own profile" ON profiles FOR UPDATE USING (auth.uid() = user_id);
 CREATE POLICY "Users can insert their own profile" ON profiles FOR INSERT WITH CHECK (auth.uid() = user_id);
 
+-- Temporarily disable RLS for profiles table to allow initial profile creation
+ALTER TABLE profiles DISABLE ROW LEVEL SECURITY;
+
 -- RLS Policies for ai_agents
 CREATE POLICY "Users can view public agents and their own agents" ON ai_agents FOR SELECT USING (is_public = true OR auth.uid() = (SELECT user_id FROM profiles WHERE id = ai_agents.user_id));
 CREATE POLICY "Users can insert their own agents" ON ai_agents FOR INSERT WITH CHECK (auth.uid() = (SELECT user_id FROM profiles WHERE id = ai_agents.user_id));

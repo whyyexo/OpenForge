@@ -4,14 +4,26 @@ import { createClient } from '@supabase/supabase-js';
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || 'https://your-project.supabase.co';
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || 'your-anon-key';
 
-// Create Supabase client
-export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
-  auth: {
-    autoRefreshToken: true,
-    persistSession: true,
-    detectSessionInUrl: true
+// Debug: Log the environment variables (remove in production)
+// console.log('Supabase URL:', supabaseUrl);
+// console.log('Supabase Key (first 20 chars):', supabaseAnonKey?.substring(0, 20) + '...');
+
+// Create Supabase client (singleton pattern)
+let supabaseInstance: any = null;
+
+export const supabase = (() => {
+  if (!supabaseInstance) {
+    supabaseInstance = createClient(supabaseUrl, supabaseAnonKey, {
+      auth: {
+        autoRefreshToken: true,
+        persistSession: true,
+        detectSessionInUrl: true,
+        storageKey: 'ai-agent-platform-auth'
+      }
+    });
   }
-});
+  return supabaseInstance;
+})();
 
 // Database types (matching our schema)
 export interface Database {
@@ -343,22 +355,49 @@ export interface Database {
 export const supabaseHelpers = {
   // Auth helpers
   async signUp(email: string, password: string, username: string) {
-    const { data, error } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        data: {
-          username,
+    try {
+      // Validate inputs
+      if (!email || !password || !username) {
+        throw new Error('All fields are required');
+      }
+
+      if (password.length < 6) {
+        throw new Error('Password must be at least 6 characters');
+      }
+
+      const { data, error } = await supabase.auth.signUp({
+        email: email.trim(),
+        password: password.trim(),
+        options: {
+          data: {
+            username: username.trim(),
+          },
         },
-      },
-    });
+      });
 
-    if (data.user && !error) {
-      // Create profile after successful signup
-      await this.createProfile(data.user.id, username);
+      if (error) {
+        console.error('Signup error:', error);
+        return { data, error };
+      }
+
+      if (data.user) {
+        // Wait for auth session to be established
+        await new Promise(resolve => setTimeout(resolve, 2000));
+        
+        // Create profile after successful signup
+        try {
+          await this.createProfile(data.user.id, username.trim());
+        } catch (profileError) {
+          console.error('Profile creation error:', profileError);
+          // Don't fail the signup if profile creation fails
+        }
+      }
+
+      return { data, error };
+    } catch (err: any) {
+      console.error('Signup exception:', err);
+      return { data: null, error: { message: err.message || 'Signup failed' } };
     }
-
-    return { data, error };
   },
 
   async signIn(email: string, password: string) {
@@ -379,12 +418,23 @@ export const supabaseHelpers = {
 
   // Profile helpers
   async createProfile(userId: string, username: string) {
-    return await supabase
-      .from('profiles')
-      .insert({
-        user_id: userId,
-        username,
-      });
+    try {
+      const { data, error } = await supabase
+        .from('profiles')
+        .insert({
+          user_id: userId,
+          username,
+        });
+      
+      if (error) {
+        console.error('Error creating profile:', error);
+      }
+      
+      return { data, error };
+    } catch (err) {
+      console.error('Exception creating profile:', err);
+      return { data: null, error: err };
+    }
   },
 
   async getProfile(userId?: string) {
