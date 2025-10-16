@@ -75,7 +75,7 @@ export default function Sidebar({ currentPage, onPageChange, onExpandedChange }:
           {menuItems.map((item) => {
             if (item.isSeparator) {
               return (
-                <div key={item.id} className="mx-6 my-4 border-b border-white/10"></div>
+                <div key={item.id} className="mx-4 my-2 border-b border-white/10"></div>
               );
             }
 
@@ -86,54 +86,58 @@ export default function Sidebar({ currentPage, onPageChange, onExpandedChange }:
               <button
                 key={item.id}
                 onClick={() => onPageChange(item.id)}
-                className={`w-full flex items-center px-6 py-4 transition-all duration-500 ease-out ${
+                className={`w-full flex items-center px-4 py-2.5 transition-all duration-500 ease-out ${
                   isActive
                     ? 'bg-gradient-to-r from-blue-600/20 to-blue-500/10 text-blue-400 border-l-4 border-blue-500 shadow-lg shadow-blue-500/20'
                     : 'text-white/60 hover:text-white hover:bg-white/5 border-l-4 border-transparent hover:border-white/20'
                 }`}
               >
-                <div className="w-6 h-6 flex items-center justify-center flex-shrink-0">
-                  <Icon className={`w-6 h-6 ${isActive ? 'text-blue-400' : 'text-white/60'}`} />
+                <div className="w-5 h-5 flex items-center justify-center flex-shrink-0">
+                  <Icon className={`w-5 h-5 ${isActive ? 'text-blue-400' : 'text-white/60'}`} />
                 </div>
                 {isExpanded && (
-                  <span className="ml-4 whitespace-nowrap transition-opacity duration-500 font-medium text-sm tracking-wide">{item.label}</span>
+                  <span className="ml-3 whitespace-nowrap transition-opacity duration-500 font-medium text-sm tracking-wide">{item.label}</span>
                 )}
               </button>
             );
           })}
         </nav>
 
-        <div className="p-6 border-t border-white/10">
-          <div className="flex items-center">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 to-blue-500 flex-shrink-0 flex items-center justify-center shadow-lg shadow-blue-500/30">
+        <div className="border-t border-white/10">
+          <button
+            className={`w-full flex items-center px-4 py-2.5 transition-all duration-500 ease-out ${
+              'text-white/60 hover:text-white hover:bg-white/5 border-l-4 border-transparent hover:border-white/20'
+            }`}
+          >
+            <div className="w-5 h-5 flex items-center justify-center flex-shrink-0">
               {profile?.avatar_url ? (
                 <img 
                   src={profile.avatar_url} 
                   alt="Avatar" 
-                  className="w-full h-full rounded-xl object-cover"
+                  className="w-full h-full rounded-lg object-cover"
                 />
               ) : (
-                <User className="w-5 h-5 text-white" />
+                <User className="w-5 h-5 text-white/60" />
               )}
             </div>
             {isExpanded && (
-              <div className="ml-4 overflow-hidden flex-1">
-                <p className="text-sm font-semibold text-white truncate">
-                  {profile?.display_name || profile?.username || 'User'}
-                </p>
-                <p className="text-xs text-white/60 truncate uppercase tracking-wider">
-                  {profile?.subscription_tier || 'VIP'} Plan
-                </p>
-              </div>
+              <span className="ml-3 whitespace-nowrap transition-opacity duration-500 font-medium text-sm tracking-wide">
+                {profile?.display_name || profile?.username || 'User'}
+              </span>
             )}
-          </div>
+          </button>
+          
           {isExpanded && (
             <button
               onClick={signOut}
-              className="w-full mt-4 px-4 py-3 bg-transparent border border-white/20 hover:bg-white/5 text-white/60 hover:text-white rounded-xl transition-all duration-300 flex items-center gap-3 text-sm font-medium"
+              className="w-full flex items-center px-4 py-2.5 transition-all duration-500 ease-out text-white/60 hover:text-white hover:bg-white/5 border-l-4 border-transparent hover:border-white/20"
             >
-              <LogOut className="w-4 h-4" />
-              Sign Out
+              <div className="w-5 h-5 flex items-center justify-center flex-shrink-0">
+                <LogOut className="w-5 h-5" />
+              </div>
+              <span className="ml-3 whitespace-nowrap transition-opacity duration-500 font-medium text-sm tracking-wide">
+                Sign Out
+              </span>
             </button>
           )}
         </div>
