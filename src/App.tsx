@@ -17,7 +17,6 @@ import Auth from './components/Auth';
 function AppContent() {
   const [currentPage, setCurrentPage] = useState('dashboard');
   const [showAuth, setShowAuth] = useState(false);
-  const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
   const { user, loading } = useAuth();
 
   // Debug logs (removed for production)
@@ -55,7 +54,7 @@ function AppContent() {
 
   if (loading) {
     return (
-      <div className="flex h-screen bg-slate-900 items-center justify-center">
+      <div className="flex h-screen bg-black items-center justify-center">
         <div className="text-center">
           <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-blue-500/10 to-purple-600/10 flex items-center justify-center">
             <div className="w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
@@ -69,7 +68,7 @@ function AppContent() {
 
   if (!user) {
     return (
-      <div className="flex h-screen bg-slate-900 items-center justify-center">
+      <div className="flex h-screen bg-black items-center justify-center">
         <div className="text-center max-w-md mx-4">
           <div className="w-16 h-16 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-blue-500/10 to-purple-600/10 flex items-center justify-center">
             <svg className="w-8 h-8 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -93,15 +92,13 @@ function AppContent() {
   }
 
   return (
-    <div className="flex h-screen bg-slate-900">
+    <div className="flex h-screen bg-black">
       <Sidebar 
         currentPage={currentPage} 
         onPageChange={setCurrentPage} 
-        onExpandedChange={setIsSidebarExpanded}
+        onExpandedChange={() => {}}
       />
-      <main className={`flex-1 transition-all duration-500 ease-out ${
-        isSidebarExpanded ? 'ml-64' : 'ml-20'
-      }`}>
+      <main className="flex-1 ml-20">
         {renderPage()}
       </main>
     </div>

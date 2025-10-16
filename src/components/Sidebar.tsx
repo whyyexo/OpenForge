@@ -54,7 +54,7 @@ export default function Sidebar({ currentPage, onPageChange, onExpandedChange }:
   return (
     <div
       className={`fixed left-0 top-0 h-screen bg-black/95 backdrop-blur-xl border-r border-white/10 transition-all duration-500 z-50 ${
-        isExpanded ? 'w-64' : 'w-20'
+        isExpanded ? 'w-64 shadow-2xl shadow-black/50' : 'w-20'
       }`}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
