@@ -127,19 +127,19 @@ export default function Sidebar({ currentPage, onPageChange, onExpandedChange }:
             )}
           </button>
           
-          {isExpanded && (
-            <button
-              onClick={signOut}
-              className="w-full flex items-center px-4 py-2.5 transition-all duration-500 ease-out text-white/60 hover:text-white hover:bg-white/5 border-l-4 border-transparent hover:border-white/20"
-            >
-              <div className="w-5 h-5 flex items-center justify-center flex-shrink-0">
-                <LogOut className="w-5 h-5" />
-              </div>
+          <button
+            onClick={signOut}
+            className="w-full flex items-center px-4 py-2.5 transition-all duration-500 ease-out text-white/60 hover:text-white hover:bg-white/5 border-l-4 border-transparent hover:border-white/20"
+          >
+            <div className="w-5 h-5 flex items-center justify-center flex-shrink-0">
+              <LogOut className="w-5 h-5" />
+            </div>
+            {isExpanded && (
               <span className="ml-3 whitespace-nowrap transition-opacity duration-500 font-medium text-sm tracking-wide">
                 Sign Out
               </span>
-            </button>
-          )}
+            )}
+          </button>
         </div>
       </div>
     </div>
