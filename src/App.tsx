@@ -1,26 +1,21 @@
 import { useState } from 'react';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import Sidebar from './components/Sidebar';
+import Dashboard from './components/Dashboard';
 import Studio from './components/Studio';
+import Agents from './components/Agents';
 import Marketplace from './components/Marketplace';
-import Statistics from './components/Statistics';
-import Pricing from './components/Pricing';
-import Profile from './components/Profile';
+import Analytics from './components/Analytics';
 import Connections from './components/Connections';
-import Chat from './components/Chat';
-import Auth from './components/Auth';
-import Workflows from './components/Workflows';
-import Performance from './components/Performance';
-import ApiKeys from './components/ApiKeys';
-import Webhooks from './components/Webhooks';
-import Documentation from './components/Documentation';
-import HelpCenter from './components/HelpCenter';
-import Billing from './components/Billing';
+import Profile from './components/Profile';
 import Settings from './components/Settings';
-import Security from './components/Security';
+import Pricing from './components/Pricing';
+import Chat from './components/Chat';
+import Docs from './components/Docs';
+import Auth from './components/Auth';
 
 function AppContent() {
-  const [currentPage, setCurrentPage] = useState('studio');
+  const [currentPage, setCurrentPage] = useState('dashboard');
   const [showAuth, setShowAuth] = useState(false);
   const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
   const { user, loading } = useAuth();
@@ -31,38 +26,30 @@ function AppContent() {
 
   const renderPage = () => {
     switch (currentPage) {
+      case 'dashboard':
+        return <Dashboard />;
       case 'studio':
         return <Studio />;
-      case 'workflows':
-        return <Workflows />;
+      case 'agents':
+        return <Agents />;
       case 'marketplace':
         return <Marketplace />;
-      case 'statistics':
-        return <Statistics />;
-      case 'performance':
-        return <Performance />;
+      case 'analytics':
+        return <Analytics />;
       case 'connections':
         return <Connections />;
-      case 'api':
-        return <ApiKeys />;
-      case 'webhooks':
-        return <Webhooks />;
-      case 'chat':
-        return <Chat />;
-      case 'documentation':
-        return <Documentation />;
-      case 'help':
-        return <HelpCenter />;
       case 'profile':
         return <Profile />;
-      case 'billing':
-        return <Billing />;
       case 'settings':
         return <Settings />;
-      case 'security':
-        return <Security />;
+      case 'pricing':
+        return <Pricing />;
+      case 'chat':
+        return <Chat />;
+      case 'docs':
+        return <Docs />;
       default:
-        return <Studio />;
+        return <Dashboard />;
     }
   };
 

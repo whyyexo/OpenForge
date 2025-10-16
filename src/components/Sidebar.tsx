@@ -1,21 +1,16 @@
 import {
   LayoutDashboard,
   Sparkles,
+  Bot,
   Store,
   BarChart3,
-  CreditCard,
-  User,
   Plug,
-  MessageSquare,
-  LogOut,
+  User,
   Settings,
-  HelpCircle,
+  CreditCard,
+  MessageSquare,
   BookOpen,
-  Zap,
-  Globe,
-  Shield,
-  Database,
-  Workflow
+  LogOut
 } from 'lucide-react';
 import { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
@@ -26,47 +21,20 @@ interface SidebarProps {
   onExpandedChange: (expanded: boolean) => void;
 }
 
-const menuCategories = [
-  {
-    title: 'Core',
-    items: [
-      { id: 'studio', icon: Sparkles, label: 'Studio' },
-      { id: 'workflows', icon: Workflow, label: 'Workflows' },
-      { id: 'marketplace', icon: Store, label: 'Marketplace' },
-    ]
-  },
-  {
-    title: 'Analytics',
-    items: [
-      { id: 'statistics', icon: BarChart3, label: 'Statistics' },
-      { id: 'performance', icon: Zap, label: 'Performance' },
-    ]
-  },
-  {
-    title: 'Integration',
-    items: [
-      { id: 'connections', icon: Plug, label: 'Connections' },
-      { id: 'api', icon: Database, label: 'API Keys' },
-      { id: 'webhooks', icon: Globe, label: 'Webhooks' },
-    ]
-  },
-  {
-    title: 'Support',
-    items: [
-      { id: 'chat', icon: MessageSquare, label: 'AI Chat' },
-      { id: 'documentation', icon: BookOpen, label: 'Docs' },
-      { id: 'help', icon: HelpCircle, label: 'Help Center' },
-    ]
-  },
-  {
-    title: 'Account',
-    items: [
-      { id: 'profile', icon: User, label: 'Profile' },
-      { id: 'billing', icon: CreditCard, label: 'Billing' },
-      { id: 'settings', icon: Settings, label: 'Settings' },
-      { id: 'security', icon: Shield, label: 'Security' },
-    ]
-  }
+const menuItems = [
+  { id: 'dashboard', icon: LayoutDashboard, label: 'Dashboard' },
+  { id: 'studio', icon: Sparkles, label: 'Studio' },
+  { id: 'agents', icon: Bot, label: 'Agents' },
+  { id: 'marketplace', icon: Store, label: 'Marketplace' },
+  { id: 'analytics', icon: BarChart3, label: 'Analytics' },
+  { id: 'separator1', isSeparator: true },
+  { id: 'connections', icon: Plug, label: 'Connections' },
+  { id: 'profile', icon: User, label: 'Profile' },
+  { id: 'settings', icon: Settings, label: 'Settings' },
+  { id: 'separator2', isSeparator: true },
+  { id: 'pricing', icon: CreditCard, label: 'Pricing' },
+  { id: 'chat', icon: MessageSquare, label: 'Chat AI' },
+  { id: 'docs', icon: BookOpen, label: 'Docs' },
 ];
 
 export default function Sidebar({ currentPage, onPageChange, onExpandedChange }: SidebarProps) {
@@ -104,43 +72,35 @@ export default function Sidebar({ currentPage, onPageChange, onExpandedChange }:
         </div>
 
         <nav className="flex-1 py-4 overflow-y-auto">
-          {menuCategories.map((category, categoryIndex) => (
-            <div key={category.title}>
-              {isExpanded && (
-                <div className="px-4 py-2">
-                  <h3 className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                    {category.title}
-                  </h3>
-                </div>
-              )}
-              {category.items.map((item) => {
-                const Icon = item.icon;
-                const isActive = currentPage === item.id;
+          {menuItems.map((item) => {
+            if (item.isSeparator) {
+              return (
+                <div key={item.id} className="mx-4 my-3 border-b border-slate-800/30"></div>
+              );
+            }
 
-                return (
-                  <button
-                    key={item.id}
-                    onClick={() => onPageChange(item.id)}
-                    className={`w-full flex items-center px-4 py-3 transition-all duration-300 ease-in-out ${
-                      isActive
-                        ? 'bg-blue-500/10 text-blue-400 border-l-2 border-blue-500'
-                        : 'text-slate-400 hover:text-white hover:bg-slate-800/50 border-l-2 border-transparent'
-                    }`}
-                  >
-                    <div className="w-5 h-5 flex items-center justify-center flex-shrink-0">
-                      <Icon className={`w-5 h-5 ${isActive ? 'text-blue-400' : ''}`} />
-                    </div>
-                    {isExpanded && (
-                      <span className="ml-3 whitespace-nowrap transition-opacity duration-300">{item.label}</span>
-                    )}
-                  </button>
-                );
-              })}
-              {categoryIndex < menuCategories.length - 1 && (
-                <div className="mx-4 my-2 border-b border-slate-800/50"></div>
-              )}
-            </div>
-          ))}
+            const Icon = item.icon;
+            const isActive = currentPage === item.id;
+
+            return (
+              <button
+                key={item.id}
+                onClick={() => onPageChange(item.id)}
+                className={`w-full flex items-center px-4 py-3 transition-all duration-300 ease-in-out ${
+                  isActive
+                    ? 'bg-blue-500/10 text-blue-400 border-l-2 border-blue-500'
+                    : 'text-slate-400 hover:text-white hover:bg-slate-800/50 border-l-2 border-transparent'
+                }`}
+              >
+                <div className="w-5 h-5 flex items-center justify-center flex-shrink-0">
+                  <Icon className={`w-5 h-5 ${isActive ? 'text-blue-400' : ''}`} />
+                </div>
+                {isExpanded && (
+                  <span className="ml-3 whitespace-nowrap transition-opacity duration-300">{item.label}</span>
+                )}
+              </button>
+            );
+          })}
         </nav>
 
         <div className="p-4 border-t border-slate-800">
