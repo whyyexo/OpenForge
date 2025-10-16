@@ -99,8 +99,8 @@ function AppContent() {
         onPageChange={setCurrentPage} 
         onExpandedChange={setIsSidebarExpanded}
       />
-      <main className={`flex-1 transition-all duration-300 ease-in-out ${
-        isSidebarExpanded ? 'ml-56' : 'ml-16'
+      <main className={`flex-1 transition-all duration-500 ease-out ${
+        isSidebarExpanded ? 'ml-64' : 'ml-20'
       }`}>
         {renderPage()}
       </main>

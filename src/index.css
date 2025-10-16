@@ -1,11 +1,151 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
+  * {
+    box-sizing: border-box;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+  
   body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #000000;
+    color: #ffffff;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  /* VIP Design System */
+  :root {
+    /* Monochrome Palette */
+    --color-black: #000000;
+    --color-black-soft: #0a0a0a;
+    --color-black-medium: #111111;
+    --color-black-light: #1a1a1a;
+    --color-gray-dark: #2a2a2a;
+    --color-gray-medium: #404040;
+    --color-gray-light: #666666;
+    --color-white-soft: #e5e5e5;
+    --color-white: #ffffff;
+    
+    /* Blue Accent */
+    --color-blue-primary: #0066ff;
+    --color-blue-light: #3385ff;
+    --color-blue-dark: #0052cc;
+    --color-blue-accent: #00aaff;
+    
+    /* VIP Gradients */
+    --gradient-primary: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+    --gradient-accent: linear-gradient(135deg, #0066ff 0%, #00aaff 100%);
+    --gradient-card: linear-gradient(135deg, #0a0a0a 0%, #111111 100%);
+    
+    /* Shadows */
+    --shadow-vip: 0 20px 40px rgba(0, 0, 0, 0.8);
+    --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.6);
+    --shadow-button: 0 4px 16px rgba(0, 102, 255, 0.3);
+    
+    /* Borders */
+    --border-vip: 1px solid rgba(255, 255, 255, 0.1);
+    --border-accent: 1px solid rgba(0, 102, 255, 0.3);
+  }
+}
+
+@layer components {
+  /* VIP Button Styles */
+  .btn-vip {
+    @apply px-8 py-4 bg-black text-white border border-white/20 rounded-xl font-semibold text-sm uppercase tracking-wider transition-all duration-300 hover:bg-white hover:text-black hover:shadow-lg hover:shadow-white/10;
+  }
+  
+  .btn-vip-primary {
+    @apply px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-500 text-white rounded-xl font-semibold text-sm uppercase tracking-wider transition-all duration-300 hover:from-blue-700 hover:to-blue-600 hover:shadow-lg hover:shadow-blue-500/30;
+  }
+  
+  .btn-vip-secondary {
+    @apply px-6 py-3 bg-transparent text-white border border-white/30 rounded-lg font-medium text-sm transition-all duration-300 hover:bg-white/10 hover:border-white/50;
+  }
+  
+  /* VIP Card Styles */
+  .card-vip {
+    @apply bg-gradient-to-br from-black/80 to-gray-900/80 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl;
+  }
+  
+  .card-vip-hover {
+    @apply card-vip transition-all duration-500 hover:border-white/20 hover:shadow-vip hover:scale-[1.02];
+  }
+  
+  /* VIP Text Styles */
+  .text-vip-title {
+    @apply text-4xl font-black text-white tracking-tight;
+  }
+  
+  .text-vip-subtitle {
+    @apply text-xl font-semibold text-white/90 tracking-wide;
+  }
+  
+  .text-vip-body {
+    @apply text-base font-normal text-white/80 leading-relaxed;
+  }
+  
+  .text-vip-caption {
+    @apply text-sm font-medium text-white/60 uppercase tracking-wider;
+  }
+  
+  /* VIP Input Styles */
+  .input-vip {
+    @apply w-full px-6 py-4 bg-black/50 border border-white/20 rounded-xl text-white placeholder-white/40 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all duration-300;
+  }
+  
+  /* VIP Navigation */
+  .nav-vip {
+    @apply bg-black/95 backdrop-blur-xl border-b border-white/10;
+  }
+  
+  /* VIP Animations */
+  .animate-vip-glow {
+    animation: vip-glow 2s ease-in-out infinite alternate;
+  }
+  
+  @keyframes vip-glow {
+    from {
+      box-shadow: 0 0 20px rgba(0, 102, 255, 0.3);
+    }
+    to {
+      box-shadow: 0 0 40px rgba(0, 102, 255, 0.6);
+    }
+  }
+  
+  /* VIP Scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: #000000;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, #0066ff, #00aaff);
+    border-radius: 4px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #0052cc, #0066ff);
+  }
+}
+
+@layer utilities {
+  .text-shadow-vip {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+  }
+  
+  .backdrop-blur-vip {
+    backdrop-filter: blur(20px);
   }
 }

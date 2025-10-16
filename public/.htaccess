@@ -1,0 +1,11 @@
+# Disable caching for development
+<IfModule mod_headers.c>
+    Header set Cache-Control "no-cache, no-store, must-revalidate"
+    Header set Pragma "no-cache"
+    Header set Expires "0"
+</IfModule>
+
+# Force reload of all files
+<IfModule mod_expires.c>
+    ExpiresActive Off
+</IfModule>
