@@ -674,6 +674,100 @@ export const supabaseHelpers = {
       .eq('is_featured', true)
       .order('usage_count', { ascending: false });
   },
+
+  // OAuth helpers
+  async getOAuthConnections(userId?: string) {
+    const user = userId || (await this.getCurrentUser())?.id;
+    if (!user) return null;
+
+    const profile = await this.getProfile(user);
+    if (!profile?.data) return null;
+
+    return await supabase
+      .from('oauth_connections')
+      .select('*')
+      .eq('user_id', profile.data.id)
+      .eq('is_active', true)
+      .order('created_at', { ascending: false });
+  },
+
+  async createOAuthConnection(connectionData: {
+    provider: 'discord' | 'github' | 'google' | 'twitter' | 'linkedin' | 'spotify';
+    provider_user_id: string;
+    provider_username?: string;
+    provider_display_name?: string;
+    provider_email?: string;
+    provider_avatar_url?: string;
+    access_token?: string;
+    refresh_token?: string;
+    token_expires_at?: string;
+    provider_data?: any;
+  }) {
+    const user = await this.getCurrentUser();
+    if (!user) return null;
+
+    const profile = await this.getProfile();
+    if (!profile?.data) return null;
+
+    return await supabase
+      .from('oauth_connections')
+      .upsert({
+        user_id: profile.data.id,
+        ...connectionData,
+        updated_at: new Date().toISOString()
+      }, {
+        onConflict: 'user_id,provider'
+      });
+  },
+
+  async updateOAuthConnection(provider: string, updates: any) {
+    const user = await this.getCurrentUser();
+    if (!user) return null;
+
+    const profile = await this.getProfile();
+    if (!profile?.data) return null;
+
+    return await supabase
+      .from('oauth_connections')
+      .update(updates)
+      .eq('user_id', profile.data.id)
+      .eq('provider', provider);
+  },
+
+  async deleteOAuthConnection(provider: string) {
+    const user = await this.getCurrentUser();
+    if (!user) return null;
+
+    const profile = await this.getProfile();
+    if (!profile?.data) return null;
+
+    return await supabase
+      .from('oauth_connections')
+      .delete()
+      .eq('user_id', profile.data.id)
+      .eq('provider', provider);
+  },
+
+  async setPrimaryOAuthConnection(provider: string) {
+    const user = await this.getCurrentUser();
+    if (!user) return null;
+
+    const profile = await this.getProfile();
+    if (!profile?.data) return null;
+
+    // First, set all connections to non-primary
+    await supabase
+      .from('oauth_connections')
+      .update({ is_primary: false })
+      .eq('user_id', profile.data.id);
+
+    // Then set the selected one as primary
+    return await supabase
+      .from('oauth_connections')
+      .update({ is_primary: true })
+      .eq('user_id', profile.data.id)
+      .eq('provider', provider);
+  },
 };
 
 export default supabase;

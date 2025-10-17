@@ -10,6 +10,7 @@ CREATE TYPE subscription_tier AS ENUM ('lunch', 'scale', 'boost');
 CREATE TYPE block_type AS ENUM ('input', 'process', 'output', 'condition', 'transform', 'api');
 CREATE TYPE service_type AS ENUM ('discord', 'slack', 'webhook', 'api', 'email');
 CREATE TYPE resource_type AS ENUM ('api_call', 'tokens', 'storage', 'execution');
+CREATE TYPE oauth_provider AS ENUM ('discord', 'github', 'google', 'twitter', 'linkedin', 'spotify');
 
 -- Users/Profiles table
 CREATE TABLE profiles (
@@ -24,6 +25,28 @@ CREATE TABLE profiles (
     social_links JSONB DEFAULT '{}',
     created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+-- OAuth connections table
+CREATE TABLE oauth_connections (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    user_id UUID REFERENCES profiles(id) ON DELETE CASCADE,
+    provider oauth_provider NOT NULL,
+    provider_user_id VARCHAR(255) NOT NULL,
+    provider_username VARCHAR(255),
+    provider_display_name VARCHAR(255),
+    provider_email VARCHAR(255),
+    provider_avatar_url TEXT,
+    access_token TEXT,
+    refresh_token TEXT,
+    token_expires_at TIMESTAMP WITH TIME ZONE,
+    provider_data JSONB DEFAULT '{}',
+    is_primary BOOLEAN DEFAULT false,
+    is_active BOOLEAN DEFAULT true,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    UNIQUE(user_id, provider),
+    UNIQUE(provider, provider_user_id)
 );
 
 -- Badges table
@@ -170,6 +193,9 @@ CREATE TABLE agent_templates (
 -- Indexes for better performance
 CREATE INDEX idx_profiles_username ON profiles(username);
 CREATE INDEX idx_profiles_user_id ON profiles(user_id);
+CREATE INDEX idx_oauth_connections_user_id ON oauth_connections(user_id);
+CREATE INDEX idx_oauth_connections_provider ON oauth_connections(provider);
+CREATE INDEX idx_oauth_connections_provider_user_id ON oauth_connections(provider, provider_user_id);
 CREATE INDEX idx_ai_agents_user_id ON ai_agents(user_id);
 CREATE INDEX idx_ai_agents_is_public ON ai_agents(is_public);
 CREATE INDEX idx_ai_agents_category ON ai_agents(category);
@@ -189,6 +215,7 @@ CREATE INDEX idx_notifications_is_read ON notifications(is_read);
 
 -- Row Level Security (RLS) policies
 ALTER TABLE profiles ENABLE ROW LEVEL SECURITY;
+ALTER TABLE oauth_connections ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ai_agents ENABLE ROW LEVEL SECURITY;
 ALTER TABLE agent_connections ENABLE ROW LEVEL SECURITY;
 ALTER TABLE agent_statistics ENABLE ROW LEVEL SECURITY;
@@ -203,6 +230,12 @@ ALTER TABLE user_badges ENABLE ROW LEVEL SECURITY;
 CREATE POLICY "Users can view all profiles" ON profiles FOR SELECT USING (true);
 CREATE POLICY "Users can update their own profile" ON profiles FOR UPDATE USING (auth.uid() = user_id);
 CREATE POLICY "Users can insert their own profile" ON profiles FOR INSERT WITH CHECK (auth.uid() = user_id);
+
+-- RLS Policies for oauth_connections
+CREATE POLICY "Users can view their own OAuth connections" ON oauth_connections FOR SELECT USING (auth.uid() = (SELECT user_id FROM profiles WHERE id = oauth_connections.user_id));
+CREATE POLICY "Users can insert their own OAuth connections" ON oauth_connections FOR INSERT WITH CHECK (auth.uid() = (SELECT user_id FROM profiles WHERE id = oauth_connections.user_id));
+CREATE POLICY "Users can update their own OAuth connections" ON oauth_connections FOR UPDATE USING (auth.uid() = (SELECT user_id FROM profiles WHERE id = oauth_connections.user_id));
+CREATE POLICY "Users can delete their own OAuth connections" ON oauth_connections FOR DELETE USING (auth.uid() = (SELECT user_id FROM profiles WHERE id = oauth_connections.user_id));
 
 -- Temporarily disable RLS for profiles table to allow initial profile creation
 ALTER TABLE profiles DISABLE ROW LEVEL SECURITY;
@@ -242,6 +275,7 @@ $$ language 'plpgsql';
 
 -- Triggers for updating timestamps
 CREATE TRIGGER update_profiles_updated_at BEFORE UPDATE ON profiles FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
+CREATE TRIGGER update_oauth_connections_updated_at BEFORE UPDATE ON oauth_connections FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
 CREATE TRIGGER update_ai_agents_updated_at BEFORE UPDATE ON ai_agents FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
 CREATE TRIGGER update_agent_templates_updated_at BEFORE UPDATE ON agent_templates FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
 

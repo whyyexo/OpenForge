@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import Sidebar from './components/Sidebar';
 import Dashboard from './components/Dashboard';
@@ -13,11 +13,20 @@ import Pricing from './components/Pricing';
 import Chat from './components/Chat';
 import Docs from './components/Docs';
 import Auth from './components/Auth';
+import OAuthCallback from './components/OAuthCallback';
 
 function AppContent() {
   const [currentPage, setCurrentPage] = useState('dashboard');
   const [showAuth, setShowAuth] = useState(false);
   const { user, loading } = useAuth();
+
+  // Handle OAuth callback
+  useEffect(() => {
+    const hash = window.location.hash;
+    if (hash.includes('oauth/callback') || window.location.pathname.includes('auth/callback')) {
+      setCurrentPage('oauth-callback');
+    }
+  }, []);
 
   // Debug logs (removed for production)
   // console.log('AppContent - User:', user);
@@ -47,6 +56,8 @@ function AppContent() {
         return <Chat />;
       case 'docs':
         return <Docs />;
+      case 'oauth-callback':
+        return <OAuthCallback />;
       default:
         return <Dashboard />;
     }
