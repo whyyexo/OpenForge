@@ -9,19 +9,25 @@ export default defineConfig({
   },
   server: {
     headers: {
-      'Cache-Control': 'no-cache, no-store, must-revalidate',
-      'Pragma': 'no-cache',
-      'Expires': '0'
+      'Cache-Control': 'no-cache'
     }
   },
   build: {
     rollupOptions: {
       output: {
-        manualChunks: undefined,
+        manualChunks: {
+          vendor: ['react', 'react-dom'],
+          supabase: ['@supabase/supabase-js']
+        },
         entryFileNames: 'assets/[name].[hash].js',
         chunkFileNames: 'assets/[name].[hash].js',
         assetFileNames: 'assets/[name].[hash].[ext]'
       }
+    }
+  },
+  preview: {
+    headers: {
+      'Cache-Control': 'public, max-age=31536000, immutable'
     }
   }
 });
