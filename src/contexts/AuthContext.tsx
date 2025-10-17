@@ -28,36 +28,60 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // Timeout de sécurité pour éviter le blocage indéfini
+    const timeout = setTimeout(() => {
+      console.warn('Auth loading timeout, setting loading to false');
+      setLoading(false);
+    }, 5000); // 5 secondes max
+
     // Get initial session
     const getInitialSession = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      setUser(session?.user ?? null);
-      
-      if (session?.user) {
-        await loadProfile();
+      try {
+        const { data: { session } } = await supabase.auth.getSession();
+        setUser(session?.user ?? null);
+        
+        if (session?.user) {
+          await loadProfile();
+        }
+      } catch (error) {
+        console.warn('Supabase not configured, running in demo mode:', error);
+        setUser(null);
       }
       
       setLoading(false);
+      clearTimeout(timeout);
     };
 
     getInitialSession();
 
     // Listen for auth changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      async (event, session) => {
-        setUser(session?.user ?? null);
-        
-        if (session?.user) {
-          await loadProfile();
-        } else {
-          setProfile(null);
+    let subscription: any = null;
+    try {
+      const { data: { subscription: authSubscription } } = supabase.auth.onAuthStateChange(
+        async (event, session) => {
+          setUser(session?.user ?? null);
+          
+          if (session?.user) {
+            await loadProfile();
+          } else {
+            setProfile(null);
+          }
+          
+          setLoading(false);
         }
-        
-        setLoading(false);
-      }
-    );
+      );
+      subscription = authSubscription;
+    } catch (error) {
+      console.warn('Auth state change listener not available:', error);
+      setLoading(false);
+    }
 
-    return () => subscription.unsubscribe();
+    return () => {
+      clearTimeout(timeout);
+      if (subscription) {
+        subscription.unsubscribe();
+      }
+    };
   }, []);
 
   const loadProfile = async () => {
