@@ -183,7 +183,7 @@ export default function Profile() {
   };
 
   return (
-    <div className="flex flex-col h-full bg-black overflow-auto">
+    <div className="h-full bg-black overflow-y-auto">
       {/* Banner */}
       <div className="relative h-48 bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600">
         {profileData.banner_url && (
@@ -207,7 +207,7 @@ export default function Profile() {
         )}
       </div>
 
-      <div className="flex-1 px-6 -mt-20 pb-8">
+      <div className="px-6 -mt-20 pb-8">
         <div className="max-w-4xl mx-auto">
           {/* Profile Card */}
           <div className="bg-slate-900/50 backdrop-blur-xl border border-white/10 rounded-2xl p-6 mb-6">

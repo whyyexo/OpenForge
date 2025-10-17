@@ -98,7 +98,7 @@ function AppContent() {
         onPageChange={setCurrentPage} 
         onExpandedChange={() => {}}
       />
-      <main className="flex-1 ml-20">
+      <main className="flex-1 ml-20 overflow-hidden">
         {renderPage()}
       </main>
     </div>

@@ -29,7 +29,6 @@ const menuItems = [
   { id: 'analytics', icon: BarChart3, label: 'Analytics' },
   { id: 'separator1', isSeparator: true },
   { id: 'connections', icon: Plug, label: 'Connections' },
-  { id: 'profile', icon: User, label: 'Profile' },
   { id: 'settings', icon: Settings, label: 'Settings' },
   { id: 'separator2', isSeparator: true },
   { id: 'pricing', icon: CreditCard, label: 'Pricing' },
@@ -105,8 +104,11 @@ export default function Sidebar({ currentPage, onPageChange, onExpandedChange }:
 
         <div className="border-t border-white/10">
           <button
+            onClick={() => onPageChange('profile')}
             className={`w-full flex items-center px-4 py-2.5 transition-all duration-500 ease-out ${
-              'text-white/60 hover:text-white hover:bg-white/5 border-l-4 border-transparent hover:border-white/20'
+              currentPage === 'profile'
+                ? 'bg-gradient-to-r from-blue-600/20 to-blue-500/10 text-blue-400 border-l-4 border-blue-500 shadow-lg shadow-blue-500/20'
+                : 'text-white/60 hover:text-white hover:bg-white/5 border-l-4 border-transparent hover:border-white/20'
             }`}
           >
             <div className="w-5 h-5 flex items-center justify-center flex-shrink-0">
@@ -117,12 +119,12 @@ export default function Sidebar({ currentPage, onPageChange, onExpandedChange }:
                   className="w-full h-full rounded-lg object-cover"
                 />
               ) : (
-                <User className="w-5 h-5 text-white/60" />
+                <User className="w-5 h-5" />
               )}
             </div>
             {isExpanded && (
               <span className="ml-3 whitespace-nowrap transition-opacity duration-500 font-medium text-sm tracking-wide">
-                {profile?.display_name || profile?.username || 'User'}
+                {profile?.display_name || profile?.username || 'Profile'}
               </span>
             )}
           </button>
