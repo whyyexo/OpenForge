@@ -48,20 +48,44 @@ export interface CanvasData {
 
 export interface Block {
   id: string;
-  type: 'input' | 'process' | 'output' | 'condition' | 'transform' | 'api';
+  type: 'input' | 'process' | 'output' | 'condition' | 'transform' | 'api' | 'llm' | 'webhook' | 'database' | 'email' | 'slack' | 'discord';
   position: { x: number; y: number };
   data: {
     label: string;
     config: Record<string, any>;
+    inputs: BlockPort[];
+    outputs: BlockPort[];
   };
+}
+
+export interface BlockPort {
+  id: string;
+  name: string;
+  type: 'text' | 'number' | 'boolean' | 'object' | 'array' | 'file';
+  required: boolean;
+  description?: string;
+}
+
+export interface BlockTemplate {
+  type: string;
+  label: string;
+  icon: string;
+  color: string;
+  description: string;
+  category: 'input' | 'processing' | 'output' | 'ai' | 'integrations';
+  defaultConfig: Record<string, any>;
+  inputs: BlockPort[];
+  outputs: BlockPort[];
 }
 
 export interface Connection {
   id: string;
   source: string;
   target: string;
-  sourcePort?: string;
-  targetPort?: string;
+  sourcePort: string;
+  targetPort: string;
+  type: 'data' | 'trigger';
+  label?: string;
 }
 
 export interface AgentConnection {
