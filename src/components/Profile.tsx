@@ -19,10 +19,13 @@ import {
   Bot,
   TrendingUp,
   Users,
-  Star
+  Star,
+  CheckCircle,
+  Trash2
 } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { supabaseHelpers } from '../lib/supabase';
+import { OAuthManager, OAUTH_PROVIDERS } from '../lib/oauth';
 
 interface ProfileData {
   username: string;
@@ -52,6 +55,20 @@ interface Activity {
   title: string;
   detail: string;
   time: string;
+}
+
+interface OAuthConnection {
+  id: string;
+  provider: string;
+  provider_user_id: string;
+  provider_username?: string;
+  provider_display_name?: string;
+  provider_email?: string;
+  provider_avatar_url?: string;
+  is_primary: boolean;
+  is_active: boolean;
+  created_at: string;
+  updated_at: string;
 }
 
 const defaultBadges = [
@@ -90,6 +107,8 @@ export default function Profile() {
     marketplaceSales: 0,
     followers: 0
   });
+  const [oauthConnections, setOauthConnections] = useState<OAuthConnection[]>([]);
+  const [connectingProvider, setConnectingProvider] = useState<string | null>(null);
 
   useEffect(() => {
     if (profile) {
@@ -107,6 +126,7 @@ export default function Profile() {
 
   useEffect(() => {
     loadUserData();
+    loadOAuthConnections();
   }, [user]);
 
   const loadUserData = async () => {
@@ -131,6 +151,60 @@ export default function Profile() {
     } catch (error) {
       console.warn('Error loading user data:', error);
     }
+  };
+
+  const loadOAuthConnections = async () => {
+    if (!user) return;
+    
+    try {
+      const result = await supabaseHelpers.getOAuthConnections();
+      if (result?.data) {
+        setOauthConnections(result.data);
+      }
+    } catch (error) {
+      console.warn('Error loading OAuth connections:', error);
+    }
+  };
+
+  const handleConnectOAuth = async (provider: string) => {
+    if (!user) return;
+    
+    setConnectingProvider(provider);
+    try {
+      await OAuthManager.initiateOAuth(provider);
+    } catch (error: any) {
+      console.error('Error connecting to provider:', error);
+      setConnectingProvider(null);
+    }
+  };
+
+  const handleDisconnectOAuth = async (provider: string) => {
+    if (!confirm(`Are you sure you want to disconnect ${provider}?`)) return;
+    
+    try {
+      await OAuthManager.disconnectProvider(provider);
+      await loadOAuthConnections();
+    } catch (error) {
+      console.error('Error disconnecting provider:', error);
+    }
+  };
+
+  const handleSetPrimaryOAuth = async (provider: string) => {
+    try {
+      await OAuthManager.setPrimaryProvider(provider);
+      await loadOAuthConnections();
+    } catch (error) {
+      console.error('Error setting primary provider:', error);
+    }
+  };
+
+  const getProviderInfo = (provider: string) => {
+    return OAUTH_PROVIDERS[provider] || {
+      name: provider,
+      icon: '🔗',
+      color: '#666',
+      description: `${provider} connection`
+    };
   };
 
   const handleSave = async () => {
@@ -196,7 +270,7 @@ export default function Profile() {
         <div className="absolute inset-0 bg-gradient-to-br from-blue-600/80 via-purple-600/80 to-pink-600/80" />
         {isEditing && (
           <label className="absolute top-4 right-4 p-2 bg-black/30 backdrop-blur-sm hover:bg-black/50 rounded-lg transition-colors cursor-pointer">
-            <Camera className="w-5 h-5 text-white" />
+          <Camera className="w-5 h-5 text-white" />
             <input
               type="file"
               accept="image/*"
@@ -211,8 +285,8 @@ export default function Profile() {
         <div className="max-w-4xl mx-auto">
           {/* Profile Card */}
           <div className="bg-slate-900/50 backdrop-blur-xl border border-white/10 rounded-2xl p-6 mb-6">
-            <div className="flex flex-col md:flex-row gap-6 items-start">
-              <div className="relative">
+          <div className="flex flex-col md:flex-row gap-6 items-start">
+            <div className="relative">
                 <div className="w-24 h-24 rounded-2xl bg-gradient-to-br from-purple-500 to-pink-500 border-4 border-slate-900 flex items-center justify-center overflow-hidden">
                   {profileData.avatar_url ? (
                     <img 
@@ -226,7 +300,7 @@ export default function Profile() {
                 </div>
                 {isEditing && (
                   <label className="absolute bottom-0 right-0 p-2 bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors cursor-pointer">
-                    <Camera className="w-4 h-4 text-white" />
+                <Camera className="w-4 h-4 text-white" />
                     <input
                       type="file"
                       accept="image/*"
@@ -235,12 +309,12 @@ export default function Profile() {
                     />
                   </label>
                 )}
-              </div>
+            </div>
 
-              <div className="flex-1">
-                <div className="flex items-start justify-between mb-4">
-                  <div>
-                    <div className="flex items-center gap-3 mb-2">
+            <div className="flex-1">
+              <div className="flex items-start justify-between mb-4">
+                <div>
+                  <div className="flex items-center gap-3 mb-2">
                       {isEditing ? (
                         <input
                           type="text"
@@ -310,20 +384,20 @@ export default function Profile() {
                         onClick={() => setIsEditing(true)}
                         className="px-4 py-2 bg-slate-700 hover:bg-slate-600 text-white rounded-lg transition-colors flex items-center gap-2"
                       >
-                        <Edit2 className="w-4 h-4" />
-                        Edit Profile
-                      </button>
+                  <Edit2 className="w-4 h-4" />
+                  Edit Profile
+                </button>
                     )}
                   </div>
-                </div>
+              </div>
 
-                <div className="flex flex-wrap gap-4 text-sm text-slate-400">
-                  <div className="flex items-center gap-2">
-                    <Calendar className="w-4 h-4" />
+              <div className="flex flex-wrap gap-4 text-sm text-slate-400">
+                <div className="flex items-center gap-2">
+                  <Calendar className="w-4 h-4" />
                     Joined {user?.created_at ? new Date(user.created_at).toLocaleDateString('en-US', { month: 'long', year: 'numeric' }) : 'Recently'}
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Mail className="w-4 h-4" />
+                </div>
+                <div className="flex items-center gap-2">
+                  <Mail className="w-4 h-4" />
                     {user?.email}
                   </div>
                 </div>
@@ -344,8 +418,8 @@ export default function Profile() {
                     ))}
                   </div>
                 )}
+                </div>
               </div>
-            </div>
 
             {/* Stats */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6 pt-6 border-t border-white/10">
@@ -372,100 +446,223 @@ export default function Profile() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {/* Badges */}
             <div className="bg-slate-900/50 backdrop-blur-xl border border-white/10 rounded-2xl p-6">
-              <div className="flex items-center justify-between mb-6">
-                <div className="flex items-center gap-3">
-                  <Award className="w-6 h-6 text-yellow-400" />
-                  <h2 className="text-xl font-bold text-white">Badges</h2>
-                </div>
-                <span className="text-sm text-slate-400">{badges.length || defaultBadges.length} earned</span>
+            <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center gap-3">
+                <Award className="w-6 h-6 text-yellow-400" />
+                <h2 className="text-xl font-bold text-white">Badges</h2>
               </div>
-              <div className="space-y-3">
+                <span className="text-sm text-slate-400">{badges.length || defaultBadges.length} earned</span>
+            </div>
+            <div className="space-y-3">
                 {(badges.length > 0 ? badges : defaultBadges).map((badge, index) => (
-                  <div
+                <div
                     key={badge.id || index}
                     className="flex items-center gap-4 p-4 bg-slate-800/50 border border-white/10 rounded-xl hover:border-white/20 transition-colors"
-                  >
+                >
                     <div className="text-2xl">{badge.icon}</div>
-                    <div className="flex-1">
-                      <div className="flex items-center gap-2 mb-1">
-                        <h3 className="font-semibold text-white">{badge.name}</h3>
-                        <span className={`px-2 py-0.5 rounded text-xs font-semibold ${
-                          badge.rarity === 'Legendary'
-                            ? 'bg-yellow-500/10 text-yellow-400'
-                            : badge.rarity === 'Epic'
-                            ? 'bg-purple-500/10 text-purple-400'
-                            : 'bg-blue-500/10 text-blue-400'
-                        }`}>
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2 mb-1">
+                      <h3 className="font-semibold text-white">{badge.name}</h3>
+                      <span className={`px-2 py-0.5 rounded text-xs font-semibold ${
+                        badge.rarity === 'Legendary'
+                          ? 'bg-yellow-500/10 text-yellow-400'
+                          : badge.rarity === 'Epic'
+                          ? 'bg-purple-500/10 text-purple-400'
+                          : 'bg-blue-500/10 text-blue-400'
+                      }`}>
                           {badge.rarity || 'Common'}
-                        </span>
-                      </div>
-                      <p className="text-sm text-slate-400">{badge.description}</p>
+                      </span>
                     </div>
+                    <p className="text-sm text-slate-400">{badge.description}</p>
                   </div>
-                ))}
-              </div>
+                </div>
+              ))}
             </div>
+          </div>
 
             {/* Recent Activity */}
             <div className="bg-slate-900/50 backdrop-blur-xl border border-white/10 rounded-2xl p-6">
-              <h2 className="text-xl font-bold text-white mb-6">Recent Activity</h2>
-              <div className="space-y-4">
-                {activities.map((activity, idx) => (
-                  <div key={idx} className="flex gap-4">
-                    <div className={`w-2 h-2 rounded-full mt-2 flex-shrink-0 ${
-                      activity.type === 'created' ? 'bg-green-400' :
-                      activity.type === 'updated' ? 'bg-blue-400' :
-                      activity.type === 'achievement' ? 'bg-yellow-400' :
-                      'bg-purple-400'
-                    }`} />
+            <h2 className="text-xl font-bold text-white mb-6">Recent Activity</h2>
+            <div className="space-y-4">
+              {activities.map((activity, idx) => (
+                <div key={idx} className="flex gap-4">
+                  <div className={`w-2 h-2 rounded-full mt-2 flex-shrink-0 ${
+                    activity.type === 'created' ? 'bg-green-400' :
+                    activity.type === 'updated' ? 'bg-blue-400' :
+                    activity.type === 'achievement' ? 'bg-yellow-400' :
+                    'bg-purple-400'
+                  }`} />
                     <div className="flex-1 pb-4 border-b border-white/10 last:border-0">
-                      <p className="text-white font-medium mb-1">{activity.title}</p>
-                      <p className="text-sm text-slate-400 mb-2">{activity.detail}</p>
-                      <p className="text-xs text-slate-500">{activity.time}</p>
-                    </div>
+                    <p className="text-white font-medium mb-1">{activity.title}</p>
+                    <p className="text-sm text-slate-400 mb-2">{activity.detail}</p>
+                    <p className="text-xs text-slate-500">{activity.time}</p>
                   </div>
-                ))}
-              </div>
+                </div>
+              ))}
             </div>
+          </div>
+        </div>
+
+          {/* Connected Accounts */}
+          <div className="bg-slate-900/50 backdrop-blur-xl border border-white/10 rounded-2xl p-6 mt-6">
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-xl font-bold text-white">Connected Accounts</h2>
+              <span className="text-sm text-slate-400">{oauthConnections.length} connected</span>
+            </div>
+
+            {oauthConnections.length === 0 ? (
+              <div className="text-center py-8">
+                <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-slate-800 flex items-center justify-center">
+                  <Globe className="w-8 h-8 text-slate-400" />
+                </div>
+                <h3 className="text-lg font-semibold text-white mb-2">No connected accounts</h3>
+                <p className="text-slate-400 mb-4">Connect your accounts to access additional features</p>
+                <div className="flex gap-2 justify-center">
+                  {Object.values(OAUTH_PROVIDERS).filter(p => p.enabled).slice(0, 2).map((provider) => (
+                    <button
+                      key={provider.id}
+                      onClick={() => handleConnectOAuth(provider.id)}
+                      disabled={connectingProvider === provider.id}
+                      className="px-4 py-2 bg-slate-800 hover:bg-slate-700 disabled:opacity-50 text-white rounded-lg transition-colors flex items-center gap-2"
+                    >
+                      <span className="text-lg">{provider.icon}</span>
+                      {connectingProvider === provider.id ? 'Connecting...' : provider.name}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <div className="space-y-3">
+                {oauthConnections.map((connection) => {
+                  const providerInfo = getProviderInfo(connection.provider);
+                  return (
+                    <div
+                      key={connection.id}
+                      className={`p-4 bg-slate-800/50 border rounded-xl transition-colors ${
+                        connection.is_active 
+                          ? 'border-green-500/20 bg-green-500/5' 
+                          : 'border-gray-500/20 bg-gray-500/5'
+                      }`}
+                    >
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                          <div
+                            className="w-10 h-10 rounded-xl flex items-center justify-center text-xl"
+                            style={{ backgroundColor: `${providerInfo.color}20` }}
+                          >
+                            {providerInfo.icon}
+                          </div>
+                          <div>
+                            <div className="flex items-center gap-2 mb-1">
+                              <h3 className="font-semibold text-white">{providerInfo.name}</h3>
+                              {connection.is_active ? (
+                                <CheckCircle className="w-4 h-4 text-green-400" />
+                              ) : (
+                                <XCircle className="w-4 h-4 text-gray-400" />
+                              )}
+                              {connection.is_primary && (
+                                <span className="px-2 py-0.5 bg-yellow-500/10 text-yellow-400 rounded text-xs font-medium flex items-center gap-1">
+                                  <Star className="w-3 h-3" />
+                                  Primary
+                                </span>
+                              )}
+                            </div>
+                            <p className="text-sm text-slate-400">
+                              {connection.provider_display_name || connection.provider_username || connection.provider_email || 'Connected account'}
+                            </p>
+                          </div>
+                        </div>
+                        <div className="flex gap-2">
+                          {!connection.is_primary && (
+                            <button
+                              onClick={() => handleSetPrimaryOAuth(connection.provider)}
+                              className="p-2 bg-yellow-500/10 hover:bg-yellow-500/20 rounded-lg transition-colors"
+                              title="Set as primary"
+                            >
+                              <Star className="w-4 h-4 text-yellow-400" />
+                            </button>
+                          )}
+                          {connection.provider_avatar_url && (
+                            <button className="p-2 bg-slate-700 hover:bg-slate-600 rounded-lg transition-colors">
+                              <ExternalLink className="w-4 h-4 text-slate-300" />
+                            </button>
+                          )}
+                          <button
+                            onClick={() => handleDisconnectOAuth(connection.provider)}
+                            className="p-2 bg-red-900/20 hover:bg-red-900/30 rounded-lg transition-colors"
+                            title="Disconnect"
+                          >
+                            <Trash2 className="w-4 h-4 text-red-400" />
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+                
+                {/* Add more connections */}
+                <div className="pt-4 border-t border-white/10">
+                  <p className="text-sm text-slate-400 mb-3">Connect more accounts:</p>
+                  <div className="flex gap-2 flex-wrap">
+                    {Object.values(OAUTH_PROVIDERS).filter(provider => 
+                      provider.enabled && !oauthConnections.some(conn => conn.provider === provider.id)
+                    ).map((provider) => (
+                      <button
+                        key={provider.id}
+                        onClick={() => handleConnectOAuth(provider.id)}
+                        disabled={connectingProvider === provider.id}
+                        className="px-3 py-2 bg-slate-800 hover:bg-slate-700 disabled:opacity-50 text-white rounded-lg transition-colors flex items-center gap-2 text-sm"
+                      >
+                        <span>{provider.icon}</span>
+                        {connectingProvider === provider.id ? 'Connecting...' : provider.name}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Account Settings */}
           <div className="bg-slate-900/50 backdrop-blur-xl border border-white/10 rounded-2xl p-6 mt-6">
-            <h2 className="text-xl font-bold text-white mb-6">Account Settings</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <h3 className="text-sm font-semibold text-slate-300 mb-4">Preferences</h3>
-                <div className="space-y-3">
+          <h2 className="text-xl font-bold text-white mb-6">Account Settings</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <h3 className="text-sm font-semibold text-slate-300 mb-4">Preferences</h3>
+              <div className="space-y-3">
                   <label className="flex items-center justify-between p-3 bg-slate-800/50 border border-white/10 rounded-lg">
-                    <span className="text-sm text-white">Email notifications</span>
-                    <input type="checkbox" className="w-5 h-5 rounded bg-slate-700 border-slate-600" defaultChecked />
-                  </label>
+                  <span className="text-sm text-white">Email notifications</span>
+                  <input type="checkbox" className="w-5 h-5 rounded bg-slate-700 border-slate-600" defaultChecked />
+                </label>
                   <label className="flex items-center justify-between p-3 bg-slate-800/50 border border-white/10 rounded-lg">
-                    <span className="text-sm text-white">Marketing emails</span>
-                    <input type="checkbox" className="w-5 h-5 rounded bg-slate-700 border-slate-600" />
-                  </label>
+                  <span className="text-sm text-white">Marketing emails</span>
+                  <input type="checkbox" className="w-5 h-5 rounded bg-slate-700 border-slate-600" />
+                </label>
                   <label className="flex items-center justify-between p-3 bg-slate-800/50 border border-white/10 rounded-lg">
-                    <span className="text-sm text-white">Public profile</span>
-                    <input type="checkbox" className="w-5 h-5 rounded bg-slate-700 border-slate-600" defaultChecked />
-                  </label>
-                </div>
+                  <span className="text-sm text-white">Public profile</span>
+                  <input type="checkbox" className="w-5 h-5 rounded bg-slate-700 border-slate-600" defaultChecked />
+                </label>
               </div>
+            </div>
 
-              <div>
-                <h3 className="text-sm font-semibold text-slate-300 mb-4">Security</h3>
-                <div className="space-y-3">
+            <div>
+              <h3 className="text-sm font-semibold text-slate-300 mb-4">Security</h3>
+              <div className="space-y-3">
                   <button className="w-full p-3 bg-slate-800/50 border border-white/10 hover:bg-slate-700/50 rounded-lg text-left text-sm text-white transition-colors flex items-center gap-3">
                     <Key className="w-4 h-4" />
-                    Change password
-                  </button>
+                  Change password
+                </button>
                   <button className="w-full p-3 bg-slate-800/50 border border-white/10 hover:bg-slate-700/50 rounded-lg text-left text-sm text-white transition-colors flex items-center gap-3">
                     <Shield className="w-4 h-4" />
-                    Two-factor authentication
-                  </button>
-                  <button className="w-full p-3 bg-slate-800/50 border border-white/10 hover:bg-slate-700/50 rounded-lg text-left text-sm text-white transition-colors flex items-center gap-3">
+                  Two-factor authentication
+                </button>
+                  <button 
+                    onClick={() => window.location.href = '/#connections'}
+                    className="w-full p-3 bg-slate-800/50 border border-white/10 hover:bg-slate-700/50 rounded-lg text-left text-sm text-white transition-colors flex items-center gap-3"
+                  >
                     <Globe className="w-4 h-4" />
-                    Connected accounts
-                  </button>
+                    Manage all connections
+                </button>
                 </div>
               </div>
             </div>

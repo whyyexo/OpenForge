@@ -1,336 +1,266 @@
-import { useState, useEffect } from 'react';
-import { 
-  Plus, 
-  Settings, 
-  Trash2, 
-  ExternalLink, 
-  CheckCircle, 
-  XCircle,
-  AlertCircle,
-  Zap,
-  Globe,
-  Shield,
-  Star,
-  Loader2,
-  RefreshCw
-} from 'lucide-react';
-import { useAuth } from '../contexts/AuthContext';
-import { OAuthManager, OAUTH_PROVIDERS } from '../lib/oauth';
-import { supabaseHelpers } from '../lib/supabase';
+import { Plus, Check, X, ExternalLink, Settings } from 'lucide-react';
 
-interface OAuthConnection {
-  id: string;
-  provider: string;
-  provider_user_id: string;
-  provider_username?: string;
-  provider_display_name?: string;
-  provider_email?: string;
-  provider_avatar_url?: string;
-  is_primary: boolean;
-  is_active: boolean;
-  created_at: string;
-  updated_at: string;
-}
+const availableServices = [
+  {
+    id: 'discord',
+    name: 'Discord',
+    description: 'Connect your agents to Discord servers',
+    icon: '💬',
+    color: 'from-indigo-500 to-blue-600',
+    connected: true,
+    agents: 3,
+  },
+  {
+    id: 'slack',
+    name: 'Slack',
+    description: 'Integrate with Slack workspaces',
+    icon: '💼',
+    color: 'from-purple-500 to-pink-600',
+    connected: true,
+    agents: 2,
+  },
+  {
+    id: 'telegram',
+    name: 'Telegram',
+    description: 'Send messages via Telegram bots',
+    icon: '✈️',
+    color: 'from-blue-500 to-cyan-600',
+    connected: false,
+    agents: 0,
+  },
+  {
+    id: 'webhook',
+    name: 'Webhooks',
+    description: 'Custom HTTP webhooks',
+    icon: '🔗',
+    color: 'from-green-500 to-emerald-600',
+    connected: true,
+    agents: 5,
+  },
+  {
+    id: 'email',
+    name: 'Email',
+    description: 'Send automated emails',
+    icon: '📧',
+    color: 'from-red-500 to-orange-600',
+    connected: false,
+    agents: 0,
+  },
+  {
+    id: 'twilio',
+    name: 'Twilio',
+    description: 'SMS and voice integration',
+    icon: '📱',
+    color: 'from-pink-500 to-rose-600',
+    connected: false,
+    agents: 0,
+  },
+  {
+    id: 'github',
+    name: 'GitHub',
+    description: 'Automate GitHub workflows',
+    icon: '🐙',
+    color: 'from-gray-600 to-gray-700',
+    connected: true,
+    agents: 1,
+  },
+  {
+    id: 'stripe',
+    name: 'Stripe',
+    description: 'Payment processing',
+    icon: '💳',
+    color: 'from-blue-600 to-indigo-700',
+    connected: false,
+    agents: 0,
+  },
+];
+
+const connectedDetails = [
+  {
+    service: 'Discord',
+    agentName: 'Customer Support Bot',
+    status: 'active',
+    lastUsed: '2 minutes ago',
+    executions: 1234,
+  },
+  {
+    service: 'Discord',
+    agentName: 'Community Manager',
+    status: 'active',
+    lastUsed: '15 minutes ago',
+    executions: 892,
+  },
+  {
+    service: 'Slack',
+    agentName: 'Team Notifier',
+    status: 'active',
+    lastUsed: '1 hour ago',
+    executions: 456,
+  },
+  {
+    service: 'Webhook',
+    agentName: 'Data Sync Agent',
+    status: 'paused',
+    lastUsed: '3 days ago',
+    executions: 2341,
+  },
+  {
+    service: 'GitHub',
+    agentName: 'PR Reviewer',
+    status: 'active',
+    lastUsed: '5 hours ago',
+    executions: 189,
+  },
+];
 
 export default function Connections() {
-  const { user } = useAuth();
-  const [activeTab, setActiveTab] = useState('connected');
-  const [connections, setConnections] = useState<OAuthConnection[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [connecting, setConnecting] = useState<string | null>(null);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    loadConnections();
-  }, [user]);
-
-  const loadConnections = async () => {
-    if (!user) return;
-    
-    setLoading(true);
-    try {
-      const result = await supabaseHelpers.getOAuthConnections();
-      if (result?.data) {
-        setConnections(result.data);
-      }
-    } catch (error) {
-      console.error('Error loading connections:', error);
-      setError('Failed to load connections');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleConnect = async (provider: string) => {
-    if (!user) return;
-    
-    setConnecting(provider);
-    setError(null);
-    
-    try {
-      await OAuthManager.initiateOAuth(provider);
-    } catch (error: any) {
-      console.error('Error connecting to provider:', error);
-      setError(error.message || 'Failed to connect to provider');
-      setConnecting(null);
-    }
-  };
-
-  const handleDisconnect = async (provider: string) => {
-    if (!confirm(`Are you sure you want to disconnect ${provider}?`)) return;
-    
-    try {
-      await OAuthManager.disconnectProvider(provider);
-      await loadConnections();
-    } catch (error) {
-      console.error('Error disconnecting provider:', error);
-      setError('Failed to disconnect provider');
-    }
-  };
-
-  const handleSetPrimary = async (provider: string) => {
-    try {
-      await OAuthManager.setPrimaryProvider(provider);
-      await loadConnections();
-    } catch (error) {
-      console.error('Error setting primary provider:', error);
-      setError('Failed to set primary provider');
-    }
-  };
-
-  const getStatusIcon = (isActive: boolean) => {
-    return isActive ? (
-      <CheckCircle className="w-5 h-5 text-green-400" />
-    ) : (
-      <XCircle className="w-5 h-5 text-gray-400" />
-    );
-  };
-
-  const getStatusColor = (isActive: boolean) => {
-    return isActive 
-      ? 'border-green-500/20 bg-green-500/5' 
-      : 'border-gray-500/20 bg-gray-500/5';
-  };
-
-  const getProviderInfo = (provider: string) => {
-    return OAUTH_PROVIDERS[provider] || {
-      name: provider,
-      icon: '🔗',
-      color: '#666',
-      description: `${provider} connection`
-    };
-  };
-
-  const connectedProviders = connections.map(conn => conn.provider);
-  const availableProviders = Object.values(OAUTH_PROVIDERS).filter(provider => 
-    provider.enabled && !connectedProviders.includes(provider.id)
-  );
-
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center h-full bg-black">
-        <div className="text-center">
-          <Loader2 className="w-8 h-8 animate-spin text-blue-400 mx-auto mb-4" />
-          <p className="text-slate-400">Loading connections...</p>
-        </div>
-      </div>
-    );
-  }
-
   return (
-    <div className="flex flex-col h-full bg-black overflow-auto">
-      <div className="p-6 border-b border-white/10">
-        <div className="flex items-center justify-between mb-4">
-          <div>
-            <h1 className="text-2xl font-bold text-white mb-2">Connections</h1>
-            <p className="text-slate-400">Connect your accounts to access additional features</p>
-          </div>
-          <button 
-            onClick={loadConnections}
-            className="p-2 bg-slate-800 hover:bg-slate-700 rounded-lg transition-colors"
-          >
-            <RefreshCw className="w-4 h-4 text-slate-300" />
-          </button>
-        </div>
-
-        {error && (
-          <div className="mb-4 p-3 bg-red-500/10 border border-red-500/20 rounded-lg">
-            <p className="text-red-400 text-sm">{error}</p>
-          </div>
-        )}
-
-        <div className="flex gap-1 bg-slate-900/50 p-1 rounded-lg">
-          <button
-            onClick={() => setActiveTab('connected')}
-            className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
-              activeTab === 'connected'
-                ? 'bg-blue-600 text-white'
-                : 'text-slate-400 hover:text-white'
-            }`}
-          >
-            Connected ({connections.filter(c => c.is_active).length})
-          </button>
-          <button
-            onClick={() => setActiveTab('available')}
-            className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
-              activeTab === 'available'
-                ? 'bg-blue-600 text-white'
-                : 'text-slate-400 hover:text-white'
-            }`}
-          >
-            Available ({availableProviders.length})
-          </button>
+    <div className="flex flex-col h-screen bg-slate-900 overflow-auto">
+      <div className="px-6 py-6 bg-slate-950 border-b border-slate-800">
+        <div className="max-w-7xl mx-auto">
+          <h1 className="text-3xl font-bold text-white mb-2">Connections</h1>
+          <p className="text-slate-400">Connect your AI agents to external services</p>
         </div>
       </div>
 
-      <div className="flex-1 p-6">
-        {activeTab === 'connected' ? (
-          <div className="space-y-4">
-            {connections.length === 0 ? (
-              <div className="text-center py-12">
-                <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-slate-800 flex items-center justify-center">
-                  <Globe className="w-8 h-8 text-slate-400" />
-                </div>
-                <h3 className="text-xl font-semibold text-white mb-2">No connections yet</h3>
-                <p className="text-slate-400 mb-6">Connect your accounts to get started</p>
-                <button
-                  onClick={() => setActiveTab('available')}
-                  className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors"
+      <div className="flex-1">
+        <div className="max-w-7xl mx-auto px-6 py-8">
+          <div className="mb-8">
+            <h2 className="text-xl font-bold text-white mb-4">Available Services</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+              {availableServices.map((service) => (
+                <div
+                  key={service.id}
+                  className={`bg-slate-800 border rounded-xl p-5 transition-all hover:scale-[1.02] ${
+                    service.connected
+                      ? 'border-blue-500/50 shadow-lg shadow-blue-500/10'
+                      : 'border-slate-700'
+                  }`}
                 >
-                  Browse Available Connections
-                </button>
-              </div>
-            ) : (
-              connections.map((connection) => {
-                const providerInfo = getProviderInfo(connection.provider);
-                return (
-                  <div
-                    key={connection.id}
-                    className={`p-6 bg-slate-900/50 border rounded-xl transition-colors ${getStatusColor(connection.is_active)}`}
-                  >
-                    <div className="flex items-start justify-between mb-4">
-                      <div className="flex items-center gap-4">
-                        <div
-                          className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl"
-                          style={{ backgroundColor: `${providerInfo.color}20` }}
-                        >
-                          {providerInfo.icon}
-                        </div>
-                        <div>
-                          <div className="flex items-center gap-3 mb-1">
-                            <h3 className="text-lg font-semibold text-white">
-                              {providerInfo.name}
-                            </h3>
-                            {getStatusIcon(connection.is_active)}
-                            {connection.is_primary && (
-                              <span className="px-2 py-0.5 bg-yellow-500/10 text-yellow-400 rounded text-xs font-medium flex items-center gap-1">
-                                <Star className="w-3 h-3" />
-                                Primary
-                              </span>
-                            )}
-                          </div>
-                          <p className="text-slate-400 text-sm">
-                            {connection.provider_display_name || connection.provider_username || connection.provider_email || 'Connected account'}
-                          </p>
-                          <p className="text-slate-500 text-xs mt-1">
-                            Connected {new Date(connection.created_at).toLocaleDateString()}
-                          </p>
-                        </div>
-                      </div>
-                      <div className="flex gap-2">
-                        {!connection.is_primary && (
-                          <button 
-                            onClick={() => handleSetPrimary(connection.provider)}
-                            className="p-2 bg-yellow-500/10 hover:bg-yellow-500/20 rounded-lg transition-colors"
-                            title="Set as primary"
-                          >
-                            <Star className="w-4 h-4 text-yellow-400" />
-                          </button>
-                        )}
-                        {connection.provider_avatar_url && (
-                          <button className="p-2 bg-slate-800 hover:bg-slate-700 rounded-lg transition-colors">
-                            <ExternalLink className="w-4 h-4 text-slate-300" />
-                          </button>
-                        )}
-                        <button 
-                          onClick={() => handleDisconnect(connection.provider)}
-                          className="p-2 bg-red-900/20 hover:bg-red-900/30 rounded-lg transition-colors"
-                          title="Disconnect"
-                        >
-                          <Trash2 className="w-4 h-4 text-red-400" />
-                        </button>
-                      </div>
+                  <div className="flex items-start justify-between mb-4">
+                    <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${service.color} flex items-center justify-center text-2xl`}>
+                      {service.icon}
                     </div>
-
-                    <div className="flex items-center justify-between text-sm">
-                      <div className="flex items-center gap-4">
-                        <div className="flex items-center gap-2 text-slate-400">
-                          <Shield className="w-4 h-4" />
-                          OAuth 2.0
-                        </div>
-                        <div className="flex items-center gap-2 text-slate-400">
-                          <Zap className="w-4 h-4" />
-                          {connection.is_active ? 'Active' : 'Inactive'}
-                        </div>
+                    {service.connected ? (
+                      <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
+                        <Check className="w-4 h-4 text-white" />
                       </div>
-                      <div className="flex gap-2">
-                        <span className="px-2 py-1 bg-slate-800 text-slate-300 rounded text-xs">
-                          {connection.provider}
-                        </span>
-                      </div>
+                    ) : (
+                      <button className="w-6 h-6 bg-slate-700 hover:bg-slate-600 rounded-full flex items-center justify-center transition-colors">
+                        <Plus className="w-4 h-4 text-white" />
+                      </button>
+                    )}
+                  </div>
+                  <h3 className="text-lg font-semibold text-white mb-1">{service.name}</h3>
+                  <p className="text-sm text-slate-400 mb-4">{service.description}</p>
+                  {service.connected ? (
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs text-slate-400">{service.agents} agents</span>
+                      <button className="text-xs text-blue-400 hover:text-blue-300 flex items-center gap-1">
+                        Configure
+                        <ExternalLink className="w-3 h-3" />
+                      </button>
                     </div>
-                  </div>
-                );
-              })
-            )}
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {availableProviders.map((provider) => (
-              <div
-                key={provider.id}
-                className="p-6 bg-slate-900/50 border border-white/10 rounded-xl hover:border-white/20 transition-colors cursor-pointer group"
-              >
-                <div className="flex items-center gap-4 mb-4">
-                  <div
-                    className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl group-hover:scale-110 transition-transform"
-                    style={{ backgroundColor: `${provider.color}20` }}
-                  >
-                    {provider.icon}
-                  </div>
-                  <div>
-                    <div className="flex items-center gap-2 mb-1">
-                      <h3 className="text-lg font-semibold text-white">{provider.name}</h3>
-                      {(provider.id === 'discord' || provider.id === 'github') && (
-                        <span className="px-2 py-0.5 bg-blue-500/10 text-blue-400 rounded text-xs font-medium">
-                          Popular
-                        </span>
-                      )}
-                    </div>
-                    <p className="text-slate-400 text-sm">{provider.description}</p>
-                  </div>
-                </div>
-                <button 
-                  onClick={() => handleConnect(provider.id)}
-                  disabled={connecting === provider.id}
-                  className="w-full py-2 bg-slate-800 hover:bg-slate-700 disabled:opacity-50 text-white rounded-lg transition-colors flex items-center justify-center gap-2"
-                >
-                  {connecting === provider.id ? (
-                    <>
-                      <Loader2 className="w-4 h-4 animate-spin" />
-                      Connecting...
-                    </>
                   ) : (
-                    <>
-                      <Plus className="w-4 h-4" />
+                    <button className="w-full py-2 bg-slate-700 hover:bg-slate-600 text-white rounded-lg text-sm font-medium transition-colors">
                       Connect
-                    </>
+                    </button>
                   )}
-                </button>
-              </div>
-            ))}
+                </div>
+              ))}
+            </div>
           </div>
-        )}
+
+          <div className="bg-slate-800 border border-slate-700 rounded-xl overflow-hidden">
+            <div className="p-6 border-b border-slate-700">
+              <h2 className="text-xl font-bold text-white">Active Connections</h2>
+              <p className="text-sm text-slate-400 mt-1">Manage your connected agents and services</p>
+            </div>
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead className="bg-slate-900/50">
+                  <tr>
+                    <th className="text-left py-4 px-6 text-sm font-semibold text-slate-300">Service</th>
+                    <th className="text-left py-4 px-6 text-sm font-semibold text-slate-300">Agent</th>
+                    <th className="text-left py-4 px-6 text-sm font-semibold text-slate-300">Status</th>
+                    <th className="text-left py-4 px-6 text-sm font-semibold text-slate-300">Last Used</th>
+                    <th className="text-right py-4 px-6 text-sm font-semibold text-slate-300">Executions</th>
+                    <th className="text-right py-4 px-6 text-sm font-semibold text-slate-300">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {connectedDetails.map((connection, idx) => {
+                    const service = availableServices.find(s => s.name === connection.service);
+                    return (
+                      <tr key={idx} className="border-b border-slate-700/50 hover:bg-slate-700/30 transition-colors">
+                        <td className="py-4 px-6">
+                          <div className="flex items-center gap-3">
+                            <div className={`w-10 h-10 rounded-lg bg-gradient-to-br ${service?.color} flex items-center justify-center text-xl`}>
+                              {service?.icon}
+                            </div>
+                            <span className="text-sm font-medium text-white">{connection.service}</span>
+                          </div>
+                        </td>
+                        <td className="py-4 px-6">
+                          <span className="text-sm text-slate-300">{connection.agentName}</span>
+                        </td>
+                        <td className="py-4 px-6">
+                          <span className={`px-3 py-1 rounded-full text-xs font-semibold ${
+                            connection.status === 'active'
+                              ? 'bg-green-500/10 text-green-400'
+                              : 'bg-yellow-500/10 text-yellow-400'
+                          }`}>
+                            {connection.status}
+                          </span>
+                        </td>
+                        <td className="py-4 px-6">
+                          <span className="text-sm text-slate-400">{connection.lastUsed}</span>
+                        </td>
+                        <td className="py-4 px-6 text-right">
+                          <span className="text-sm font-medium text-white">
+                            {connection.executions.toLocaleString()}
+                          </span>
+                        </td>
+                        <td className="py-4 px-6">
+                          <div className="flex items-center justify-end gap-2">
+                            <button className="p-2 hover:bg-slate-600 rounded-lg transition-colors" title="Configure">
+                              <Settings className="w-4 h-4 text-slate-400" />
+                            </button>
+                            <button className="p-2 hover:bg-slate-600 rounded-lg transition-colors" title="Disconnect">
+                              <X className="w-4 h-4 text-slate-400" />
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div className="mt-8 bg-gradient-to-br from-blue-900/20 to-purple-900/20 border border-blue-500/30 rounded-xl p-6">
+            <div className="flex items-start gap-4">
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center flex-shrink-0">
+                <Plus className="w-6 h-6 text-white" />
+              </div>
+              <div className="flex-1">
+                <h3 className="text-lg font-semibold text-white mb-2">Need a custom integration?</h3>
+                <p className="text-slate-300 mb-4">
+                  Request a new service integration or build your own using our API and webhook system.
+                </p>
+                <div className="flex gap-3">
+                  <button className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors">
+                    Request Integration
+                  </button>
+                  <button className="px-4 py-2 bg-slate-700 hover:bg-slate-600 text-white rounded-lg font-medium transition-colors">
+                    View API Docs
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
