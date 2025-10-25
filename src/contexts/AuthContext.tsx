@@ -115,10 +115,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           display_name: user?.email?.split('@')[0] || 'User',
           is_admin: false,
           subscription_tier: 'lunch',
-          is_active: true
+          is_active: true,
+          created_at: new Date().toISOString(),
+          updated_at: new Date().toISOString()
         };
         console.log('🔧 Using temporary profile:', tempProfile);
         setProfile(tempProfile);
+        setLoading(false); // Important : arrêter le loading
       } else {
         console.log('✅ Profile loaded:', data);
         console.log('🔑 Admin status:', data.is_admin);
