@@ -4,6 +4,7 @@ import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { LanguageProvider } from './contexts/LanguageContext';
 import Navigation from './components/Navigation';
 import WebsiteNavigation from './components/WebsiteNavigation';
+import PublicNavigation from './components/PublicNavigation';
 import Landing from './pages/Landing';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
@@ -71,7 +72,7 @@ const App: React.FC = () => {
             {/* Public Routes */}
             <Route path="/" element={
               <div className="min-h-screen bg-[#0f1117]">
-                <WebsiteNavigation />
+                <PublicNavigation />
                 <div className="pt-16">
                   <Landing />
                 </div>
@@ -79,7 +80,7 @@ const App: React.FC = () => {
             } />
             <Route path="/pricing" element={
               <div className="min-h-screen bg-[#0f1117]">
-                <WebsiteNavigation />
+                <PublicNavigation />
                 <div className="pt-16">
                   <Pricing />
                 </div>

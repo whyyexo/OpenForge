@@ -1,12 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '../contexts/LanguageContext';
 import { EXTERNAL_LINKS } from '../config/links';
 import logo from './icons/Full Vert - Blanc.png';
 
-const WebsiteNavigation: React.FC = () => {
-  const { user, profile } = useAuth();
+const PublicNavigation: React.FC = () => {
   const navigate = useNavigate();
   const { t, language, setLanguage } = useLanguage();
   const [isProductsOpen, setIsProductsOpen] = useState(false);
@@ -35,11 +33,6 @@ const WebsiteNavigation: React.FC = () => {
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
-
-  const handleSignOut = async () => {
-    // Sign out logic here
-    navigate('/');
-  };
 
   return (
     <nav className="bg-[#181B22]/90 backdrop-blur-sm border-b border-gray-700 px-6 py-3 fixed top-0 left-0 right-0 z-50">
@@ -100,7 +93,7 @@ const WebsiteNavigation: React.FC = () => {
                       href={EXTERNAL_LINKS.FIVERFLOW_APP} 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-[#EAEAEA] transition-colors"
+                      className="block px-4 py-2 text-sm text-gray-300 hover:text-[#EAEAEA] transition-colors"
                     >
                       FiverFlow
                     </a>
@@ -109,23 +102,23 @@ const WebsiteNavigation: React.FC = () => {
               )}
             </div>
 
-          {/* Pricing */}
-          <button
-            onClick={() => navigate('/pricing')}
-            className="text-gray-400 hover:text-[#EAEAEA] transition-colors text-sm"
-          >
-            Pricing
-          </button>
+            {/* Pricing */}
+            <button
+              onClick={() => navigate('/pricing')}
+              className="text-gray-400 hover:text-[#EAEAEA] transition-colors text-sm"
+            >
+              Pricing
+            </button>
 
-          {/* Docs */}
-          <a 
-            href={EXTERNAL_LINKS.DOCS} 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="text-gray-400 hover:text-[#EAEAEA] transition-colors text-sm"
-          >
-            Docs
-          </a>
+            {/* Docs */}
+            <a 
+              href={EXTERNAL_LINKS.DOCS} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-gray-400 hover:text-[#EAEAEA] transition-colors text-sm"
+            >
+              Docs
+            </a>
 
             {/* More Dropdown */}
             <div className="relative" ref={moreRef}>
@@ -138,7 +131,7 @@ const WebsiteNavigation: React.FC = () => {
                   const timeout = setTimeout(() => setIsMoreOpen(false), 200);
                   setMoreTimeout(timeout);
                 }}
-                className="flex items-center space-x-1 text-gray-400 hover:text-[#EAEA] transition-colors text-sm"
+                className="flex items-center space-x-1 text-gray-400 hover:text-[#EAEAEA] transition-colors text-sm"
               >
                 <span>More</span>
                 {isMoreOpen && (
@@ -165,7 +158,7 @@ const WebsiteNavigation: React.FC = () => {
                       href={EXTERNAL_LINKS.COMMUNITY} 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-[#EAEAEA] transition-colors"
+                      className="block px-4 py-2 text-sm text-gray-300 hover:text-[#EAEAEA] transition-colors"
                     >
                       {t.community}
                     </a>
@@ -173,7 +166,7 @@ const WebsiteNavigation: React.FC = () => {
                       href={EXTERNAL_LINKS.CAREER} 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-[#EAEAEA] transition-colors"
+                      className="block px-4 py-2 text-sm text-gray-300 hover:text-[#EAEAEA] transition-colors"
                     >
                       {t.career}
                     </a>
@@ -182,7 +175,7 @@ const WebsiteNavigation: React.FC = () => {
                       href={EXTERNAL_LINKS.LEGAL} 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-[#EAEAEA] transition-colors"
+                      className="block px-4 py-2 text-sm text-gray-300 hover:text-[#EAEAEA] transition-colors"
                     >
                       {t.legal}
                     </a>
@@ -230,47 +223,24 @@ const WebsiteNavigation: React.FC = () => {
           </div>
 
           {/* Boutons d'authentification */}
-          {user ? (
-            <div className="flex items-center space-x-3">
-              {/* Bouton Dashboard */}
-              <button
-                onClick={() => navigate('/dashboard')}
-                className="px-4 py-2 bg-[#00E38C] text-black font-medium rounded-lg hover:bg-[#00E38C]/90 transition-colors text-sm"
-              >
-                Dashboard
-              </button>
-              
-              {/* Profil utilisateur */}
-              <div className="relative">
-                <button className="flex items-center space-x-2 p-2 rounded-full hover:bg-gray-700 transition-colors">
-                  <div className="w-8 h-8 bg-gray-600 rounded-full flex items-center justify-center">
-                    <span className="text-gray-200 font-medium text-sm">
-                      {profile?.username?.charAt(0).toUpperCase() || user?.email?.charAt(0).toUpperCase() || 'U'}
-                    </span>
-                  </div>
-                </button>
-              </div>
-            </div>
-          ) : (
-            <div className="flex items-center space-x-3">
-              <button
-                onClick={() => navigate('/login')}
-                className="px-4 py-2 bg-[#00E38C] text-black font-medium rounded-lg hover:bg-[#00E38C]/90 transition-colors text-sm"
-              >
-                Sign in
-              </button>
-              <button
-                onClick={() => navigate('/login')}
-                className="px-4 py-2 border border-gray-600 text-[#EAEAEA] font-medium rounded-lg hover:bg-gray-700 transition-colors text-sm"
-              >
-                Create account
-              </button>
-            </div>
-          )}
+          <div className="flex items-center space-x-3">
+            <button
+              onClick={() => navigate('/login')}
+              className="px-4 py-2 bg-[#00E38C] text-black font-medium rounded-lg hover:bg-[#00E38C]/90 transition-colors text-sm"
+            >
+              Sign in
+            </button>
+            <button
+              onClick={() => navigate('/signup')}
+              className="px-4 py-2 border border-gray-600 text-[#EAEAEA] font-medium rounded-lg hover:bg-gray-700 transition-colors text-sm"
+            >
+              Create account
+            </button>
+          </div>
         </div>
       </div>
     </nav>
   );
 };
 
-export default WebsiteNavigation;
+export default PublicNavigation;
