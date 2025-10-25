@@ -107,8 +107,12 @@ const PublicNavigation: React.FC = () => {
             {/* Products Dropdown */}
             <div className="relative" ref={productsRef}>
               <button
-                onMouseEnter={() => setIsProductsOpen(true)}
-                onMouseLeave={() => setTimeout(() => setIsProductsOpen(false), 300)}
+                onMouseEnter={() => {
+                  setIsProductsOpen(true);
+                }}
+                onMouseLeave={() => {
+                  setTimeout(() => setIsProductsOpen(false), 500);
+                }}
                 className="flex items-center space-x-1 text-gray-400 hover:text-[#EAEAEA] transition-colors text-sm"
               >
                 <span>Products</span>
@@ -120,8 +124,12 @@ const PublicNavigation: React.FC = () => {
               {isProductsOpen && (
                 <div 
                   className="absolute top-full left-0 mt-2 w-48 bg-[#181B22] border border-gray-700 rounded-lg shadow-lg z-50"
-                  onMouseEnter={() => setIsProductsOpen(true)}
-                  onMouseLeave={() => setTimeout(() => setIsProductsOpen(false), 300)}
+                  onMouseEnter={() => {
+                    setIsProductsOpen(true);
+                  }}
+                  onMouseLeave={() => {
+                    setTimeout(() => setIsProductsOpen(false), 500);
+                  }}
                 >
                   <div className="py-2">
                     <a 
@@ -161,8 +169,12 @@ const PublicNavigation: React.FC = () => {
             {/* More Dropdown */}
             <div className="relative" ref={moreRef}>
               <button
-                onMouseEnter={() => setIsMoreOpen(true)}
-                onMouseLeave={() => setTimeout(() => setIsMoreOpen(false), 300)}
+                onMouseEnter={() => {
+                  setIsMoreOpen(true);
+                }}
+                onMouseLeave={() => {
+                  setTimeout(() => setIsMoreOpen(false), 500);
+                }}
                 className="flex items-center space-x-1 text-gray-400 hover:text-[#EAEAEA] transition-colors text-sm"
               >
                 <span>More</span>
@@ -174,8 +186,12 @@ const PublicNavigation: React.FC = () => {
               {isMoreOpen && (
                 <div 
                   className="absolute top-full left-0 mt-2 w-48 bg-[#181B22] border border-gray-700 rounded-lg shadow-lg z-50"
-                  onMouseEnter={() => setIsMoreOpen(true)}
-                  onMouseLeave={() => setTimeout(() => setIsMoreOpen(false), 300)}
+                  onMouseEnter={() => {
+                    setIsMoreOpen(true);
+                  }}
+                  onMouseLeave={() => {
+                    setTimeout(() => setIsMoreOpen(false), 500);
+                  }}
                 >
                   <div className="py-2">
                     <a 
