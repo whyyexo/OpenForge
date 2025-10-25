@@ -11,11 +11,13 @@ const PublicNavigation: React.FC = () => {
   const [isProductsOpen, setIsProductsOpen] = useState(false);
   const [isMoreOpen, setIsMoreOpen] = useState(false);
   const [isLanguageOpen, setIsLanguageOpen] = useState(false);
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [user, setUser] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const productsRef = useRef<HTMLDivElement>(null);
   const moreRef = useRef<HTMLDivElement>(null);
   const languageRef = useRef<HTMLDivElement>(null);
+  const profileRef = useRef<HTMLDivElement>(null);
 
   // Vérifier l'état d'authentification
   useEffect(() => {
@@ -53,6 +55,9 @@ const PublicNavigation: React.FC = () => {
       }
       if (languageRef.current && !languageRef.current.contains(event.target as Node)) {
         setIsLanguageOpen(false);
+      }
+      if (profileRef.current && !profileRef.current.contains(event.target as Node)) {
+        setIsProfileOpen(false);
       }
     };
 
@@ -103,7 +108,7 @@ const PublicNavigation: React.FC = () => {
             <div className="relative" ref={productsRef}>
               <button
                 onMouseEnter={() => setIsProductsOpen(true)}
-                onMouseLeave={() => setIsProductsOpen(false)}
+                onMouseLeave={() => setTimeout(() => setIsProductsOpen(false), 300)}
                 className="flex items-center space-x-1 text-gray-400 hover:text-[#EAEAEA] transition-colors text-sm"
               >
                 <span>Products</span>
@@ -116,7 +121,7 @@ const PublicNavigation: React.FC = () => {
                 <div 
                   className="absolute top-full left-0 mt-2 w-48 bg-[#181B22] border border-gray-700 rounded-lg shadow-lg z-50"
                   onMouseEnter={() => setIsProductsOpen(true)}
-                  onMouseLeave={() => setIsProductsOpen(false)}
+                  onMouseLeave={() => setTimeout(() => setIsProductsOpen(false), 300)}
                 >
                   <div className="py-2">
                     <a 
@@ -157,7 +162,7 @@ const PublicNavigation: React.FC = () => {
             <div className="relative" ref={moreRef}>
               <button
                 onMouseEnter={() => setIsMoreOpen(true)}
-                onMouseLeave={() => setIsMoreOpen(false)}
+                onMouseLeave={() => setTimeout(() => setIsMoreOpen(false), 300)}
                 className="flex items-center space-x-1 text-gray-400 hover:text-[#EAEAEA] transition-colors text-sm"
               >
                 <span>More</span>
@@ -170,7 +175,7 @@ const PublicNavigation: React.FC = () => {
                 <div 
                   className="absolute top-full left-0 mt-2 w-48 bg-[#181B22] border border-gray-700 rounded-lg shadow-lg z-50"
                   onMouseEnter={() => setIsMoreOpen(true)}
-                  onMouseLeave={() => setIsMoreOpen(false)}
+                  onMouseLeave={() => setTimeout(() => setIsMoreOpen(false), 300)}
                 >
                   <div className="py-2">
                     <a 
@@ -256,14 +261,94 @@ const PublicNavigation: React.FC = () => {
             <div className="flex items-center space-x-4">
               <button
                 onClick={() => navigate('/dashboard')}
-                className="bg-[#00E38C] text-black px-4 py-2 rounded-lg hover:bg-[#00E38C]/90 transition-colors text-sm font-medium"
+                className="bg-[#00E38C] text-black px-3 py-1.5 rounded-lg hover:bg-[#00E38C]/90 transition-colors text-sm font-medium"
               >
                 Dashboard
               </button>
-              <div className="w-8 h-8 bg-gray-600 rounded-full flex items-center justify-center">
-                <span className="text-gray-200 font-medium text-sm">
-                  {user.email?.charAt(0).toUpperCase() || 'U'}
-                </span>
+              
+              {/* Profile Dropdown */}
+              <div className="relative" ref={profileRef}>
+                <button
+                  onClick={() => setIsProfileOpen(!isProfileOpen)}
+                  className="w-8 h-8 bg-gray-600 rounded-full flex items-center justify-center hover:bg-gray-500 transition-colors"
+                >
+                  <span className="text-gray-200 font-medium text-sm">
+                    {user.email?.charAt(0).toUpperCase() || 'U'}
+                  </span>
+                </button>
+
+                {isProfileOpen && (
+                  <div className="absolute top-full right-0 mt-2 w-56 bg-[#181B22] border border-gray-700 rounded-lg shadow-lg z-50">
+                    <div className="py-2">
+                      {/* User Info */}
+                      <div className="px-4 py-3 border-b border-gray-700">
+                        <div className="text-sm font-medium text-[#EAEAEA]">
+                          {user.user_metadata?.full_name || 'User'}
+                        </div>
+                        <div className="text-xs text-gray-400">
+                          @{user.user_metadata?.username || 'user'}
+                        </div>
+                      </div>
+                      
+                      {/* Menu Items */}
+                      <div className="py-2">
+                        <button
+                          onClick={() => {
+                            navigate('/dashboard');
+                            setIsProfileOpen(false);
+                          }}
+                          className="w-full text-left px-4 py-2 text-sm text-gray-300 hover:text-[#EAEAEA] hover:bg-gray-700 transition-colors"
+                        >
+                          Your Dashboard
+                        </button>
+                        <button
+                          onClick={() => {
+                            navigate('/dashboard/profile');
+                            setIsProfileOpen(false);
+                          }}
+                          className="w-full text-left px-4 py-2 text-sm text-gray-300 hover:text-[#EAEAEA] hover:bg-gray-700 transition-colors"
+                        >
+                          Your Profile
+                        </button>
+                        <button
+                          onClick={() => {
+                            navigate('/dashboard/settings');
+                            setIsProfileOpen(false);
+                          }}
+                          className="w-full text-left px-4 py-2 text-sm text-gray-300 hover:text-[#EAEAEA] hover:bg-gray-700 transition-colors"
+                        >
+                          Your Settings
+                        </button>
+                        <button
+                          onClick={() => {
+                            navigate('/dashboard/team');
+                            setIsProfileOpen(false);
+                          }}
+                          className="w-full text-left px-4 py-2 text-sm text-gray-300 hover:text-[#EAEAEA] hover:bg-gray-700 transition-colors"
+                        >
+                          Your Team
+                        </button>
+                      </div>
+                      
+                      {/* Separator */}
+                      <div className="border-t border-gray-700"></div>
+                      
+                      {/* Sign Out */}
+                      <div className="py-2">
+                        <button
+                          onClick={async () => {
+                            await supabase.auth.signOut();
+                            setIsProfileOpen(false);
+                            window.location.href = '/';
+                          }}
+                          className="w-full text-left px-4 py-2 text-sm text-red-400 hover:text-red-300 hover:bg-gray-700 transition-colors"
+                        >
+                          Sign out
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           ) : (
