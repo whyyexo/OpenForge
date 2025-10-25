@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { createClient } from '@supabase/supabase-js';
 import { User } from '@supabase/supabase-js';
 import UnifiedAuth, { UnifiedUser } from './lib/unifiedAuth';
+import ProfileManager, { CompleteUserProfile } from './lib/profileManager';
 
 // Supabase configuration
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || 'https://gcohjfjhktpqswqwiczb.supabase.co';
@@ -9,10 +10,11 @@ const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || 'eyJhbGciOiJIU
 
 const supabase = createClient(supabaseUrl, supabaseAnonKey);
 const unifiedAuth = UnifiedAuth.getInstance();
+const profileManager = ProfileManager.getInstance();
 
 // Supabase-style Dashboard Component
 const SupabaseDashboard: React.FC = () => {
-  const [user, setUser] = useState<UnifiedUser | null>(null);
+  const [user, setUser] = useState<CompleteUserProfile | null>(null);
   const [loading, setLoading] = useState(true);
   const [showAuth, setShowAuth] = useState(false);
   const [activeTab, setActiveTab] = useState('overview');
@@ -88,9 +90,44 @@ const SupabaseDashboard: React.FC = () => {
 
   const handleSignIn = async (email: string, password: string) => {
     try {
+      // First, try to get complete profile from other project
+      const completeProfile = await profileManager.getCompleteProfileFromOtherProject(email);
+      
+      if (completeProfile) {
+        console.log('✅ Complete profile found in other project');
+        setUser(completeProfile);
+        return { success: true };
+      }
+
+      // If not found, try regular auth
       const result = await unifiedAuth.signIn(email, password);
       if (result.success && result.user) {
-        setUser(result.user);
+        // Convert to complete profile
+        const completeProfile: CompleteUserProfile = {
+          id: result.user.id,
+          email: result.user.email,
+          username: result.user.username || '',
+          display_name: result.user.display_name || '',
+          is_admin: result.user.is_admin || false,
+          subscription_tier: result.user.subscription_tier || 'lunch',
+          source_project: result.user.source_project || 'neuroflow',
+          original_data: result.user.original_data,
+          social_links: {},
+          preferences: {},
+          email_notifications: true,
+          push_notifications: true,
+          sms_notifications: false,
+          profile_visibility: 'public',
+          show_email: false,
+          show_phone: false,
+          is_verified: false,
+          is_active: true,
+          subscription_status: 'active',
+          login_count: 0,
+          created_at: new Date().toISOString(),
+          updated_at: new Date().toISOString()
+        };
+        setUser(completeProfile);
       }
       return result;
     } catch (error: any) {
@@ -117,7 +154,7 @@ const SupabaseDashboard: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-8 w-8 border-2 border-green-600 border-t-transparent mx-auto mb-4"></div>
           <p className="text-slate-600 text-sm">Loading...</p>
@@ -128,7 +165,7 @@ const SupabaseDashboard: React.FC = () => {
 
   if (!user) {
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4">
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
         <div className="max-w-md w-full">
           {/* Supabase-style Header */}
           <div className="text-center mb-8">
@@ -171,7 +208,7 @@ const SupabaseDashboard: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-gray-50">
       {/* Supabase-style Header */}
       <header className="bg-white border-b border-slate-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -359,7 +396,7 @@ const AuthForm: React.FC<{
 };
 
 // Supabase-style Tab Components
-const OverviewTab: React.FC<{ user: UnifiedUser }> = ({ user }) => (
+const OverviewTab: React.FC<{ user: CompleteUserProfile }> = ({ user }) => (
   <div>
     <div className="mb-6">
       <h2 className="text-2xl font-semibold text-slate-900 mb-2">Welcome back, {user.display_name || user.username}!</h2>
@@ -430,7 +467,7 @@ const OverviewTab: React.FC<{ user: UnifiedUser }> = ({ user }) => (
   </div>
 );
 
-const ProjectsTab: React.FC<{ user: UnifiedUser }> = ({ user }) => (
+const ProjectsTab: React.FC<{ user: CompleteUserProfile }> = ({ user }) => (
   <div>
     <div className="mb-6">
       <h2 className="text-2xl font-semibold text-slate-900 mb-2">Projects</h2>
@@ -464,7 +501,7 @@ const ProjectsTab: React.FC<{ user: UnifiedUser }> = ({ user }) => (
   </div>
 );
 
-const AccountTab: React.FC<{ user: UnifiedUser }> = ({ user }) => (
+const AccountTab: React.FC<{ user: CompleteUserProfile }> = ({ user }) => (
   <div>
     <div className="mb-6">
       <h2 className="text-2xl font-semibold text-slate-900 mb-2">Account</h2>
@@ -477,29 +514,158 @@ const AccountTab: React.FC<{ user: UnifiedUser }> = ({ user }) => (
         <div className="px-6 py-4 border-b border-slate-200">
           <h3 className="text-lg font-semibold text-slate-900">Profile Information</h3>
         </div>
-        <div className="p-6 space-y-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Email</label>
-              <p className="text-slate-900">{user.email}</p>
+        <div className="p-6 space-y-6">
+          {/* Basic Information */}
+          <div>
+            <h4 className="text-lg font-semibold text-slate-900 mb-4">Basic Information</h4>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-1">Email</label>
+                <p className="text-slate-900">{user.email}</p>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-1">Username</label>
+                <p className="text-slate-900">{user.username || 'Not set'}</p>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-1">Display Name</label>
+                <p className="text-slate-900">{user.display_name || 'Not set'}</p>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-1">Full Name</label>
+                <p className="text-slate-900">{user.first_name && user.last_name ? `${user.first_name} ${user.last_name}` : 'Not set'}</p>
+              </div>
             </div>
-            <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Username</label>
-              <p className="text-slate-900">{user.username || 'Not set'}</p>
+          </div>
+
+          {/* Contact Information */}
+          <div>
+            <h4 className="text-lg font-semibold text-slate-900 mb-4">Contact Information</h4>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-1">Phone</label>
+                <p className="text-slate-900">{user.phone || 'Not set'}</p>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-1">Location</label>
+                <p className="text-slate-900">{user.location || 'Not set'}</p>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-1">Date of Birth</label>
+                <p className="text-slate-900">{user.date_of_birth || 'Not set'}</p>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-1">Gender</label>
+                <p className="text-slate-900">{user.gender || 'Not set'}</p>
+              </div>
             </div>
-            <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Display Name</label>
-              <p className="text-slate-900">{user.display_name || 'Not set'}</p>
+          </div>
+
+          {/* Account Status */}
+          <div>
+            <h4 className="text-lg font-semibold text-slate-900 mb-4">Account Status</h4>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-1">Subscription</label>
+                <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
+                  user.subscription_tier === 'boost' ? 'bg-green-100 text-green-800' :
+                  user.subscription_tier === 'scale' ? 'bg-blue-100 text-blue-800' :
+                  'bg-slate-100 text-slate-800'
+                }`}>
+                  {user.subscription_tier || 'lunch'}
+                </span>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-1">Status</label>
+                <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
+                  user.is_active ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+                }`}>
+                  {user.is_active ? 'Active' : 'Inactive'}
+                </span>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-1">Verification</label>
+                <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
+                  user.is_verified ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'
+                }`}>
+                  {user.is_verified ? 'Verified' : 'Unverified'}
+                </span>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-1">Admin Status</label>
+                <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
+                  user.is_admin ? 'bg-red-100 text-red-800' : 'bg-slate-100 text-slate-800'
+                }`}>
+                  {user.is_admin ? 'Administrator' : 'Regular User'}
+                </span>
+              </div>
             </div>
+          </div>
+
+          {/* Social Links */}
+          {Object.keys(user.social_links).length > 0 && (
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Subscription</label>
-              <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
-                user.subscription_tier === 'boost' ? 'bg-green-100 text-green-800' :
-                user.subscription_tier === 'scale' ? 'bg-blue-100 text-blue-800' :
-                'bg-slate-100 text-slate-800'
-              }`}>
-                {user.subscription_tier || 'lunch'}
-              </span>
+              <h4 className="text-lg font-semibold text-slate-900 mb-4">Social Links</h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {Object.entries(user.social_links).map(([platform, url]) => (
+                  <div key={platform}>
+                    <label className="block text-sm font-medium text-slate-700 mb-1 capitalize">{platform}</label>
+                    <a href={url} target="_blank" rel="noopener noreferrer" className="text-green-600 hover:text-green-700 text-sm">
+                      {url}
+                    </a>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Preferences */}
+          <div>
+            <h4 className="text-lg font-semibold text-slate-900 mb-4">Preferences</h4>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-1">Language</label>
+                <p className="text-slate-900">{user.language || 'English'}</p>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-1">Timezone</label>
+                <p className="text-slate-900">{user.timezone || 'Not set'}</p>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-1">Profile Visibility</label>
+                <p className="text-slate-900 capitalize">{user.profile_visibility || 'Public'}</p>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-1">Email Notifications</label>
+                <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
+                  user.email_notifications ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+                }`}>
+                  {user.email_notifications ? 'Enabled' : 'Disabled'}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* Activity */}
+          <div>
+            <h4 className="text-lg font-semibold text-slate-900 mb-4">Activity</h4>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-1">Last Login</label>
+                <p className="text-slate-900">{user.last_login ? new Date(user.last_login).toLocaleString() : 'Never'}</p>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-1">Login Count</label>
+                <p className="text-slate-900">{user.login_count || 0}</p>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-1">Account Created</label>
+                <p className="text-slate-900">{new Date(user.created_at).toLocaleDateString()}</p>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-1">Last Updated</label>
+                <p className="text-slate-900">{new Date(user.updated_at).toLocaleDateString()}</p>
+              </div>
             </div>
           </div>
         </div>
@@ -539,7 +705,7 @@ const AccountTab: React.FC<{ user: UnifiedUser }> = ({ user }) => (
   </div>
 );
 
-const SettingsTab: React.FC<{ user: UnifiedUser }> = ({ user }) => (
+const SettingsTab: React.FC<{ user: CompleteUserProfile }> = ({ user }) => (
   <div>
     <div className="mb-6">
       <h2 className="text-2xl font-semibold text-slate-900 mb-2">Settings</h2>
