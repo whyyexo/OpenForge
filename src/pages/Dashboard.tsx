@@ -2,6 +2,7 @@ import React from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '../lib/supabase';
+import SubscriptionManager from '../components/SubscriptionManager';
 
 const Dashboard: React.FC = () => {
   const { user, profile, isAdmin } = useAuth();
@@ -127,7 +128,21 @@ const Dashboard: React.FC = () => {
             </div>
             <div>
               <p className="text-gray-400 text-sm font-medium mb-1">Plan d'abonnement</p>
-              <p className="text-[#EAEAEA] font-medium capitalize">{profile?.subscription_tier || 'Lunch'}</p>
+              <div className="flex items-center space-x-2">
+                <span className={`px-2 py-1 rounded-full text-xs font-medium border ${
+                  profile?.subscription === 'Lunch' ? 'bg-green-500/20 text-green-400 border-green-500/30' :
+                  profile?.subscription === 'Boost' ? 'bg-blue-500/20 text-blue-400 border-blue-500/30' :
+                  profile?.subscription === 'Scale' ? 'bg-purple-500/20 text-purple-400 border-purple-500/30' :
+                  'bg-gray-500/20 text-gray-400 border-gray-500/30'
+                }`}>
+                  {profile?.subscription || 'Lunch'}
+                </span>
+                <span className="text-xs text-gray-500">
+                  {profile?.subscription === 'Lunch' ? 'Gratuit' :
+                   profile?.subscription === 'Boost' ? '20 USD/mois' :
+                   profile?.subscription === 'Scale' ? '35 USD/mois' : 'Gratuit'}
+                </span>
+              </div>
             </div>
             <div>
               <p className="text-gray-400 text-sm font-medium mb-1">Date de création</p>
@@ -160,12 +175,25 @@ const Dashboard: React.FC = () => {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-gray-400 text-sm font-medium">Abonnement</p>
-                <p className="text-xl font-semibold text-[#EAEAEA] mt-1 capitalize">
-                  {profile?.subscription_tier || 'Lunch'}
+                <p className="text-xl font-semibold text-[#EAEAEA] mt-1">
+                  {profile?.subscription || 'Lunch'}
+                </p>
+                <p className="text-xs text-gray-500">
+                  {profile?.subscription === 'Lunch' ? 'Gratuit' :
+                   profile?.subscription === 'Boost' ? '20 USD/mois' :
+                   profile?.subscription === 'Scale' ? '35 USD/mois' : 'Gratuit'}
                 </p>
               </div>
-              <div className="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center">
-                <svg className="w-6 h-6 text-blue-400" fill="currentColor" viewBox="0 0 20 20">
+              <div className={`w-12 h-12 rounded-lg flex items-center justify-center ${
+                profile?.subscription === 'Lunch' ? 'bg-green-500/20' :
+                profile?.subscription === 'Boost' ? 'bg-blue-500/20' :
+                profile?.subscription === 'Scale' ? 'bg-purple-500/20' : 'bg-gray-500/20'
+              }`}>
+                <svg className={`w-6 h-6 ${
+                  profile?.subscription === 'Lunch' ? 'text-green-400' :
+                  profile?.subscription === 'Boost' ? 'text-blue-400' :
+                  profile?.subscription === 'Scale' ? 'text-purple-400' : 'text-gray-400'
+                }`} fill="currentColor" viewBox="0 0 20 20">
                   <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                 </svg>
               </div>
@@ -195,8 +223,11 @@ const Dashboard: React.FC = () => {
           </div>
         </div>
 
+        {/* Gestion des abonnements */}
+        <SubscriptionManager />
+
         {/* Debug Information */}
-        <div className="bg-[#181B22] rounded-lg p-6 border border-gray-700 shadow-sm">
+        <div className="bg-[#181B22] rounded-lg p-6 border border-gray-700 shadow-sm mt-8">
           <h3 className="text-lg font-semibold text-[#EAEAEA] mb-4">Debug Information</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>

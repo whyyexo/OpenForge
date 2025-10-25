@@ -1,5 +1,6 @@
 import React from 'react';
 import { useAuth } from '../contexts/AuthContext';
+import SubscriptionStats from '../components/SubscriptionStats';
 
 const Admin: React.FC = () => {
   const { user, profile } = useAuth();
@@ -51,50 +52,8 @@ const Admin: React.FC = () => {
           </div>
         </div>
 
-        {/* Statistiques globales Section */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          <div className="bg-[#181B22] rounded-lg p-6 border border-gray-700 shadow-sm">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-gray-400 text-sm font-medium">Total Utilisateurs</p>
-                <p className="text-2xl font-semibold text-[#EAEAEA] mt-1">-</p>
-              </div>
-              <div className="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center">
-                <svg className="w-6 h-6 text-blue-400" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z" />
-                </svg>
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-[#181B22] rounded-lg p-6 border border-gray-700 shadow-sm">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-gray-400 text-sm font-medium">Utilisateurs Actifs</p>
-                <p className="text-2xl font-semibold text-[#EAEAEA] mt-1">-</p>
-              </div>
-              <div className="w-12 h-12 bg-green-500/20 rounded-lg flex items-center justify-center">
-                <svg className="w-6 h-6 text-green-400" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                </svg>
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-[#181B22] rounded-lg p-6 border border-gray-700 shadow-sm">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-gray-400 text-sm font-medium">Administrateurs</p>
-                <p className="text-2xl font-semibold text-[#EAEAEA] mt-1">-</p>
-              </div>
-              <div className="w-12 h-12 bg-red-500/20 rounded-lg flex items-center justify-center">
-                <svg className="w-6 h-6 text-red-400" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-              </div>
-            </div>
-          </div>
-        </div>
+        {/* Statistiques des abonnements */}
+        <SubscriptionStats />
 
         {/* Admin Profile Info */}
         <div className="bg-[#181B22] rounded-lg p-6 border border-gray-700 shadow-sm">
