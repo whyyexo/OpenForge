@@ -30,7 +30,7 @@ const DashboardApp: React.FC = () => {
   return (
     <Routes>
       <Route
-        path="/dashboard"
+        path="/"
         element={
           <DashboardLayout>
             <Dashboard />
@@ -69,7 +69,6 @@ const DashboardApp: React.FC = () => {
           </DashboardLayout>
         }
       />
-      <Route path="/" element={<Navigate to="/dashboard" replace />} />
     </Routes>
   );
 };

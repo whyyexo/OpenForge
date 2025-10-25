@@ -42,51 +42,56 @@ const WebsiteNavigation: React.FC = () => {
   return (
     <nav className="bg-[#181B22] border-b border-gray-700 px-6 py-3 fixed top-0 left-0 right-0 z-50">
       <div className="flex items-center justify-between w-full">
-        {/* Logo */}
-        <div className="flex items-center">
+        {/* Logo et liens */}
+        <div className="flex items-center space-x-6">
           <a 
-            href={EXTERNAL_LINKS.FIVERFLOW} 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="flex items-center hover:opacity-80 transition-opacity"
+            onClick={() => navigate('/')}
+            className="flex items-center hover:opacity-80 transition-opacity cursor-pointer"
           >
             <img 
               src={logo} 
               alt="OpenForge Logo" 
-              className="h-8 w-auto"
+              className="h-6 w-auto"
             />
           </a>
-        </div>
+          
+          {/* Ligne de séparation */}
+          <div className="w-px h-6 bg-gray-600 transform rotate-12"></div>
 
-        {/* Menu central */}
-        <div className="hidden md:flex items-center space-x-6">
-          {/* Products Dropdown */}
-          <div className="relative" ref={productsRef}>
-            <button
-              onClick={() => setIsProductsOpen(!isProductsOpen)}
-              className="flex items-center space-x-1 text-gray-300 hover:text-[#EAEAEA] transition-colors text-sm"
-            >
-              <span>Products</span>
-              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
-              </svg>
-            </button>
+          {/* Menu central */}
+          <div className="hidden md:flex items-center space-x-6">
+            {/* Products Dropdown */}
+            <div className="relative" ref={productsRef}>
+              <button
+                onMouseEnter={() => setIsProductsOpen(true)}
+                onMouseLeave={() => setIsProductsOpen(false)}
+                className="flex items-center space-x-1 text-gray-300 hover:text-[#EAEAEA] transition-colors text-sm"
+              >
+                <span>Products</span>
+                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
+                </svg>
+              </button>
 
-            {isProductsOpen && (
-              <div className="absolute top-full left-0 mt-2 w-48 bg-[#181B22] border border-gray-700 rounded-lg shadow-lg z-50">
-                <div className="py-2">
-                  <a 
-                    href={EXTERNAL_LINKS.FIVERFLOW_APP} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-[#EAEAEA] transition-colors"
-                  >
-                    FiverFlow
-                  </a>
+              {isProductsOpen && (
+                <div 
+                  className="absolute top-full left-0 mt-2 w-48 bg-[#181B22] border border-gray-700 rounded-lg shadow-lg z-50"
+                  onMouseEnter={() => setIsProductsOpen(true)}
+                  onMouseLeave={() => setIsProductsOpen(false)}
+                >
+                  <div className="py-2">
+                    <a 
+                      href={EXTERNAL_LINKS.FIVERFLOW_APP} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-[#EAEAEA] transition-colors"
+                    >
+                      FiverFlow
+                    </a>
+                  </div>
                 </div>
-              </div>
-            )}
-          </div>
+              )}
+            </div>
 
           {/* Pricing */}
           <button
@@ -106,49 +111,55 @@ const WebsiteNavigation: React.FC = () => {
             Docs
           </a>
 
-          {/* More Dropdown */}
-          <div className="relative" ref={moreRef}>
-            <button
-              onClick={() => setIsMoreOpen(!isMoreOpen)}
-              className="flex items-center space-x-1 text-gray-300 hover:text-[#EAEAEA] transition-colors text-sm"
-            >
-              <span>More</span>
-              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
-              </svg>
-            </button>
+            {/* More Dropdown */}
+            <div className="relative" ref={moreRef}>
+              <button
+                onMouseEnter={() => setIsMoreOpen(true)}
+                onMouseLeave={() => setIsMoreOpen(false)}
+                className="flex items-center space-x-1 text-gray-300 hover:text-[#EAEAEA] transition-colors text-sm"
+              >
+                <span>More</span>
+                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
+                </svg>
+              </button>
 
-            {isMoreOpen && (
-              <div className="absolute top-full left-0 mt-2 w-48 bg-[#181B22] border border-gray-700 rounded-lg shadow-lg z-50">
-                <div className="py-2">
-                  <a 
-                    href={EXTERNAL_LINKS.COMMUNITY} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-[#EAEAEA] transition-colors"
-                  >
-                    {t.community}
-                  </a>
-                  <a 
-                    href={EXTERNAL_LINKS.CAREER} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-[#EAEAEA] transition-colors"
-                  >
-                    {t.career}
-                  </a>
-                  <div className="border-t border-gray-700 my-1"></div>
-                  <a 
-                    href={EXTERNAL_LINKS.LEGAL} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-[#EAEAEA] transition-colors"
-                  >
-                    {t.legal}
-                  </a>
+              {isMoreOpen && (
+                <div 
+                  className="absolute top-full left-0 mt-2 w-48 bg-[#181B22] border border-gray-700 rounded-lg shadow-lg z-50"
+                  onMouseEnter={() => setIsMoreOpen(true)}
+                  onMouseLeave={() => setIsMoreOpen(false)}
+                >
+                  <div className="py-2">
+                    <a 
+                      href={EXTERNAL_LINKS.COMMUNITY} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-[#EAEAEA] transition-colors"
+                    >
+                      {t.community}
+                    </a>
+                    <a 
+                      href={EXTERNAL_LINKS.CAREER} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-[#EAEAEA] transition-colors"
+                    >
+                      {t.career}
+                    </a>
+                    <div className="border-t border-gray-700 my-1"></div>
+                    <a 
+                      href={EXTERNAL_LINKS.LEGAL} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-[#EAEAEA] transition-colors"
+                    >
+                      {t.legal}
+                    </a>
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
+            </div>
           </div>
         </div>
 
