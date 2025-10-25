@@ -62,7 +62,7 @@ const StripeButton: React.FC<StripeButtonProps> = ({
     <button
       onClick={handleSubscribe}
       disabled={loading}
-      className={`w-full py-3 px-6 rounded-lg font-medium transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed ${className}`}
+      className={`w-full py-3 px-6 rounded-lg font-medium transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed bg-[#181B22] text-[#EAEAEA] hover:bg-[#2a2d35] ${className}`}
     >
       {loading ? (
         <div className="flex items-center justify-center">

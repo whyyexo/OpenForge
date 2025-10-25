@@ -73,14 +73,14 @@ const Pricing: React.FC = () => {
   // };
 
   return (
-    <div className="min-h-screen bg-[#0f1117] pt-24 pb-16">
+    <div className="min-h-screen bg-[#0f1117] pt-40 pb-16">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-20">
-          <h1 className="text-4xl font-medium text-[#EAEAEA] mb-4">
+          <h1 className="text-[56px] font-medium text-[#EAEAEA] mb-4">
             Simple, transparent pricing
           </h1>
-          <p className="text-xl text-gray-400 max-w-3xl mx-auto">
+          <p className="text-[15px] text-gray-400 max-w-3xl mx-auto">
             Start with a free account to speed up your workflow on public projects or boost your entire team with instantly-opening production environments.
           </p>
         </div>
@@ -90,20 +90,8 @@ const Pricing: React.FC = () => {
           {plans.map((plan) => (
             <div
               key={plan.name}
-              className={`relative rounded-lg p-8 h-full ${
-                plan.popular
-                  ? 'bg-gradient-to-br from-[#181B22] to-[#00E38C]/20 border border-[#00E38C]/30'
-                  : 'bg-[#181B22] border border-gray-600'
-              }`}
+              className="relative rounded-lg p-8 h-full bg-[#181B22] border border-gray-600"
             >
-              {plan.popular && (
-                <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
-                  <span className="bg-[#00E38C] text-black px-3 py-1 rounded-full text-sm font-medium">
-                    Most Popular
-                  </span>
-                </div>
-              )}
-
               <div className="text-left mb-8">
                 <h3 className="text-2xl font-medium text-[#EAEAEA] mb-2">{plan.name}</h3>
                 <p className="text-gray-400 mb-4">{plan.description}</p>
@@ -113,28 +101,9 @@ const Pricing: React.FC = () => {
                 </div>
               </div>
 
-              <ul className="space-y-3 mb-8 text-left">
-                {plan.features.map((feature, index) => (
-                  <li key={index} className="flex items-start">
-                    <svg
-                      className="w-5 h-5 text-[#00E38C] mr-3 mt-0.5 flex-shrink-0"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                    <span className="text-[#EAEAEA]">{feature}</span>
-                  </li>
-                ))}
-              </ul>
-
               {plan.name === 'Personal' ? (
                 <button
-                  className="w-full py-3 px-6 rounded-lg font-medium transition-colors duration-200 bg-gray-700 text-[#EAEAEA] hover:bg-gray-600"
+                  className="w-full py-3 px-6 rounded-lg font-medium transition-colors duration-200 bg-[#181B22] text-[#EAEAEA] hover:bg-[#2a2d35] mb-8"
                   onClick={() => {
                     alert('Personal plan is free!');
                   }}
@@ -145,28 +114,53 @@ const Pricing: React.FC = () => {
                 <StripeButton
                   planName={plan.name}
                   priceId={plan.priceId!}
-                  className="w-full py-3 px-6 rounded-lg font-medium transition-colors duration-200 bg-gray-700 text-[#EAEAEA] hover:bg-gray-600"
+                  className="w-full py-3 px-6 rounded-lg font-medium transition-colors duration-200 bg-[#181B22] text-[#EAEAEA] hover:bg-[#2a2d35] mb-8"
                 />
               )}
+
+              <ul className="space-y-3 text-left">
+                {plan.features.map((feature, index) => (
+                  <li key={index} className="flex items-start">
+                    {feature.startsWith('Everything in') ? (
+                      <span className="text-[13px] font-bold text-[#EAEAEA]">{feature}</span>
+                    ) : (
+                      <>
+                        <svg
+                          className="w-5 h-5 text-[#00E38C] mr-3 mt-0.5 flex-shrink-0"
+                          fill="currentColor"
+                          viewBox="0 0 20 20"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                            clipRule="evenodd"
+                          />
+                        </svg>
+                        <span className="text-[13px] text-[#EAEAEA]">{feature}</span>
+                      </>
+                    )}
+                  </li>
+                ))}
+              </ul>
             </div>
           ))}
         </div>
 
         {/* FAQ Section */}
-        <div className="mt-24 text-center">
-          <h2 className="text-2xl font-medium text-[#EAEAEA] mb-8">Frequently Asked Questions</h2>
-          <div className="max-w-3xl mx-auto space-y-6">
-            <div className="bg-[#181B22] rounded-lg p-6 border border-gray-600">
+        <div className="mt-24">
+          <h2 className="text-3xl font-medium text-[#EAEAEA] mb-8 text-left">Frequently Asked Questions</h2>
+          <div className="max-w-3xl space-y-8">
+            <div>
               <h3 className="text-lg font-medium text-[#EAEAEA] mb-2">Can I change plans anytime?</h3>
-              <p className="text-gray-400">Yes, you can upgrade or downgrade your plan at any time. Changes take effect immediately.</p>
+              <p className="text-[#EAEAEA]">Yes, you can upgrade or downgrade your plan at any time. Changes take effect immediately.</p>
             </div>
-            <div className="bg-[#181B22] rounded-lg p-6 border border-gray-600">
+            <div>
               <h3 className="text-lg font-medium text-[#EAEAEA] mb-2">What payment methods do you accept?</h3>
-              <p className="text-gray-400">We accept all major credit cards, PayPal, and bank transfers through Stripe.</p>
+              <p className="text-[#EAEAEA]">We accept all major credit cards, PayPal, and bank transfers through Stripe.</p>
             </div>
-            <div className="bg-[#181B22] rounded-lg p-6 border border-gray-600">
+            <div>
               <h3 className="text-lg font-medium text-[#EAEAEA] mb-2">Is there a free trial?</h3>
-              <p className="text-gray-400">Yes! The Personal plan is completely free forever. No credit card required.</p>
+              <p className="text-[#EAEAEA]">Yes! The Personal plan is completely free forever. No credit card required.</p>
             </div>
           </div>
         </div>
