@@ -1,6 +1,7 @@
 import React from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import { supabase } from '../lib/supabase';
 
 const Dashboard: React.FC = () => {
   const { user, profile, isAdmin } = useAuth();
@@ -15,6 +16,20 @@ const Dashboard: React.FC = () => {
     // Fonction temporaire pour tester l'admin
     console.log('🔧 Force admin mode (temporary)');
     // Cette fonction sera supprimée en production
+  };
+
+  const handleListAllProfiles = async () => {
+    console.log('🔍 Listing all profiles...');
+    try {
+      const { data, error } = await supabase
+        .from('profiles')
+        .select('*')
+        .limit(10);
+      
+      console.log('📋 All profiles:', { data, error });
+    } catch (err) {
+      console.error('❌ Error listing profiles:', err);
+    }
   };
 
   return (
@@ -48,6 +63,12 @@ const Dashboard: React.FC = () => {
                 className="px-4 py-2 bg-yellow-600 text-white rounded-lg font-medium hover:bg-yellow-700 transition-colors"
               >
                 🔧 Debug Admin
+              </button>
+              <button
+                onClick={handleListAllProfiles}
+                className="px-4 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors"
+              >
+                📋 List Profiles
               </button>
             </div>
           </div>

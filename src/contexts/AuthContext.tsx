@@ -82,6 +82,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const fetchProfile = async (userId: string) => {
     try {
       console.log('🔍 Fetching profile for user:', userId);
+      console.log('📧 User email:', user?.email);
       
       // Essayer d'abord avec user_id
       let { data, error } = await supabase
@@ -89,6 +90,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         .select('*')
         .eq('user_id', userId)
         .single();
+
+      console.log('🔍 First attempt result:', { data, error });
 
       // Si pas trouvé, essayer avec l'ID direct
       if (error && error.code === 'PGRST116') {
@@ -99,8 +102,27 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           .eq('id', userId)
           .single();
         
+        console.log('🔍 Second attempt result:', { data: data2, error: error2 });
+        
         if (!error2) {
           data = data2;
+          error = null;
+        }
+      }
+
+      // Si toujours pas trouvé, essayer avec l'email
+      if (error && user?.email) {
+        console.log('🔄 Trying with email...');
+        const { data: data3, error: error3 } = await supabase
+          .from('profiles')
+          .select('*')
+          .eq('email', user.email)
+          .single();
+        
+        console.log('🔍 Third attempt result:', { data: data3, error: error3 });
+        
+        if (!error3) {
+          data = data3;
           error = null;
         }
       }
