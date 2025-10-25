@@ -30,6 +30,35 @@ const ProtectedLoginRoute: React.FC<{ children: React.ReactNode }> = ({ children
   return <>{children}</>;
 };
 
+// Protected Route Component for Dashboard
+const ProtectedRoute: React.FC<{ children: React.ReactNode; requireAdmin?: boolean }> = ({ 
+  children, 
+  requireAdmin = false 
+}) => {
+  const { user, loading, isAdmin } = useAuth();
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-[#0f1117] flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-8 h-8 border-2 border-[#00E38C] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-gray-400">Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (!user) {
+    return <Navigate to="/login" replace />;
+  }
+
+  if (requireAdmin && !isAdmin) {
+    return <Navigate to="/dashboard" replace />;
+  }
+
+  return <>{children}</>;
+};
+
 // Main App Component
 const App: React.FC = () => {
   return (
@@ -49,12 +78,32 @@ const App: React.FC = () => {
               } 
             />
             
-            {/* Dashboard Routes */}
-            <Route path="/dashboard/*" element={<DashboardApp />} />
-            <Route path="/admin/*" element={<DashboardApp />} />
-            <Route path="/profile/*" element={<DashboardApp />} />
-            <Route path="/settings/*" element={<DashboardApp />} />
-            <Route path="/team/*" element={<DashboardApp />} />
+            {/* Dashboard Routes - Protected */}
+            <Route path="/dashboard/*" element={
+              <ProtectedRoute>
+                <DashboardApp />
+              </ProtectedRoute>
+            } />
+            <Route path="/admin/*" element={
+              <ProtectedRoute requireAdmin={true}>
+                <DashboardApp />
+              </ProtectedRoute>
+            } />
+            <Route path="/profile/*" element={
+              <ProtectedRoute>
+                <DashboardApp />
+              </ProtectedRoute>
+            } />
+            <Route path="/settings/*" element={
+              <ProtectedRoute>
+                <DashboardApp />
+              </ProtectedRoute>
+            } />
+            <Route path="/team/*" element={
+              <ProtectedRoute>
+                <DashboardApp />
+              </ProtectedRoute>
+            } />
           </Routes>
         </Router>
       </AuthProvider>

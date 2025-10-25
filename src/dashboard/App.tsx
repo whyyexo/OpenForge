@@ -9,34 +9,6 @@ import Profile from './pages/Profile';
 import Settings from './pages/Settings';
 import Team from './pages/Team';
 
-// Protected Route Component
-const ProtectedRoute: React.FC<{ children: React.ReactNode; requireAdmin?: boolean }> = ({ 
-  children, 
-  requireAdmin = false 
-}) => {
-  const { user, loading, isAdmin } = useAuth();
-
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-[#0f1117] flex items-center justify-center">
-        <div className="text-center">
-          <div className="w-8 h-8 border-2 border-[#00E38C] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-gray-400">Loading...</p>
-        </div>
-      </div>
-    );
-  }
-
-  if (!user) {
-    return <Navigate to="/login" replace />;
-  }
-
-  if (requireAdmin && !isAdmin) {
-    return <Navigate to="/dashboard" replace />;
-  }
-
-  return <>{children}</>;
-};
 
 // Dashboard Layout
 const DashboardLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -60,51 +32,41 @@ const DashboardApp: React.FC = () => {
       <Route
         path="/dashboard"
         element={
-          <ProtectedRoute>
-            <DashboardLayout>
-              <Dashboard />
-            </DashboardLayout>
-          </ProtectedRoute>
+          <DashboardLayout>
+            <Dashboard />
+          </DashboardLayout>
         }
       />
       <Route
         path="/admin"
         element={
-          <ProtectedRoute requireAdmin={true}>
-            <DashboardLayout>
-              <Admin />
-            </DashboardLayout>
-          </ProtectedRoute>
+          <DashboardLayout>
+            <Admin />
+          </DashboardLayout>
         }
       />
       <Route
         path="/profile"
         element={
-          <ProtectedRoute>
-            <DashboardLayout>
-              <Profile />
-            </DashboardLayout>
-          </ProtectedRoute>
+          <DashboardLayout>
+            <Profile />
+          </DashboardLayout>
         }
       />
       <Route
         path="/settings"
         element={
-          <ProtectedRoute>
-            <DashboardLayout>
-              <Settings />
-            </DashboardLayout>
-          </ProtectedRoute>
+          <DashboardLayout>
+            <Settings />
+          </DashboardLayout>
         }
       />
       <Route
         path="/team"
         element={
-          <ProtectedRoute>
-            <DashboardLayout>
-              <Team />
-            </DashboardLayout>
-          </ProtectedRoute>
+          <DashboardLayout>
+            <Team />
+          </DashboardLayout>
         }
       />
       <Route path="/" element={<Navigate to="/dashboard" replace />} />
