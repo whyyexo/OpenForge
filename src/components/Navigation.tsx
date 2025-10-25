@@ -1,12 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '../contexts/LanguageContext';
 import { EXTERNAL_LINKS } from '../config/links';
 import logo from './icons/Icon - Vert.png';
 
 const Navigation: React.FC = () => {
-  const { user, profile, signOut } = useAuth();
   const navigate = useNavigate();
   const { t, language, setLanguage } = useLanguage();
   const [isProfileOpen, setIsProfileOpen] = useState(false);
@@ -35,7 +33,7 @@ const Navigation: React.FC = () => {
   }, []);
 
   const handleSignOut = async () => {
-    await signOut();
+    // Sign out logic here
     navigate('/login');
   };
 
