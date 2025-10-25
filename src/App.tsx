@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { LanguageProvider } from './contexts/LanguageContext';
 import Navigation from './components/Navigation';
+import WebsiteNavigation from './components/WebsiteNavigation';
 import Landing from './pages/Landing';
 import Login from './pages/Login';
 import Pricing from './pages/Pricing';
@@ -67,13 +68,32 @@ const App: React.FC = () => {
         <Router>
           <Routes>
             {/* Public Routes */}
-            <Route path="/" element={<Landing />} />
-            <Route path="/pricing" element={<Pricing />} />
+            <Route path="/" element={
+              <div className="min-h-screen bg-[#0f1117]">
+                <WebsiteNavigation />
+                <div className="pt-16">
+                  <Landing />
+                </div>
+              </div>
+            } />
+            <Route path="/pricing" element={
+              <div className="min-h-screen bg-[#0f1117]">
+                <WebsiteNavigation />
+                <div className="pt-16">
+                  <Pricing />
+                </div>
+              </div>
+            } />
             <Route 
               path="/login" 
               element={
                 <ProtectedLoginRoute>
-                  <Login />
+                  <div className="min-h-screen bg-[#0f1117]">
+                    <WebsiteNavigation />
+                    <div className="pt-16">
+                      <Login />
+                    </div>
+                  </div>
                 </ProtectedLoginRoute>
               } 
             />

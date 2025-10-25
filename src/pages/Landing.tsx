@@ -1,16 +1,13 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import Navigation from '../components/Navigation';
 
 const Landing: React.FC = () => {
   const navigate = useNavigate();
 
   return (
     <div className="min-h-screen bg-[#0f1117]">
-      <Navigation />
-      
       {/* Hero Section */}
-      <div className="pt-20 pb-16">
+      <div className="pt-8 pb-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h1 className="text-5xl font-bold text-[#EAEAEA] mb-6">
