@@ -86,7 +86,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       
       // Essayer d'abord avec user_id
       let { data, error } = await supabase
-        .from('profiles')
+        .from('user_profiles')
         .select('*')
         .eq('user_id', userId)
         .single();
@@ -97,7 +97,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       if (error && error.code === 'PGRST116') {
         console.log('🔄 Trying with direct ID...');
         const { data: data2, error: error2 } = await supabase
-          .from('profiles')
+          .from('user_profiles')
           .select('*')
           .eq('id', userId)
           .single();
@@ -114,7 +114,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       if (error && user?.email) {
         console.log('🔄 Trying with email...');
         const { data: data3, error: error3 } = await supabase
-          .from('profiles')
+          .from('user_profiles')
           .select('*')
           .eq('email', user.email)
           .single();
@@ -143,7 +143,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         
         try {
           const { data: createdProfile, error: createError } = await supabase
-            .from('profiles')
+            .from('user_profiles')
             .insert(newProfile)
             .select()
             .single();

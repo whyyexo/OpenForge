@@ -22,7 +22,7 @@ const Dashboard: React.FC = () => {
     console.log('🔍 Listing all profiles...');
     try {
       const { data, error } = await supabase
-        .from('profiles')
+        .from('user_profiles')
         .select('*')
         .limit(10);
       
