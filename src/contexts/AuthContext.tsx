@@ -229,7 +229,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     await supabase.auth.signOut();
   };
 
-  const isAdmin = profile?.is_admin || false;
+  const isAdmin = profile?.role === 'admin';
 
   const value = {
     user,

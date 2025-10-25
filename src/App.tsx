@@ -10,6 +10,7 @@ import Admin from './pages/Admin';
 import Profile from './pages/Profile';
 import Settings from './pages/Settings';
 import Team from './pages/Team';
+import Pricing from './pages/Pricing';
 
 // Protected Route Component
 const ProtectedRoute: React.FC<{ children: React.ReactNode; requireAdmin?: boolean }> = ({ 
@@ -113,6 +114,7 @@ const App: React.FC = () => {
                 </ProtectedRoute>
               }
             />
+            <Route path="/pricing" element={<Pricing />} />
             <Route path="/" element={<Navigate to="/dashboard" replace />} />
           </Routes>
         </Router>
