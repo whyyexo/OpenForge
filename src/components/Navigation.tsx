@@ -58,14 +58,6 @@ const Navigation: React.FC = () => {
             <div className="w-px h-6 bg-gray-600 transform rotate-12"></div>
             
             {/* Dashboard */}
-            <button
-              onClick={() => navigate('/dashboard')}
-              className="p-1 rounded hover:bg-gray-700 transition-colors"
-            >
-              <svg className="w-5 h-5 text-gray-300" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.207A1 1 0 013 6.5V4z" clipRule="evenodd" />
-              </svg>
-            </button>
           </div>
 
           {/* Liens de navigation */}
