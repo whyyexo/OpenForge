@@ -154,10 +154,10 @@ const SupabaseDashboard: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-slate-900 flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-8 w-8 border-2 border-green-600 border-t-transparent mx-auto mb-4"></div>
-          <p className="text-slate-600 text-sm">Loading...</p>
+          <p className="text-slate-300 text-sm">Loading...</p>
         </div>
       </div>
     );
@@ -165,7 +165,7 @@ const SupabaseDashboard: React.FC = () => {
 
   if (!user) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
+      <div className="min-h-screen bg-slate-900 flex items-center justify-center p-4">
         <div className="max-w-md w-full">
           {/* Supabase-style Header */}
           <div className="text-center mb-8">
@@ -174,12 +174,12 @@ const SupabaseDashboard: React.FC = () => {
                 <path d="M21.362 9.354H12V.396a.396.396 0 0 0-.716-.233L2.203 12.424l-.401.562a1.04 1.04 0 0 0 .836 1.659H12v8.959a.396.396 0 0 0 .716.233l9.081-12.261.401-.562a1.04 1.04 0 0 0-.836-1.66z"/>
               </svg>
             </div>
-            <h1 className="text-2xl font-semibold text-slate-900 mb-2">NeuroFlow</h1>
-            <p className="text-slate-600">Unified Dashboard & Account Management</p>
+            <h1 className="text-2xl font-semibold text-white mb-2">NeuroFlow</h1>
+            <p className="text-slate-300">Unified Dashboard & Account Management</p>
           </div>
 
           {/* Supabase-style Auth Card */}
-          <div className="bg-white rounded-lg border border-slate-200 shadow-sm">
+          <div className="bg-slate-800 rounded-lg border border-slate-700 shadow-sm">
             {showAuth ? (
               <AuthForm 
                 onSignIn={handleSignIn}
@@ -208,9 +208,9 @@ const SupabaseDashboard: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-slate-900">
       {/* Supabase-style Header */}
-      <header className="bg-white border-b border-slate-200">
+      <header className="bg-slate-800 border-b border-slate-700">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
@@ -219,16 +219,16 @@ const SupabaseDashboard: React.FC = () => {
                   <path d="M21.362 9.354H12V.396a.396.396 0 0 0-.716-.233L2.203 12.424l-.401.562a1.04 1.04 0 0 0 .836 1.659H12v8.959a.396.396 0 0 0 .716.233l9.081-12.261.401-.562a1.04 1.04 0 0 0-.836-1.66z"/>
                 </svg>
               </div>
-              <h1 className="text-lg font-semibold text-slate-900">NeuroFlow</h1>
+              <h1 className="text-lg font-semibold text-white">NeuroFlow</h1>
             </div>
             
             <div className="flex items-center space-x-4">
-              <div className="text-sm text-slate-600">
+              <div className="text-sm text-slate-300">
                 {user.email}
               </div>
               <button
                 onClick={handleSignOut}
-                className="text-slate-500 hover:text-slate-700 px-3 py-2 rounded-lg hover:bg-slate-100 text-sm"
+                className="text-slate-300 hover:text-white px-3 py-2 rounded-lg hover:bg-slate-700 text-sm"
               >
                 Sign Out
               </button>
@@ -239,7 +239,7 @@ const SupabaseDashboard: React.FC = () => {
 
       {/* Supabase-style Sidebar */}
       <div className="flex">
-        <div className="w-64 bg-white border-r border-slate-200 min-h-screen">
+        <div className="w-64 bg-slate-800 border-r border-slate-700 min-h-screen">
           <nav className="p-4 space-y-1">
             {[
               { id: 'overview', name: 'Overview', icon: '📊' },
@@ -252,8 +252,8 @@ const SupabaseDashboard: React.FC = () => {
                 onClick={() => setActiveTab(tab.id)}
                 className={`w-full flex items-center px-3 py-2 text-sm font-medium rounded-lg transition-colors ${
                   activeTab === tab.id
-                    ? 'bg-green-50 text-green-700 border border-green-200'
-                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
+                    ? 'bg-green-600 text-white'
+                    : 'text-slate-300 hover:text-white hover:bg-slate-700'
                 }`}
               >
                 <span className="mr-3">{tab.icon}</span>
@@ -315,12 +315,12 @@ const AuthForm: React.FC<{
   return (
     <div className="p-6">
       <div className="flex justify-between items-center mb-6">
-        <h2 className="text-xl font-semibold text-slate-900">
+        <h2 className="text-xl font-semibold text-white">
           {mode === 'signin' ? 'Sign In' : 'Sign Up'}
         </h2>
         <button
           onClick={onClose}
-          className="text-slate-400 hover:text-slate-600"
+          className="text-slate-400 hover:text-slate-300"
         >
           ✕
         </button>
@@ -329,41 +329,41 @@ const AuthForm: React.FC<{
       <form onSubmit={handleSubmit} className="space-y-4">
         {mode === 'signup' && (
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">
+            <label className="block text-sm font-medium text-slate-300 mb-1">
               Username
             </label>
             <input
               type="text"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 text-sm"
+              className="w-full px-3 py-2 border border-slate-600 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 text-sm"
               required
             />
           </div>
         )}
 
         <div>
-          <label className="block text-sm font-medium text-slate-700 mb-1">
+          <label className="block text-sm font-medium text-slate-300 mb-1">
             Email
           </label>
           <input
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 text-sm"
+            className="w-full px-3 py-2 border border-slate-600 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 text-sm"
             required
           />
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-slate-700 mb-1">
+          <label className="block text-sm font-medium text-slate-300 mb-1">
             Password
           </label>
           <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 text-sm"
+            className="w-full px-3 py-2 border border-slate-600 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 text-sm"
             required
           />
         </div>
@@ -399,12 +399,12 @@ const AuthForm: React.FC<{
 const OverviewTab: React.FC<{ user: CompleteUserProfile }> = ({ user }) => (
   <div>
     <div className="mb-6">
-      <h2 className="text-2xl font-semibold text-slate-900 mb-2">Welcome back, {user.display_name || user.username}!</h2>
-      <p className="text-slate-600">Here's what's happening with your account today.</p>
+      <h2 className="text-2xl font-semibold text-white mb-2">Welcome back, {user.display_name || user.username}!</h2>
+      <p className="text-slate-300">Here's what's happening with your account today.</p>
     </div>
 
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-      <div className="bg-white rounded-lg border border-slate-200 p-6">
+      <div className="bg-slate-800 rounded-lg border border-slate-700 p-6">
         <div className="flex items-center">
           <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
             <svg className="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -412,13 +412,13 @@ const OverviewTab: React.FC<{ user: CompleteUserProfile }> = ({ user }) => (
             </svg>
           </div>
           <div className="ml-4">
-            <p className="text-sm font-medium text-slate-600">Active Projects</p>
-            <p className="text-2xl font-semibold text-slate-900">0</p>
+            <p className="text-sm font-medium text-slate-300">Active Projects</p>
+            <p className="text-2xl font-semibold text-white">0</p>
           </div>
         </div>
       </div>
 
-      <div className="bg-white rounded-lg border border-slate-200 p-6">
+      <div className="bg-slate-800 rounded-lg border border-slate-700 p-6">
         <div className="flex items-center">
           <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
             <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -426,13 +426,13 @@ const OverviewTab: React.FC<{ user: CompleteUserProfile }> = ({ user }) => (
             </svg>
           </div>
           <div className="ml-4">
-            <p className="text-sm font-medium text-slate-600">Total Users</p>
-            <p className="text-2xl font-semibold text-slate-900">1</p>
+            <p className="text-sm font-medium text-slate-300">Total Users</p>
+            <p className="text-2xl font-semibold text-white">1</p>
           </div>
         </div>
       </div>
 
-      <div className="bg-white rounded-lg border border-slate-200 p-6">
+      <div className="bg-slate-800 rounded-lg border border-slate-700 p-6">
         <div className="flex items-center">
           <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
             <svg className="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -440,27 +440,27 @@ const OverviewTab: React.FC<{ user: CompleteUserProfile }> = ({ user }) => (
             </svg>
           </div>
           <div className="ml-4">
-            <p className="text-sm font-medium text-slate-600">Account Status</p>
-            <p className="text-2xl font-semibold text-slate-900">Active</p>
+            <p className="text-sm font-medium text-slate-300">Account Status</p>
+            <p className="text-2xl font-semibold text-white">Active</p>
           </div>
         </div>
       </div>
     </div>
 
     {/* Recent Activity */}
-    <div className="bg-white rounded-lg border border-slate-200">
-      <div className="px-6 py-4 border-b border-slate-200">
-        <h3 className="text-lg font-semibold text-slate-900">Recent Activity</h3>
+    <div className="bg-slate-800 rounded-lg border border-slate-700">
+      <div className="px-6 py-4 border-b border-slate-700">
+        <h3 className="text-lg font-semibold text-white">Recent Activity</h3>
       </div>
       <div className="p-6">
         <div className="text-center py-8">
-          <div className="w-12 h-12 bg-slate-100 rounded-lg flex items-center justify-center mx-auto mb-4">
+          <div className="w-12 h-12 bg-slate-700 rounded-lg flex items-center justify-center mx-auto mb-4">
             <svg className="w-6 h-6 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
             </svg>
           </div>
-          <h4 className="text-lg font-medium text-slate-900 mb-2">No recent activity</h4>
-          <p className="text-slate-600">Your recent activity will appear here.</p>
+          <h4 className="text-lg font-medium text-white mb-2">No recent activity</h4>
+          <p className="text-slate-300">Your recent activity will appear here.</p>
         </div>
       </div>
     </div>
@@ -470,14 +470,14 @@ const OverviewTab: React.FC<{ user: CompleteUserProfile }> = ({ user }) => (
 const ProjectsTab: React.FC<{ user: CompleteUserProfile }> = ({ user }) => (
   <div>
     <div className="mb-6">
-      <h2 className="text-2xl font-semibold text-slate-900 mb-2">Projects</h2>
-      <p className="text-slate-600">Manage your projects and applications.</p>
+      <h2 className="text-2xl font-semibold text-white mb-2">Projects</h2>
+      <p className="text-slate-300">Manage your projects and applications.</p>
     </div>
 
-    <div className="bg-white rounded-lg border border-slate-200">
-      <div className="px-6 py-4 border-b border-slate-200">
+    <div className="bg-slate-800 rounded-lg border border-slate-700">
+      <div className="px-6 py-4 border-b border-slate-700">
         <div className="flex justify-between items-center">
-          <h3 className="text-lg font-semibold text-slate-900">Your Projects</h3>
+          <h3 className="text-lg font-semibold text-white">Your Projects</h3>
           <button className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors text-sm font-medium">
             New Project
           </button>
@@ -485,13 +485,13 @@ const ProjectsTab: React.FC<{ user: CompleteUserProfile }> = ({ user }) => (
       </div>
       <div className="p-6">
         <div className="text-center py-12">
-          <div className="w-16 h-16 bg-slate-100 rounded-lg flex items-center justify-center mx-auto mb-4">
+          <div className="w-16 h-16 bg-slate-700 rounded-lg flex items-center justify-center mx-auto mb-4">
             <svg className="w-8 h-8 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
             </svg>
           </div>
-          <h4 className="text-lg font-medium text-slate-900 mb-2">No projects yet</h4>
-          <p className="text-slate-600 mb-6">Get started by creating your first project.</p>
+          <h4 className="text-lg font-medium text-white mb-2">No projects yet</h4>
+          <p className="text-slate-300 mb-6">Get started by creating your first project.</p>
           <button className="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition-colors font-medium">
             Create Project
           </button>
@@ -504,79 +504,79 @@ const ProjectsTab: React.FC<{ user: CompleteUserProfile }> = ({ user }) => (
 const AccountTab: React.FC<{ user: CompleteUserProfile }> = ({ user }) => (
   <div>
     <div className="mb-6">
-      <h2 className="text-2xl font-semibold text-slate-900 mb-2">Account</h2>
-      <p className="text-slate-600">Manage your account settings and preferences.</p>
+      <h2 className="text-2xl font-semibold text-white mb-2">Account</h2>
+      <p className="text-slate-300">Manage your account settings and preferences.</p>
     </div>
 
     <div className="space-y-6">
       {/* Profile Information */}
-      <div className="bg-white rounded-lg border border-slate-200">
-        <div className="px-6 py-4 border-b border-slate-200">
-          <h3 className="text-lg font-semibold text-slate-900">Profile Information</h3>
+      <div className="bg-slate-800 rounded-lg border border-slate-700">
+        <div className="px-6 py-4 border-b border-slate-700">
+          <h3 className="text-lg font-semibold text-white">Profile Information</h3>
         </div>
         <div className="p-6 space-y-6">
           {/* Basic Information */}
           <div>
-            <h4 className="text-lg font-semibold text-slate-900 mb-4">Basic Information</h4>
+            <h4 className="text-lg font-semibold text-white mb-4">Basic Information</h4>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Email</label>
-                <p className="text-slate-900">{user.email}</p>
+                <label className="block text-sm font-medium text-slate-300 mb-1">Email</label>
+                <p className="text-white">{user.email}</p>
               </div>
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Username</label>
-                <p className="text-slate-900">{user.username || 'Not set'}</p>
+                <label className="block text-sm font-medium text-slate-300 mb-1">Username</label>
+                <p className="text-white">{user.username || 'Not set'}</p>
               </div>
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Display Name</label>
-                <p className="text-slate-900">{user.display_name || 'Not set'}</p>
+                <label className="block text-sm font-medium text-slate-300 mb-1">Display Name</label>
+                <p className="text-white">{user.display_name || 'Not set'}</p>
               </div>
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Full Name</label>
-                <p className="text-slate-900">{user.first_name && user.last_name ? `${user.first_name} ${user.last_name}` : 'Not set'}</p>
+                <label className="block text-sm font-medium text-slate-300 mb-1">Full Name</label>
+                <p className="text-white">{user.first_name && user.last_name ? `${user.first_name} ${user.last_name}` : 'Not set'}</p>
               </div>
             </div>
           </div>
 
           {/* Contact Information */}
           <div>
-            <h4 className="text-lg font-semibold text-slate-900 mb-4">Contact Information</h4>
+            <h4 className="text-lg font-semibold text-white mb-4">Contact Information</h4>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Phone</label>
-                <p className="text-slate-900">{user.phone || 'Not set'}</p>
+                <label className="block text-sm font-medium text-slate-300 mb-1">Phone</label>
+                <p className="text-white">{user.phone || 'Not set'}</p>
               </div>
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Location</label>
-                <p className="text-slate-900">{user.location || 'Not set'}</p>
+                <label className="block text-sm font-medium text-slate-300 mb-1">Location</label>
+                <p className="text-white">{user.location || 'Not set'}</p>
               </div>
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Date of Birth</label>
-                <p className="text-slate-900">{user.date_of_birth || 'Not set'}</p>
+                <label className="block text-sm font-medium text-slate-300 mb-1">Date of Birth</label>
+                <p className="text-white">{user.date_of_birth || 'Not set'}</p>
               </div>
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Gender</label>
-                <p className="text-slate-900">{user.gender || 'Not set'}</p>
+                <label className="block text-sm font-medium text-slate-300 mb-1">Gender</label>
+                <p className="text-white">{user.gender || 'Not set'}</p>
               </div>
             </div>
           </div>
 
           {/* Account Status */}
           <div>
-            <h4 className="text-lg font-semibold text-slate-900 mb-4">Account Status</h4>
+            <h4 className="text-lg font-semibold text-white mb-4">Account Status</h4>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Subscription</label>
+                <label className="block text-sm font-medium text-slate-300 mb-1">Subscription</label>
                 <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
                   user.subscription_tier === 'boost' ? 'bg-green-100 text-green-800' :
                   user.subscription_tier === 'scale' ? 'bg-blue-100 text-blue-800' :
-                  'bg-slate-100 text-slate-800'
+                  'bg-slate-700 text-slate-800'
                 }`}>
                   {user.subscription_tier || 'lunch'}
                 </span>
               </div>
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Status</label>
+                <label className="block text-sm font-medium text-slate-300 mb-1">Status</label>
                 <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
                   user.is_active ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
                 }`}>
@@ -584,7 +584,7 @@ const AccountTab: React.FC<{ user: CompleteUserProfile }> = ({ user }) => (
                 </span>
               </div>
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Verification</label>
+                <label className="block text-sm font-medium text-slate-300 mb-1">Verification</label>
                 <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
                   user.is_verified ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'
                 }`}>
@@ -592,9 +592,9 @@ const AccountTab: React.FC<{ user: CompleteUserProfile }> = ({ user }) => (
                 </span>
               </div>
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Admin Status</label>
+                <label className="block text-sm font-medium text-slate-300 mb-1">Admin Status</label>
                 <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
-                  user.is_admin ? 'bg-red-100 text-red-800' : 'bg-slate-100 text-slate-800'
+                  user.is_admin ? 'bg-red-100 text-red-800' : 'bg-slate-700 text-slate-800'
                 }`}>
                   {user.is_admin ? 'Administrator' : 'Regular User'}
                 </span>
@@ -605,11 +605,11 @@ const AccountTab: React.FC<{ user: CompleteUserProfile }> = ({ user }) => (
           {/* Social Links */}
           {Object.keys(user.social_links).length > 0 && (
             <div>
-              <h4 className="text-lg font-semibold text-slate-900 mb-4">Social Links</h4>
+              <h4 className="text-lg font-semibold text-white mb-4">Social Links</h4>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {Object.entries(user.social_links).map(([platform, url]) => (
                   <div key={platform}>
-                    <label className="block text-sm font-medium text-slate-700 mb-1 capitalize">{platform}</label>
+                    <label className="block text-sm font-medium text-slate-300 mb-1 capitalize">{platform}</label>
                     <a href={url} target="_blank" rel="noopener noreferrer" className="text-green-600 hover:text-green-700 text-sm">
                       {url}
                     </a>
@@ -621,22 +621,22 @@ const AccountTab: React.FC<{ user: CompleteUserProfile }> = ({ user }) => (
 
           {/* Preferences */}
           <div>
-            <h4 className="text-lg font-semibold text-slate-900 mb-4">Preferences</h4>
+            <h4 className="text-lg font-semibold text-white mb-4">Preferences</h4>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Language</label>
-                <p className="text-slate-900">{user.language || 'English'}</p>
+                <label className="block text-sm font-medium text-slate-300 mb-1">Language</label>
+                <p className="text-white">{user.language || 'English'}</p>
               </div>
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Timezone</label>
-                <p className="text-slate-900">{user.timezone || 'Not set'}</p>
+                <label className="block text-sm font-medium text-slate-300 mb-1">Timezone</label>
+                <p className="text-white">{user.timezone || 'Not set'}</p>
               </div>
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Profile Visibility</label>
-                <p className="text-slate-900 capitalize">{user.profile_visibility || 'Public'}</p>
+                <label className="block text-sm font-medium text-slate-300 mb-1">Profile Visibility</label>
+                <p className="text-white capitalize">{user.profile_visibility || 'Public'}</p>
               </div>
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Email Notifications</label>
+                <label className="block text-sm font-medium text-slate-300 mb-1">Email Notifications</label>
                 <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
                   user.email_notifications ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
                 }`}>
@@ -648,23 +648,23 @@ const AccountTab: React.FC<{ user: CompleteUserProfile }> = ({ user }) => (
 
           {/* Activity */}
           <div>
-            <h4 className="text-lg font-semibold text-slate-900 mb-4">Activity</h4>
+            <h4 className="text-lg font-semibold text-white mb-4">Activity</h4>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Last Login</label>
-                <p className="text-slate-900">{user.last_login ? new Date(user.last_login).toLocaleString() : 'Never'}</p>
+                <label className="block text-sm font-medium text-slate-300 mb-1">Last Login</label>
+                <p className="text-white">{user.last_login ? new Date(user.last_login).toLocaleString() : 'Never'}</p>
               </div>
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Login Count</label>
-                <p className="text-slate-900">{user.login_count || 0}</p>
+                <label className="block text-sm font-medium text-slate-300 mb-1">Login Count</label>
+                <p className="text-white">{user.login_count || 0}</p>
               </div>
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Account Created</label>
-                <p className="text-slate-900">{new Date(user.created_at).toLocaleDateString()}</p>
+                <label className="block text-sm font-medium text-slate-300 mb-1">Account Created</label>
+                <p className="text-white">{new Date(user.created_at).toLocaleDateString()}</p>
               </div>
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Last Updated</label>
-                <p className="text-slate-900">{new Date(user.updated_at).toLocaleDateString()}</p>
+                <label className="block text-sm font-medium text-slate-300 mb-1">Last Updated</label>
+                <p className="text-white">{new Date(user.updated_at).toLocaleDateString()}</p>
               </div>
             </div>
           </div>
@@ -672,15 +672,15 @@ const AccountTab: React.FC<{ user: CompleteUserProfile }> = ({ user }) => (
       </div>
 
       {/* Account Status */}
-      <div className="bg-white rounded-lg border border-slate-200">
-        <div className="px-6 py-4 border-b border-slate-200">
-          <h3 className="text-lg font-semibold text-slate-900">Account Status</h3>
+      <div className="bg-slate-800 rounded-lg border border-slate-700">
+        <div className="px-6 py-4 border-b border-slate-700">
+          <h3 className="text-lg font-semibold text-white">Account Status</h3>
         </div>
         <div className="p-6 space-y-4">
           <div className="flex items-center justify-between">
             <div>
-              <h4 className="font-medium text-slate-900">Account Type</h4>
-              <p className="text-sm text-slate-600">
+              <h4 className="font-medium text-white">Account Type</h4>
+              <p className="text-sm text-slate-300">
                 {user.source_project === 'other' ? 'Migrated from other project' : 'NeuroFlow account'}
               </p>
             </div>
@@ -690,11 +690,11 @@ const AccountTab: React.FC<{ user: CompleteUserProfile }> = ({ user }) => (
           </div>
           <div className="flex items-center justify-between">
             <div>
-              <h4 className="font-medium text-slate-900">Admin Status</h4>
-              <p className="text-sm text-slate-600">Account permissions</p>
+              <h4 className="font-medium text-white">Admin Status</h4>
+              <p className="text-sm text-slate-300">Account permissions</p>
             </div>
             <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-              user.is_admin ? 'bg-red-100 text-red-800' : 'bg-slate-100 text-slate-800'
+              user.is_admin ? 'bg-red-100 text-red-800' : 'bg-slate-700 text-slate-800'
             }`}>
               {user.is_admin ? 'Administrator' : 'Regular User'}
             </span>
@@ -708,21 +708,21 @@ const AccountTab: React.FC<{ user: CompleteUserProfile }> = ({ user }) => (
 const SettingsTab: React.FC<{ user: CompleteUserProfile }> = ({ user }) => (
   <div>
     <div className="mb-6">
-      <h2 className="text-2xl font-semibold text-slate-900 mb-2">Settings</h2>
-      <p className="text-slate-600">Manage your application settings and preferences.</p>
+      <h2 className="text-2xl font-semibold text-white mb-2">Settings</h2>
+      <p className="text-slate-300">Manage your application settings and preferences.</p>
     </div>
 
     <div className="space-y-6">
       {/* Notifications */}
-      <div className="bg-white rounded-lg border border-slate-200">
-        <div className="px-6 py-4 border-b border-slate-200">
-          <h3 className="text-lg font-semibold text-slate-900">Notifications</h3>
+      <div className="bg-slate-800 rounded-lg border border-slate-700">
+        <div className="px-6 py-4 border-b border-slate-700">
+          <h3 className="text-lg font-semibold text-white">Notifications</h3>
         </div>
         <div className="p-6 space-y-4">
           <div className="flex items-center justify-between">
             <div>
-              <h4 className="font-medium text-slate-900">Email Notifications</h4>
-              <p className="text-sm text-slate-600">Receive updates about your projects</p>
+              <h4 className="font-medium text-white">Email Notifications</h4>
+              <p className="text-sm text-slate-300">Receive updates about your projects</p>
             </div>
             <button className="bg-green-600 text-white px-3 py-1 rounded-lg text-sm font-medium">
               Enabled
@@ -730,10 +730,10 @@ const SettingsTab: React.FC<{ user: CompleteUserProfile }> = ({ user }) => (
           </div>
           <div className="flex items-center justify-between">
             <div>
-              <h4 className="font-medium text-slate-900">Push Notifications</h4>
-              <p className="text-sm text-slate-600">Receive real-time updates</p>
+              <h4 className="font-medium text-white">Push Notifications</h4>
+              <p className="text-sm text-slate-300">Receive real-time updates</p>
             </div>
-            <button className="bg-slate-200 text-slate-700 px-3 py-1 rounded-lg text-sm font-medium">
+            <button className="bg-slate-200 text-slate-300 px-3 py-1 rounded-lg text-sm font-medium">
               Disabled
             </button>
           </div>
@@ -741,15 +741,15 @@ const SettingsTab: React.FC<{ user: CompleteUserProfile }> = ({ user }) => (
       </div>
 
       {/* Unified Account */}
-      <div className="bg-white rounded-lg border border-slate-200">
-        <div className="px-6 py-4 border-b border-slate-200">
-          <h3 className="text-lg font-semibold text-slate-900">Unified Account</h3>
+      <div className="bg-slate-800 rounded-lg border border-slate-700">
+        <div className="px-6 py-4 border-b border-slate-700">
+          <h3 className="text-lg font-semibold text-white">Unified Account</h3>
         </div>
         <div className="p-6 space-y-4">
           <div className="flex items-center justify-between">
             <div>
-              <h4 className="font-medium text-slate-900">Project Synchronization</h4>
-              <p className="text-sm text-slate-600">Keep data synced between projects</p>
+              <h4 className="font-medium text-white">Project Synchronization</h4>
+              <p className="text-sm text-slate-300">Keep data synced between projects</p>
             </div>
             <button className="bg-green-600 text-white px-3 py-1 rounded-lg text-sm font-medium">
               Active
@@ -757,8 +757,8 @@ const SettingsTab: React.FC<{ user: CompleteUserProfile }> = ({ user }) => (
           </div>
           <div className="flex items-center justify-between">
             <div>
-              <h4 className="font-medium text-slate-900">Data Migration</h4>
-              <p className="text-sm text-slate-600">Migrate users from other projects</p>
+              <h4 className="font-medium text-white">Data Migration</h4>
+              <p className="text-sm text-slate-300">Migrate users from other projects</p>
             </div>
             <button className="bg-blue-600 text-white px-3 py-1 rounded-lg text-sm font-medium">
               Available
