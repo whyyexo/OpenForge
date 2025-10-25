@@ -81,6 +81,8 @@ const Navigation: React.FC = () => {
               target="_blank" 
               rel="noopener noreferrer"
               className="text-gray-300 hover:text-[#EAEAEA] transition-colors text-sm"
+            >
+              Pricing
             </a>
             
             {/* Dropdown More */}
