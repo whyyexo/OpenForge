@@ -27,6 +27,7 @@ const Sidebar: React.FC = () => {
       }`}
       onMouseEnter={() => setIsCollapsed(false)}
       onMouseLeave={() => setIsCollapsed(true)}
+      style={{ transform: 'translateZ(0)' }}
     >
 
       {/* User Info */}
@@ -65,7 +66,7 @@ const Sidebar: React.FC = () => {
                     : 'text-gray-300 hover:bg-gray-700 hover:text-white'
                 }`}
               >
-                <svg className="w-5 h-5 absolute left-3" fill="currentColor" viewBox="0 0 20 20">
+                <svg className="w-5 h-5 absolute left-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d={item.icon} clipRule="evenodd" />
                 </svg>
                 {!isCollapsed && (
@@ -83,7 +84,7 @@ const Sidebar: React.FC = () => {
           onClick={handleLogout}
           className="w-full flex items-center px-3 py-2 rounded-md text-gray-300 hover:bg-gray-700 hover:text-white transition-colors relative"
         >
-          <svg className="w-5 h-5 absolute left-3" fill="currentColor" viewBox="0 0 20 20">
+          <svg className="w-5 h-5 absolute left-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
             <path fillRule="evenodd" d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z" clipRule="evenodd" />
           </svg>
           {!isCollapsed && (

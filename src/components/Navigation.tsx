@@ -11,8 +11,10 @@ const Navigation: React.FC = () => {
   const { t, language, setLanguage } = useLanguage();
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isMoreOpen, setIsMoreOpen] = useState(false);
+  const [isLanguageOpen, setIsLanguageOpen] = useState(false);
   const profileRef = useRef<HTMLDivElement>(null);
   const moreRef = useRef<HTMLDivElement>(null);
+  const languageRef = useRef<HTMLDivElement>(null);
 
   // Fermer les dropdowns quand on clique ailleurs
   useEffect(() => {
@@ -22,6 +24,9 @@ const Navigation: React.FC = () => {
       }
       if (moreRef.current && !moreRef.current.contains(event.target as Node)) {
         setIsMoreOpen(false);
+      }
+      if (languageRef.current && !languageRef.current.contains(event.target as Node)) {
+        setIsLanguageOpen(false);
       }
     };
 
@@ -55,9 +60,7 @@ const Navigation: React.FC = () => {
             </a>
             
             {/* Ligne diagonale de séparation */}
-            <div className="w-px h-6 bg-gray-600 transform rotate-12"></div>
-            
-            {/* Dashboard */}
+            <div className="w-px h-6 bg-gray-600 transform rotate-12 mx-2"></div>
           </div>
 
           {/* Liens de navigation */}
@@ -238,49 +241,89 @@ const Navigation: React.FC = () => {
                     
                     <div className="border-t border-gray-700 my-1"></div>
                     
-                    {/* Language Selector */}
+                    {/* Language Dropdown */}
+                    <div className="px-4 py-2" ref={languageRef}>
+                      <button
+                        onClick={() => setIsLanguageOpen(!isLanguageOpen)}
+                        className="flex items-center justify-between w-full text-xs text-gray-400 hover:text-[#EAEAEA] transition-colors"
+                      >
+                        <span>{t.language}</span>
+                        <svg className={`w-3 h-3 transform transition-transform ${isLanguageOpen ? 'rotate-180' : ''}`} fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
+                        </svg>
+                      </button>
+                      
+                      {isLanguageOpen && (
+                        <div className="mt-2 space-y-1">
+                          <button
+                            onClick={() => {
+                              setLanguage('en');
+                              setIsLanguageOpen(false);
+                            }}
+                            className={`w-full text-left px-2 py-1 text-xs rounded ${
+                              language === 'en' 
+                                ? 'bg-[#00E38C] text-black' 
+                                : 'text-gray-300 hover:bg-gray-700 hover:text-[#EAEAEA]'
+                            }`}
+                          >
+                            English
+                          </button>
+                          <button
+                            onClick={() => {
+                              setLanguage('fr');
+                              setIsLanguageOpen(false);
+                            }}
+                            className={`w-full text-left px-2 py-1 text-xs rounded ${
+                              language === 'fr' 
+                                ? 'bg-[#00E38C] text-black' 
+                                : 'text-gray-300 hover:bg-gray-700 hover:text-[#EAEAEA]'
+                            }`}
+                          >
+                            Français
+                          </button>
+                          <button
+                            onClick={() => {
+                              setLanguage('es');
+                              setIsLanguageOpen(false);
+                            }}
+                            className={`w-full text-left px-2 py-1 text-xs rounded ${
+                              language === 'es' 
+                                ? 'bg-[#00E38C] text-black' 
+                                : 'text-gray-300 hover:bg-gray-700 hover:text-[#EAEAEA]'
+                            }`}
+                          >
+                            Español
+                          </button>
+                          <button
+                            onClick={() => {
+                              setLanguage('de');
+                              setIsLanguageOpen(false);
+                            }}
+                            className={`w-full text-left px-2 py-1 text-xs rounded ${
+                              language === 'de' 
+                                ? 'bg-[#00E38C] text-black' 
+                                : 'text-gray-300 hover:bg-gray-700 hover:text-[#EAEAEA]'
+                            }`}
+                          >
+                            Deutsch
+                          </button>
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="border-t border-gray-700 my-1"></div>
+
+                    {/* Theme Selector */}
                     <div className="px-4 py-2">
-                      <p className="text-xs text-gray-400 mb-2">{t.language}</p>
-                      <div className="flex items-center space-x-2">
-                        <button
-                          onClick={() => setLanguage('en')}
-                          className={`px-2 py-1 text-xs rounded ${
-                            language === 'en' 
-                              ? 'bg-[#00E38C] text-black' 
-                              : 'text-gray-300 hover:text-[#EAEAEA]'
-                          }`}
-                        >
-                          EN
+                      <p className="text-xs text-gray-400 mb-2">{t.theme}</p>
+                      <div className="flex items-center space-x-3">
+                        <button className="flex items-center space-x-2 text-sm text-gray-300 hover:text-[#EAEAEA] transition-colors">
+                          <div className="w-3 h-3 rounded-full bg-gray-500"></div>
+                          <span>{t.dark}</span>
                         </button>
-                        <button
-                          onClick={() => setLanguage('fr')}
-                          className={`px-2 py-1 text-xs rounded ${
-                            language === 'fr' 
-                              ? 'bg-[#00E38C] text-black' 
-                              : 'text-gray-300 hover:text-[#EAEAEA]'
-                          }`}
-                        >
-                          FR
-                        </button>
-                        <button
-                          onClick={() => setLanguage('es')}
-                          className={`px-2 py-1 text-xs rounded ${
-                            language === 'es' 
-                              ? 'bg-[#00E38C] text-black' 
-                              : 'text-gray-300 hover:text-[#EAEAEA]'
-                          }`}
-                        >
-                          ES
-                        </button>
-                        <button
-                          onClick={() => setLanguage('de')}
-                          className={`px-2 py-1 text-xs rounded ${
-                            language === 'de' 
-                              ? 'bg-[#00E38C] text-black' 
-                              : 'text-gray-300 hover:text-[#EAEAEA]'
-                          }`}
-                        >
-                          DE
+                        <button className="flex items-center space-x-2 text-sm text-gray-300 hover:text-[#EAEAEA] transition-colors">
+                          <div className="w-3 h-3 rounded-full border border-gray-500"></div>
+                          <span>{t.light}</span>
                         </button>
                       </div>
                     </div>
