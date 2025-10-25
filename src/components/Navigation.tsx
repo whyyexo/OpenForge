@@ -33,8 +33,7 @@ const Navigation: React.FC = () => {
   }, []);
 
   const handleSignOut = async () => {
-    // Sign out logic here
-    navigate('/login');
+    navigate('/');
   };
 
   return (
@@ -146,29 +145,11 @@ const Navigation: React.FC = () => {
                   <button
                     onClick={() => {
                       setIsProfileOpen(false);
-                      navigate('/profile');
+                      navigate('/admin');
                     }}
                     className="w-full px-4 py-2 text-left text-sm text-gray-300 hover:bg-gray-700 hover:text-[#EAEAEA] transition-colors"
                   >
-                    Your Profile
-                  </button>
-                  <button
-                    onClick={() => {
-                      setIsProfileOpen(false);
-                      navigate('/settings');
-                    }}
-                    className="w-full px-4 py-2 text-left text-sm text-gray-300 hover:bg-gray-700 hover:text-[#EAEAEA] transition-colors"
-                  >
-                    Your Settings
-                  </button>
-                  <button
-                    onClick={() => {
-                      setIsProfileOpen(false);
-                      navigate('/team');
-                    }}
-                    className="w-full px-4 py-2 text-left text-sm text-gray-300 hover:bg-gray-700 hover:text-[#EAEAEA] transition-colors"
-                  >
-                    Your Team
+                    Admin Panel
                   </button>
                   <div className="border-t border-gray-700 my-1"></div>
                   <button

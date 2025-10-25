@@ -1,94 +1,57 @@
 import React, { useState } from 'react';
-import { useAuth } from '../contexts/AuthContext';
-import { useNavigate, useLocation } from 'react-router-dom';
-import { useLanguage } from '../contexts/LanguageContext';
+import { useNavigate } from 'react-router-dom';
 
 const Sidebar: React.FC = () => {
-  const { signOut, isAdmin, user, profile } = useAuth();
   const navigate = useNavigate();
-  const location = useLocation();
-  const { t } = useLanguage();
-  const [isCollapsed, setIsCollapsed] = useState(true);
-
-  const menuItems = [
-    { path: '/dashboard', label: t.dashboard, icon: 'M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.207A1 1 0 013 6.5V4z' },
-    ...(isAdmin ? [{ path: '/admin', label: t.admin, icon: 'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z' }] : []),
-  ];
-
-  const handleLogout = async () => {
-    await signOut();
-    navigate('/login');
-  };
+  const [isCollapsed, setIsCollapsed] = useState(false);
 
   return (
     <div 
-      className={`fixed left-0 top-12 bottom-0 bg-[#181B22] border-r border-gray-700 flex flex-col transition-all duration-300 ${
+      className={`fixed left-0 top-12 h-full bg-white border-r border-gray-200 transition-all duration-300 z-40 ${
         isCollapsed ? 'w-16' : 'w-64'
       }`}
       onMouseEnter={() => setIsCollapsed(false)}
       onMouseLeave={() => setIsCollapsed(true)}
-      style={{ transform: 'translateZ(0)' }}
     >
-
-      {/* User Info */}
-      <div className="p-4 border-b border-gray-700">
-        <div className="flex items-center space-x-3">
-          <div className="w-10 h-10 bg-gray-600 rounded-full flex items-center justify-center">
-            <span className="text-gray-200 font-medium text-sm">
-              {profile?.username?.charAt(0).toUpperCase() || user?.email?.charAt(0).toUpperCase() || 'U'}
-            </span>
-          </div>
-          {!isCollapsed && (
-            <div className="flex-1 min-w-0">
-              <p className="text-[#EAEAEA] font-medium text-sm truncate">
-                {profile?.display_name || profile?.username || user?.email}
-              </p>
-              <p className="text-gray-400 text-xs truncate">
-                {profile?.subscription === 'Lunch' ? t.lunchPlan :
-                 profile?.subscription === 'Boost' ? t.boostPlan :
-                 profile?.subscription === 'Scale' ? t.scalePlan : t.lunchPlan}
-              </p>
-            </div>
-          )}
-        </div>
-      </div>
-
-      {/* Navigation */}
-      <nav className="flex-1 p-4">
-        <ul className="space-y-1">
-          {menuItems.map((item) => (
-            <li key={item.path}>
-              <button
-                onClick={() => navigate(item.path)}
-                className={`w-full flex items-center px-3 py-2 rounded-md text-left transition-colors relative ${
-                  location.pathname === item.path
-                    ? 'bg-gray-700 text-white'
-                    : 'text-gray-300 hover:bg-gray-700 hover:text-white'
-                }`}
-              >
-                <svg className="w-5 h-5 absolute left-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d={item.icon} clipRule="evenodd" />
-                </svg>
-                {!isCollapsed && (
-                  <span className="font-medium ml-8">{item.label}</span>
-                )}
-              </button>
-            </li>
-          ))}
-        </ul>
-      </nav>
-
-      {/* Logout */}
-      <div className="p-4 border-t border-gray-700">
+      <div className="p-4">
+        {/* Dashboard */}
         <button
-          onClick={handleLogout}
-          className="w-full flex items-center px-3 py-2 rounded-md text-gray-300 hover:bg-gray-700 hover:text-white transition-colors relative"
+          onClick={() => navigate('/dashboard')}
+          className="w-full flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-100 transition-colors"
         >
-          <svg className="w-5 h-5 absolute left-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-            <path fillRule="evenodd" d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z" clipRule="evenodd" />
+          <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z" />
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 5a2 2 0 012-2h4a2 2 0 012 2v6H8V5z" />
           </svg>
           {!isCollapsed && (
-            <span className="font-medium ml-8">{t.logout}</span>
+            <span className="text-gray-700 font-medium">Dashboard</span>
+          )}
+        </button>
+
+        {/* Admin */}
+        <button
+          onClick={() => navigate('/admin')}
+          className="w-full flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-100 transition-colors mt-2"
+        >
+          <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+          </svg>
+          {!isCollapsed && (
+            <span className="text-gray-700 font-medium">Admin</span>
+          )}
+        </button>
+
+        {/* Logout */}
+        <button
+          onClick={() => navigate('/')}
+          className="w-full flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-100 transition-colors mt-8"
+        >
+          <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+          </svg>
+          {!isCollapsed && (
+            <span className="text-gray-700 font-medium">Logout</span>
           )}
         </button>
       </div>
