@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '../contexts/LanguageContext';
 import { EXTERNAL_LINKS } from '../config/links';
+import { supabase } from '../lib/supabase';
 import logo from './icons/Full Vert - Blanc.png';
 
 const PublicNavigation: React.FC = () => {
@@ -10,11 +11,36 @@ const PublicNavigation: React.FC = () => {
   const [isProductsOpen, setIsProductsOpen] = useState(false);
   const [isMoreOpen, setIsMoreOpen] = useState(false);
   const [isLanguageOpen, setIsLanguageOpen] = useState(false);
-  const [productsTimeout, setProductsTimeout] = useState<NodeJS.Timeout | null>(null);
-  const [moreTimeout, setMoreTimeout] = useState<NodeJS.Timeout | null>(null);
+  const [user, setUser] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
   const productsRef = useRef<HTMLDivElement>(null);
   const moreRef = useRef<HTMLDivElement>(null);
   const languageRef = useRef<HTMLDivElement>(null);
+
+  // Vérifier l'état d'authentification
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const { data: { session } } = await supabase.auth.getSession();
+        setUser(session?.user || null);
+      } catch (error) {
+        console.error('Error checking auth:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    checkAuth();
+
+    // Écouter les changements d'authentification
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      (event, session) => {
+        setUser(session?.user || null);
+      }
+    );
+
+    return () => subscription.unsubscribe();
+  }, []);
 
   // Fermer les dropdowns quand on clique ailleurs
   useEffect(() => {
@@ -34,6 +60,24 @@ const PublicNavigation: React.FC = () => {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
+  const handleSignOut = async () => {
+    await supabase.auth.signOut();
+    navigate('/');
+  };
+
+  if (loading) {
+    return (
+      <nav className="bg-[#181B22]/90 backdrop-blur-sm border-b border-gray-700 px-6 py-3 fixed top-0 left-0 right-0 z-50">
+        <div className="flex items-center justify-between w-full">
+          <div className="flex items-center space-x-6">
+            <img src={logo} alt="OpenForge Logo" className="h-6 w-auto" />
+          </div>
+          <div className="text-gray-400">Loading...</div>
+        </div>
+      </nav>
+    );
+  }
+
   return (
     <nav className="bg-[#181B22]/90 backdrop-blur-sm border-b border-gray-700 px-6 py-3 fixed top-0 left-0 right-0 z-50">
       <div className="flex items-center justify-between w-full">
@@ -49,23 +93,17 @@ const PublicNavigation: React.FC = () => {
               className="h-6 w-auto"
             />
           </a>
-          
+
           {/* Ligne de séparation */}
-          <div className="w-px h-6 bg-gray-600 transform rotate-12"></div>
+          <div className="w-px h-6 bg-gray-600 transform rotate-12 mx-2"></div>
 
           {/* Menu central */}
           <div className="hidden md:flex items-center space-x-6">
             {/* Products Dropdown */}
             <div className="relative" ref={productsRef}>
               <button
-                onMouseEnter={() => {
-                  if (productsTimeout) clearTimeout(productsTimeout);
-                  setIsProductsOpen(true);
-                }}
-                onMouseLeave={() => {
-                  const timeout = setTimeout(() => setIsProductsOpen(false), 200);
-                  setProductsTimeout(timeout);
-                }}
+                onMouseEnter={() => setIsProductsOpen(true)}
+                onMouseLeave={() => setIsProductsOpen(false)}
                 className="flex items-center space-x-1 text-gray-400 hover:text-[#EAEAEA] transition-colors text-sm"
               >
                 <span>Products</span>
@@ -77,14 +115,8 @@ const PublicNavigation: React.FC = () => {
               {isProductsOpen && (
                 <div 
                   className="absolute top-full left-0 mt-2 w-48 bg-[#181B22] border border-gray-700 rounded-lg shadow-lg z-50"
-                  onMouseEnter={() => {
-                    if (productsTimeout) clearTimeout(productsTimeout);
-                    setIsProductsOpen(true);
-                  }}
-                  onMouseLeave={() => {
-                    const timeout = setTimeout(() => setIsProductsOpen(false), 200);
-                    setProductsTimeout(timeout);
-                  }}
+                  onMouseEnter={() => setIsProductsOpen(true)}
+                  onMouseLeave={() => setIsProductsOpen(false)}
                 >
                   <div className="py-2">
                     <a 
@@ -124,14 +156,8 @@ const PublicNavigation: React.FC = () => {
             {/* More Dropdown */}
             <div className="relative" ref={moreRef}>
               <button
-                onMouseEnter={() => {
-                  if (moreTimeout) clearTimeout(moreTimeout);
-                  setIsMoreOpen(true);
-                }}
-                onMouseLeave={() => {
-                  const timeout = setTimeout(() => setIsMoreOpen(false), 200);
-                  setMoreTimeout(timeout);
-                }}
+                onMouseEnter={() => setIsMoreOpen(true)}
+                onMouseLeave={() => setIsMoreOpen(false)}
                 className="flex items-center space-x-1 text-gray-400 hover:text-[#EAEAEA] transition-colors text-sm"
               >
                 <span>More</span>
@@ -143,14 +169,8 @@ const PublicNavigation: React.FC = () => {
               {isMoreOpen && (
                 <div 
                   className="absolute top-full left-0 mt-2 w-48 bg-[#181B22] border border-gray-700 rounded-lg shadow-lg z-50"
-                  onMouseEnter={() => {
-                    if (moreTimeout) clearTimeout(moreTimeout);
-                    setIsMoreOpen(true);
-                  }}
-                  onMouseLeave={() => {
-                    const timeout = setTimeout(() => setIsMoreOpen(false), 200);
-                    setMoreTimeout(timeout);
-                  }}
+                  onMouseEnter={() => setIsMoreOpen(true)}
+                  onMouseLeave={() => setIsMoreOpen(false)}
                 >
                   <div className="py-2">
                     <a 
@@ -206,45 +226,63 @@ const PublicNavigation: React.FC = () => {
             Try FiverFlow
           </a>
 
-          {/* Icônes sociales */}
-          <div className="flex items-center space-x-3">
-            <a 
-              href="https://discord.gg/fiverflow" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="text-gray-400 hover:text-[#EAEAEA] transition-colors"
-            >
-              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
-              </svg>
-            </a>
-            <a 
-              href="https://x.com/fiverflow" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="text-gray-400 hover:text-[#EAEAEA] transition-colors"
-            >
-              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-              </svg>
-            </a>
-          </div>
+          {/* Discord */}
+          <a 
+            href={EXTERNAL_LINKS.COMMUNITY} 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="text-gray-300 hover:text-[#EAEAEA] transition-colors"
+          >
+            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
+            </svg>
+          </a>
 
-          {/* Boutons d'authentification */}
-          <div className="flex items-center space-x-3">
-            <button
-              onClick={() => navigate('/login')}
-              className="px-4 py-2 bg-[#00E38C] text-black font-medium rounded-lg hover:bg-[#00E38C]/90 transition-colors text-sm"
-            >
-              Sign in
-            </button>
-            <button
-              onClick={() => navigate('/signup')}
-              className="px-4 py-2 border border-gray-600 text-[#EAEAEA] font-medium rounded-lg hover:bg-gray-700 transition-colors text-sm"
-            >
-              Create account
-            </button>
-          </div>
+          {/* X (Twitter) */}
+          <a 
+            href="https://x.com" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="text-gray-300 hover:text-[#EAEAEA] transition-colors"
+          >
+            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+            </svg>
+          </a>
+
+          {/* Authentification */}
+          {user ? (
+            // Utilisateur connecté
+            <div className="flex items-center space-x-4">
+              <button
+                onClick={() => navigate('/dashboard')}
+                className="bg-[#00E38C] text-black px-4 py-2 rounded-lg hover:bg-[#00E38C]/90 transition-colors text-sm font-medium"
+              >
+                Dashboard
+              </button>
+              <div className="w-8 h-8 bg-gray-600 rounded-full flex items-center justify-center">
+                <span className="text-gray-200 font-medium text-sm">
+                  {user.email?.charAt(0).toUpperCase() || 'U'}
+                </span>
+              </div>
+            </div>
+          ) : (
+            // Utilisateur non connecté
+            <div className="flex items-center space-x-3">
+              <button
+                onClick={() => navigate('/dashboard/sign-in')}
+                className="bg-[#00E38C] text-black px-4 py-2 rounded-lg hover:bg-[#00E38C]/90 transition-colors text-sm font-medium"
+              >
+                Sign in
+              </button>
+              <button
+                onClick={() => navigate('/signup')}
+                className="border border-[#00E38C] text-[#00E38C] px-4 py-2 rounded-lg hover:bg-[#00E38C]/10 transition-colors text-sm font-medium"
+              >
+                Create account
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </nav>

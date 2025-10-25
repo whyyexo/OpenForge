@@ -2,12 +2,14 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { LanguageProvider } from './contexts/LanguageContext';
 import PublicNavigation from './components/PublicNavigation';
+import AuthGuard from './components/AuthGuard';
 import Landing from './pages/Landing';
 import Pricing from './pages/Pricing';
+import SignIn from './pages/SignIn';
 import Dashboard from './pages/Dashboard';
 import Admin from './pages/Admin';
 
-// Main App Component - Version simplifiée sans auth
+// Main App Component - Flux Supabase correct
 const App: React.FC = () => {
   return (
     <LanguageProvider>
@@ -31,9 +33,20 @@ const App: React.FC = () => {
             </div>
           } />
           
-          {/* Routes dashboard - sans auth */}
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/admin" element={<Admin />} />
+          {/* Page de connexion */}
+          <Route path="/dashboard/sign-in" element={<SignIn />} />
+          
+          {/* Routes protégées avec AuthGuard */}
+          <Route path="/dashboard" element={
+            <AuthGuard>
+              <Dashboard />
+            </AuthGuard>
+          } />
+          <Route path="/admin" element={
+            <AuthGuard>
+              <Admin />
+            </AuthGuard>
+          } />
         </Routes>
       </Router>
     </LanguageProvider>
