@@ -4,25 +4,39 @@ import { useNavigate } from 'react-router-dom';
 import { supabase } from '../lib/supabase';
 import logo from '../components/icons/Full Vert - Blanc.png';
 
-const Login: React.FC = () => {
+const Signup: React.FC = () => {
   const { signIn } = useAuth();
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-  const handleEmailLogin = async (e: React.FormEvent) => {
+  const handleEmailSignup = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError('');
 
+    if (password !== confirmPassword) {
+      setError('Passwords do not match');
+      setLoading(false);
+      return;
+    }
+
     try {
-      const { error } = await signIn(email, password);
+      const { error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          emailRedirectTo: `${window.location.origin}/dashboard`
+        }
+      });
       if (error) {
         setError(error.message);
       } else {
-        navigate('/dashboard');
+        // Redirect to login or show success message
+        navigate('/login');
       }
     } catch (err: any) {
       setError(err.message);
@@ -54,7 +68,7 @@ const Login: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-[#0f1117] flex">
-      {/* Left Side - Login Form */}
+      {/* Left Side - Signup Form */}
       <div className="flex-1 flex items-center justify-center px-8">
         <div className="w-full max-w-md">
           {/* Logo */}
@@ -69,10 +83,10 @@ const Login: React.FC = () => {
           {/* Header */}
           <div className="mb-8">
             <h1 className="text-3xl font-bold text-[#EAEAEA] mb-2">
-              Welcome back
+              Get Started
             </h1>
             <p className="text-gray-400">
-              Sign in to your account
+              Create a new account
             </p>
           </div>
 
@@ -126,7 +140,7 @@ const Login: React.FC = () => {
           </div>
 
           {/* Email/Password Form */}
-          <form onSubmit={handleEmailLogin} className="space-y-4">
+          <form onSubmit={handleEmailSignup} className="space-y-4">
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-[#EAEAEA] mb-2">
                 Email
@@ -153,7 +167,22 @@ const Login: React.FC = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 required
                 className="w-full px-3 py-3 border border-gray-600 rounded-lg bg-[#181B22] text-[#EAEAEA] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#00E38C] focus:border-transparent"
-                placeholder="Enter your password"
+                placeholder="Create a password"
+              />
+            </div>
+
+            <div>
+              <label htmlFor="confirmPassword" className="block text-sm font-medium text-[#EAEAEA] mb-2">
+                Confirm Password
+              </label>
+              <input
+                id="confirmPassword"
+                type="password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                required
+                className="w-full px-3 py-3 border border-gray-600 rounded-lg bg-[#181B22] text-[#EAEAEA] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#00E38C] focus:border-transparent"
+                placeholder="Confirm your password"
               />
             </div>
 
@@ -168,19 +197,19 @@ const Login: React.FC = () => {
               disabled={loading}
               className="w-full py-3 px-4 bg-[#00E38C] text-black font-medium rounded-lg hover:bg-[#00E38C]/90 transition-colors disabled:opacity-50"
             >
-              {loading ? 'Signing in...' : 'Sign In'}
+              {loading ? 'Creating account...' : 'Create Account'}
             </button>
           </form>
 
           {/* Footer */}
           <div className="mt-8 text-center">
             <p className="text-gray-400 text-sm">
-              Don't have an account?{' '}
+              Already have an account?{' '}
               <button
-                onClick={() => navigate('/signup')}
+                onClick={() => navigate('/login')}
                 className="text-[#00E38C] hover:text-[#00E38C]/80 transition-colors"
               >
-                Sign Up Now
+                Sign In
               </button>
             </p>
           </div>
@@ -191,10 +220,10 @@ const Login: React.FC = () => {
       <div className="hidden lg:flex lg:flex-1 bg-gradient-to-br from-[#181B22] to-[#0f1117] items-center justify-center px-8">
         <div className="max-w-md">
           <h2 className="text-2xl font-bold text-[#EAEAEA] mb-4">
-            Get Started
+            Welcome to OpenForge
           </h2>
           <p className="text-gray-400 mb-6">
-            Create a new account and start building amazing applications with OpenForge.
+            Join thousands of developers building the future with our powerful development platform.
           </p>
           <div className="space-y-4">
             <div className="flex items-center">
@@ -203,7 +232,7 @@ const Login: React.FC = () => {
                   <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/>
                 </svg>
               </div>
-              <span className="text-[#EAEAEA]">Fast development environment</span>
+              <span className="text-[#EAEAEA]">Instant project setup</span>
             </div>
             <div className="flex items-center">
               <div className="w-8 h-8 bg-[#00E38C] rounded-lg flex items-center justify-center mr-4">
@@ -211,7 +240,7 @@ const Login: React.FC = () => {
                   <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/>
                 </svg>
               </div>
-              <span className="text-[#EAEAEA]">Real-time collaboration</span>
+              <span className="text-[#EAEAEA]">Team collaboration tools</span>
             </div>
             <div className="flex items-center">
               <div className="w-8 h-8 bg-[#00E38C] rounded-lg flex items-center justify-center mr-4">
@@ -219,7 +248,7 @@ const Login: React.FC = () => {
                   <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/>
                 </svg>
               </div>
-              <span className="text-[#EAEAEA]">Enterprise-grade security</span>
+              <span className="text-[#EAEAEA]">Advanced deployment options</span>
             </div>
           </div>
         </div>
@@ -228,4 +257,4 @@ const Login: React.FC = () => {
   );
 };
 
-export default Login;
+export default Signup;

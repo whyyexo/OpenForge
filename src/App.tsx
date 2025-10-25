@@ -6,6 +6,7 @@ import Navigation from './components/Navigation';
 import WebsiteNavigation from './components/WebsiteNavigation';
 import Landing from './pages/Landing';
 import Login from './pages/Login';
+import Signup from './pages/Signup';
 import Pricing from './pages/Pricing';
 import DashboardApp from './dashboard/App';
 
@@ -88,12 +89,15 @@ const App: React.FC = () => {
               path="/login" 
               element={
                 <ProtectedLoginRoute>
-                  <div className="min-h-screen bg-[#0f1117]">
-                    <WebsiteNavigation />
-                    <div className="pt-16">
-                      <Login />
-                    </div>
-                  </div>
+                  <Login />
+                </ProtectedLoginRoute>
+              } 
+            />
+            <Route 
+              path="/signup" 
+              element={
+                <ProtectedLoginRoute>
+                  <Signup />
                 </ProtectedLoginRoute>
               } 
             />

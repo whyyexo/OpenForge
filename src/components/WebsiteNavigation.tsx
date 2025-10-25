@@ -12,6 +12,8 @@ const WebsiteNavigation: React.FC = () => {
   const [isProductsOpen, setIsProductsOpen] = useState(false);
   const [isMoreOpen, setIsMoreOpen] = useState(false);
   const [isLanguageOpen, setIsLanguageOpen] = useState(false);
+  const [productsTimeout, setProductsTimeout] = useState<NodeJS.Timeout | null>(null);
+  const [moreTimeout, setMoreTimeout] = useState<NodeJS.Timeout | null>(null);
   const productsRef = useRef<HTMLDivElement>(null);
   const moreRef = useRef<HTMLDivElement>(null);
   const languageRef = useRef<HTMLDivElement>(null);
@@ -40,7 +42,7 @@ const WebsiteNavigation: React.FC = () => {
   };
 
   return (
-    <nav className="bg-[#181B22] border-b border-gray-700 px-6 py-3 fixed top-0 left-0 right-0 z-50">
+    <nav className="bg-[#181B22]/90 backdrop-blur-sm border-b border-gray-700 px-6 py-3 fixed top-0 left-0 right-0 z-50">
       <div className="flex items-center justify-between w-full">
         {/* Logo et liens */}
         <div className="flex items-center space-x-6">
@@ -63,8 +65,14 @@ const WebsiteNavigation: React.FC = () => {
             {/* Products Dropdown */}
             <div className="relative" ref={productsRef}>
               <button
-                onMouseEnter={() => setIsProductsOpen(true)}
-                onMouseLeave={() => setIsProductsOpen(false)}
+                onMouseEnter={() => {
+                  if (productsTimeout) clearTimeout(productsTimeout);
+                  setIsProductsOpen(true);
+                }}
+                onMouseLeave={() => {
+                  const timeout = setTimeout(() => setIsProductsOpen(false), 200);
+                  setProductsTimeout(timeout);
+                }}
                 className="flex items-center space-x-1 text-gray-300 hover:text-[#EAEAEA] transition-colors text-sm"
               >
                 <span>Products</span>
@@ -76,8 +84,14 @@ const WebsiteNavigation: React.FC = () => {
               {isProductsOpen && (
                 <div 
                   className="absolute top-full left-0 mt-2 w-48 bg-[#181B22] border border-gray-700 rounded-lg shadow-lg z-50"
-                  onMouseEnter={() => setIsProductsOpen(true)}
-                  onMouseLeave={() => setIsProductsOpen(false)}
+                  onMouseEnter={() => {
+                    if (productsTimeout) clearTimeout(productsTimeout);
+                    setIsProductsOpen(true);
+                  }}
+                  onMouseLeave={() => {
+                    const timeout = setTimeout(() => setIsProductsOpen(false), 200);
+                    setProductsTimeout(timeout);
+                  }}
                 >
                   <div className="py-2">
                     <a 
@@ -114,8 +128,14 @@ const WebsiteNavigation: React.FC = () => {
             {/* More Dropdown */}
             <div className="relative" ref={moreRef}>
               <button
-                onMouseEnter={() => setIsMoreOpen(true)}
-                onMouseLeave={() => setIsMoreOpen(false)}
+                onMouseEnter={() => {
+                  if (moreTimeout) clearTimeout(moreTimeout);
+                  setIsMoreOpen(true);
+                }}
+                onMouseLeave={() => {
+                  const timeout = setTimeout(() => setIsMoreOpen(false), 200);
+                  setMoreTimeout(timeout);
+                }}
                 className="flex items-center space-x-1 text-gray-300 hover:text-[#EAEAEA] transition-colors text-sm"
               >
                 <span>More</span>
@@ -127,8 +147,14 @@ const WebsiteNavigation: React.FC = () => {
               {isMoreOpen && (
                 <div 
                   className="absolute top-full left-0 mt-2 w-48 bg-[#181B22] border border-gray-700 rounded-lg shadow-lg z-50"
-                  onMouseEnter={() => setIsMoreOpen(true)}
-                  onMouseLeave={() => setIsMoreOpen(false)}
+                  onMouseEnter={() => {
+                    if (moreTimeout) clearTimeout(moreTimeout);
+                    setIsMoreOpen(true);
+                  }}
+                  onMouseLeave={() => {
+                    const timeout = setTimeout(() => setIsMoreOpen(false), 200);
+                    setMoreTimeout(timeout);
+                  }}
                 >
                   <div className="py-2">
                     <a 
