@@ -129,20 +129,49 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
       if (error) {
         console.error('❌ Error fetching profile:', error);
-        // Créer un profil temporaire avec les infos de base
-        const tempProfile = {
-          id: userId,
+        console.log('🔧 Creating new profile for user...');
+        
+        // Créer un nouveau profil dans la base
+        const newProfile = {
           user_id: userId,
           username: user?.email?.split('@')[0] || 'user',
           display_name: user?.email?.split('@')[0] || 'User',
-          is_admin: false,
+          is_admin: false, // Vous pourrez changer ça manuellement dans Supabase
           subscription_tier: 'lunch',
-          is_active: true,
-          created_at: new Date().toISOString(),
-          updated_at: new Date().toISOString()
+          is_active: true
         };
-        console.log('🔧 Using temporary profile:', tempProfile);
-        setProfile(tempProfile);
+        
+        try {
+          const { data: createdProfile, error: createError } = await supabase
+            .from('profiles')
+            .insert(newProfile)
+            .select()
+            .single();
+          
+          if (createError) {
+            console.error('❌ Error creating profile:', createError);
+            // Utiliser un profil temporaire
+            setProfile({
+              ...newProfile,
+              id: userId,
+              created_at: new Date().toISOString(),
+              updated_at: new Date().toISOString()
+            });
+          } else {
+            console.log('✅ Profile created successfully:', createdProfile);
+            setProfile(createdProfile);
+          }
+        } catch (createErr) {
+          console.error('❌ Error creating profile:', createErr);
+          // Utiliser un profil temporaire
+          setProfile({
+            ...newProfile,
+            id: userId,
+            created_at: new Date().toISOString(),
+            updated_at: new Date().toISOString()
+          });
+        }
+        
         setLoading(false); // Important : arrêter le loading
       } else {
         console.log('✅ Profile loaded:', data);

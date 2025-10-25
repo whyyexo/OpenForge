@@ -19,7 +19,7 @@ export const supabase = (() => {
         autoRefreshToken: true,
         persistSession: true,
         detectSessionInUrl: true,
-        storageKey: 'ai-agent-platform-auth'
+        storageKey: 'openforge-auth'
       }
     });
   }
