@@ -1,7 +1,6 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { AuthProvider, useAuth } from './contexts/AuthContext';
-import { LanguageProvider } from '../contexts/LanguageContext';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
 import Sidebar from './components/Sidebar';
 import Navigation from '../components/Navigation';
 import Dashboard from './pages/Dashboard';
@@ -57,65 +56,59 @@ const DashboardLayout: React.FC<{ children: React.ReactNode }> = ({ children }) 
 // Dashboard App Component
 const DashboardApp: React.FC = () => {
   return (
-    <LanguageProvider>
-      <AuthProvider>
-        <Router>
-          <Routes>
-            <Route
-              path="/dashboard"
-              element={
-                <ProtectedRoute>
-                  <DashboardLayout>
-                    <Dashboard />
-                  </DashboardLayout>
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/admin"
-              element={
-                <ProtectedRoute requireAdmin={true}>
-                  <DashboardLayout>
-                    <Admin />
-                  </DashboardLayout>
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/profile"
-              element={
-                <ProtectedRoute>
-                  <DashboardLayout>
-                    <Profile />
-                  </DashboardLayout>
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/settings"
-              element={
-                <ProtectedRoute>
-                  <DashboardLayout>
-                    <Settings />
-                  </DashboardLayout>
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/team"
-              element={
-                <ProtectedRoute>
-                  <DashboardLayout>
-                    <Team />
-                  </DashboardLayout>
-                </ProtectedRoute>
-              }
-            />
-            <Route path="/" element={<Navigate to="/dashboard" replace />} />
-          </Routes>
-        </Router>
-      </AuthProvider>
-    </LanguageProvider>
+    <Routes>
+      <Route
+        path="/dashboard"
+        element={
+          <ProtectedRoute>
+            <DashboardLayout>
+              <Dashboard />
+            </DashboardLayout>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin"
+        element={
+          <ProtectedRoute requireAdmin={true}>
+            <DashboardLayout>
+              <Admin />
+            </DashboardLayout>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/profile"
+        element={
+          <ProtectedRoute>
+            <DashboardLayout>
+              <Profile />
+            </DashboardLayout>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/settings"
+        element={
+          <ProtectedRoute>
+            <DashboardLayout>
+              <Settings />
+            </DashboardLayout>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/team"
+        element={
+          <ProtectedRoute>
+            <DashboardLayout>
+              <Team />
+            </DashboardLayout>
+          </ProtectedRoute>
+        }
+      />
+      <Route path="/" element={<Navigate to="/dashboard" replace />} />
+    </Routes>
   );
 };
 
