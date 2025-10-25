@@ -100,9 +100,12 @@ const WebsiteNavigation: React.FC = () => {
                       href={EXTERNAL_LINKS.FIVERFLOW_APP} 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-[#EAEAEA] transition-colors"
+                      className="group flex items-center justify-between px-4 py-2 text-sm text-gray-300 hover:text-[#EAEAEA] transition-colors"
                     >
-                      FiverFlow
+                      <span>FiverFlow</span>
+                      <svg className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
+                      </svg>
                     </a>
                   </div>
                 </div>
@@ -165,26 +168,35 @@ const WebsiteNavigation: React.FC = () => {
                       href={EXTERNAL_LINKS.COMMUNITY} 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-[#EAEAEA] transition-colors"
+                      className="group flex items-center justify-between px-4 py-2 text-sm text-gray-300 hover:text-[#EAEAEA] transition-colors"
                     >
-                      {t.community}
+                      <span>{t.community}</span>
+                      <svg className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
+                      </svg>
                     </a>
                     <a 
                       href={EXTERNAL_LINKS.CAREER} 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-[#EAEAEA] transition-colors"
+                      className="group flex items-center justify-between px-4 py-2 text-sm text-gray-300 hover:text-[#EAEAEA] transition-colors"
                     >
-                      {t.career}
+                      <span>{t.career}</span>
+                      <svg className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
+                      </svg>
                     </a>
                     <div className="border-t border-gray-700 my-1"></div>
                     <a 
                       href={EXTERNAL_LINKS.LEGAL} 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-[#EAEAEA] transition-colors"
+                      className="group flex items-center justify-between px-4 py-2 text-sm text-gray-300 hover:text-[#EAEAEA] transition-colors"
                     >
-                      {t.legal}
+                      <span>{t.legal}</span>
+                      <svg className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
+                      </svg>
                     </a>
                   </div>
                 </div>
