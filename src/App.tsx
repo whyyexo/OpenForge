@@ -2,9 +2,13 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import Sidebar from './components/Sidebar';
+import Navigation from './components/Navigation';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import Admin from './pages/Admin';
+import Profile from './pages/Profile';
+import Settings from './pages/Settings';
+import Team from './pages/Team';
 
 // Protected Route Component
 const ProtectedRoute: React.FC<{ children: React.ReactNode; requireAdmin?: boolean }> = ({ 
@@ -39,10 +43,13 @@ const ProtectedRoute: React.FC<{ children: React.ReactNode; requireAdmin?: boole
 const AppLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
     <div className="min-h-screen bg-[#0f1117]">
-      <Sidebar />
-      <main className="ml-64 min-h-screen">
-        {children}
-      </main>
+      <Navigation />
+      <div className="flex">
+        <Sidebar />
+        <main className="ml-64 min-h-screen flex-1">
+          {children}
+        </main>
+      </div>
     </div>
   );
 };
@@ -70,6 +77,36 @@ const App: React.FC = () => {
               <ProtectedRoute requireAdmin={true}>
                 <AppLayout>
                   <Admin />
+                </AppLayout>
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/profile" 
+            element={
+              <ProtectedRoute>
+                <AppLayout>
+                  <Profile />
+                </AppLayout>
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/settings" 
+            element={
+              <ProtectedRoute>
+                <AppLayout>
+                  <Settings />
+                </AppLayout>
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/team" 
+            element={
+              <ProtectedRoute>
+                <AppLayout>
+                  <Team />
                 </AppLayout>
               </ProtectedRoute>
             } 
