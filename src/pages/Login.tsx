@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
-import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '../lib/supabase';
 import logo from '../components/icons/Full Vert - Blanc.png';
 
 const Login: React.FC = () => {
-  const { signIn } = useAuth();
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -18,7 +16,10 @@ const Login: React.FC = () => {
     setError('');
 
     try {
-      const { error } = await signIn(email, password);
+      const { error } = await supabase.auth.signInWithPassword({
+        email,
+        password
+      });
       if (error) {
         setError(error.message);
       } else {

@@ -11,7 +11,7 @@ import Signup from './pages/Signup';
 import Pricing from './pages/Pricing';
 import DashboardApp from './dashboard/App';
 
-// Protected Route Component for Login
+// Protected Login Route Component (for users who shouldn't be logged in)
 const ProtectedLoginRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { user, loading } = useAuth();
 
@@ -88,19 +88,11 @@ const App: React.FC = () => {
             } />
             <Route 
               path="/login" 
-              element={
-                <ProtectedLoginRoute>
-                  <Login />
-                </ProtectedLoginRoute>
-              } 
+              element={<Login />}
             />
             <Route 
               path="/signup" 
-              element={
-                <ProtectedLoginRoute>
-                  <Signup />
-                </ProtectedLoginRoute>
-              } 
+              element={<Signup />}
             />
             
             {/* Dashboard Routes - Protected */}
