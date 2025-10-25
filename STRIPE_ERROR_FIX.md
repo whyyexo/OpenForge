@@ -119,3 +119,4 @@ Si l'erreur persiste :
 2. Exécuter le script de diagnostic
 3. Vérifier les permissions utilisateur
 4. Contacter le support si nécessaire
+

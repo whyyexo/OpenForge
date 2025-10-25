@@ -95,3 +95,4 @@ SELECT
     COUNT(CASE WHEN stripe_id IS NOT NULL THEN 1 END) as with_stripe_id,
     COUNT(CASE WHEN status = 'completed' THEN 1 END) as completed_transactions
 FROM transactions;
+

@@ -151,3 +151,4 @@ WHERE table_name = 'transactions'
 AND column_name IN ('stripe_id', 'user_id', 'plan', 'status')
 
 ORDER BY table_name, column_name;
+

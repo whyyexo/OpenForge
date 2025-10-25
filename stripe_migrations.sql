@@ -62,3 +62,4 @@ ALTER TABLE subscription_audit_log ENABLE ROW LEVEL SECURITY;
 CREATE POLICY "Users can view their own audit log" ON subscription_audit_log
   FOR SELECT TO authenticated
   USING (auth.uid() = user_id);
+

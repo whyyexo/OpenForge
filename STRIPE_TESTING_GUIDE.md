@@ -158,3 +158,4 @@ GROUP BY plan, status;
 - [ ] Tests locaux réussis
 - [ ] Base de données migrée
 - [ ] Logs de monitoring en place
+

@@ -147,3 +147,4 @@ STRIPE_WEBHOOK_SECRET=whsec_...
 - [Documentation Stripe](https://stripe.com/docs)
 - [Guide Supabase](https://supabase.com/docs)
 - [Stripe Testing](https://stripe.com/docs/testing)
+

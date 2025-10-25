@@ -271,3 +271,4 @@ async function handleSubscriptionDeleted(subscription: Stripe.Subscription) {
 
   console.log(`Subscription deleted for user ${profile.user_id}, downgraded to Lunch`);
 }
+
