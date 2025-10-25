@@ -73,14 +73,12 @@ const Navigation: React.FC = () => {
             >
               {t.docs}
             </a>
-            <a 
-              href={EXTERNAL_LINKS.PRICING} 
-              target="_blank" 
-              rel="noopener noreferrer"
+            <button
+              onClick={() => navigate('/pricing')}
               className="text-gray-300 hover:text-[#EAEAEA] transition-colors text-sm"
             >
               {t.pricing}
-            </a>
+            </button>
             <a 
               href="https://fiverflow.com/feedback" 
               target="_blank" 

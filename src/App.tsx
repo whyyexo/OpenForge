@@ -114,7 +114,17 @@ const App: React.FC = () => {
                 </ProtectedRoute>
               }
             />
-            <Route path="/pricing" element={<Pricing />} />
+            <Route
+              path="/pricing"
+              element={
+                <div className="min-h-screen bg-[#0f1117]">
+                  <Navigation />
+                  <div className="pt-12">
+                    <Pricing />
+                  </div>
+                </div>
+              }
+            />
             <Route path="/" element={<Navigate to="/dashboard" replace />} />
           </Routes>
         </Router>
