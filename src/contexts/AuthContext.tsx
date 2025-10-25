@@ -51,14 +51,34 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
       if (error) {
         console.log('❌ Error fetching profile:', error);
-        return null;
+        // Créer un profil temporaire si pas trouvé
+        return {
+          id: userId,
+          user_id: userId,
+          username: 'user',
+          full_name: 'User',
+          email: '',
+          role: 'member',
+          subscription: 'Lunch',
+          created_at: new Date().toISOString()
+        };
       }
 
       console.log('✅ Profile loaded:', data);
       return data;
     } catch (err) {
       console.log('❌ Error in fetchProfile:', err);
-      return null;
+      // Créer un profil temporaire en cas d'erreur
+      return {
+        id: userId,
+        user_id: userId,
+        username: 'user',
+        full_name: 'User',
+        email: '',
+        role: 'member',
+        subscription: 'Lunch',
+        created_at: new Date().toISOString()
+      };
     }
   };
 
@@ -88,19 +108,43 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const isAdmin = profile?.role === 'admin';
 
   useEffect(() => {
+    let mounted = true;
+    let timeoutId: NodeJS.Timeout;
+
+    // Timeout pour éviter le loading infini
+    timeoutId = setTimeout(() => {
+      if (mounted) {
+        console.log('⏰ Loading timeout - forcing setLoading(false)');
+        setLoading(false);
+      }
+    }, 10000); // 10 secondes max
+
     // Get initial session
     supabase.auth.getSession().then(({ data: { session } }) => {
+      if (!mounted) return;
+      
       console.log('🔍 Initial session:', session?.user?.email);
       setUser(session?.user ?? null);
+      
       if (session?.user) {
-        fetchProfile(session.user.id).then(setProfile);
+        fetchProfile(session.user.id).then((profileData) => {
+          if (mounted) {
+            clearTimeout(timeoutId);
+            setProfile(profileData);
+            setLoading(false);
+          }
+        });
+      } else {
+        clearTimeout(timeoutId);
+        setLoading(false);
       }
-      setLoading(false);
     });
 
     // Listen for auth changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (event, session) => {
+        if (!mounted) return;
+        
         console.log('🔄 Auth state changed:', event);
         console.log('👤 User:', session?.user?.email);
         
@@ -108,16 +152,24 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         
         if (session?.user) {
           const profileData = await fetchProfile(session.user.id);
-          setProfile(profileData);
+          if (mounted) {
+            setProfile(profileData);
+            setLoading(false);
+          }
         } else {
-          setProfile(null);
+          if (mounted) {
+            setProfile(null);
+            setLoading(false);
+          }
         }
-        
-        setLoading(false);
       }
     );
 
-    return () => subscription.unsubscribe();
+    return () => {
+      mounted = false;
+      clearTimeout(timeoutId);
+      subscription.unsubscribe();
+    };
   }, []);
 
   const value = {
