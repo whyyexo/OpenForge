@@ -1,163 +1,205 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* Supabase-style customizations */
 @layer base {
-  * {
-    box-sizing: border-box;
-  }
-  
   html {
-    scroll-behavior: smooth;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   }
   
   body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background: #000000;
-    color: #ffffff;
-    line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-  
-  /* VIP Design System */
-  :root {
-    /* Monochrome Palette */
-    --color-black: #000000;
-    --color-black-soft: #0a0a0a;
-    --color-black-medium: #111111;
-    --color-black-light: #1a1a1a;
-    --color-gray-dark: #2a2a2a;
-    --color-gray-medium: #404040;
-    --color-gray-light: #666666;
-    --color-white-soft: #e5e5e5;
-    --color-white: #ffffff;
-    
-    /* Blue Accent */
-    --color-blue-primary: #0066ff;
-    --color-blue-light: #3385ff;
-    --color-blue-dark: #0052cc;
-    --color-blue-accent: #00aaff;
-    
-    /* VIP Gradients */
-    --gradient-primary: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
-    --gradient-accent: linear-gradient(135deg, #0066ff 0%, #00aaff 100%);
-    --gradient-card: linear-gradient(135deg, #0a0a0a 0%, #111111 100%);
-    
-    /* Shadows */
-    --shadow-vip: 0 20px 40px rgba(0, 0, 0, 0.8);
-    --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.6);
-    --shadow-button: 0 4px 16px rgba(0, 102, 255, 0.3);
-    
-    /* Borders */
-    --border-vip: 1px solid rgba(255, 255, 255, 0.1);
-    --border-accent: 1px solid rgba(0, 102, 255, 0.3);
+    @apply text-slate-900 bg-slate-50;
   }
 }
 
 @layer components {
-  /* VIP Button Styles */
-  .btn-vip {
-    @apply px-8 py-4 bg-black text-white border border-white/20 rounded-xl font-semibold text-sm uppercase tracking-wider transition-all duration-300 hover:bg-white hover:text-black hover:shadow-lg hover:shadow-white/10;
+  /* Supabase-style buttons */
+  .btn-primary {
+    @apply bg-green-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-green-700 transition-colors text-sm;
   }
   
-  .btn-vip-primary {
-    @apply px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-500 text-white rounded-xl font-semibold text-sm uppercase tracking-wider transition-all duration-300 hover:from-blue-700 hover:to-blue-600 hover:shadow-lg hover:shadow-blue-500/30;
+  .btn-secondary {
+    @apply bg-slate-200 text-slate-700 px-4 py-2 rounded-lg font-medium hover:bg-slate-300 transition-colors text-sm;
   }
   
-  .btn-vip-secondary {
-    @apply px-6 py-3 bg-transparent text-white border border-white/30 rounded-lg font-medium text-sm transition-all duration-300 hover:bg-white/10 hover:border-white/50;
+  .btn-outline {
+    @apply border border-slate-300 text-slate-700 px-4 py-2 rounded-lg font-medium hover:bg-slate-50 transition-colors text-sm;
   }
   
-  /* VIP Card Styles */
-  .card-vip {
-    @apply bg-gradient-to-br from-black/80 to-gray-900/80 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl;
+  /* Supabase-style cards */
+  .card {
+    @apply bg-white rounded-lg border border-slate-200 shadow-sm;
   }
   
-  .card-vip-hover {
-    @apply card-vip transition-all duration-500 hover:border-white/20 hover:scale-[1.02];
+  .card-header {
+    @apply px-6 py-4 border-b border-slate-200;
   }
   
-  .card-vip-hover:hover {
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
+  .card-body {
+    @apply p-6;
   }
   
-  /* VIP Text Styles */
-  .text-vip-title {
-    @apply text-4xl font-black text-white tracking-tight;
+  /* Supabase-style form inputs */
+  .form-input {
+    @apply w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 text-sm;
   }
   
-  .text-vip-subtitle {
-    @apply text-xl font-semibold text-white/90 tracking-wide;
+  .form-label {
+    @apply block text-sm font-medium text-slate-700 mb-1;
   }
   
-  .text-vip-body {
-    @apply text-base font-normal text-white/80 leading-relaxed;
+  /* Supabase-style badges */
+  .badge-success {
+    @apply bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-medium;
   }
   
-  .text-vip-caption {
-    @apply text-sm font-medium text-white/60 uppercase tracking-wider;
+  .badge-warning {
+    @apply bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full text-xs font-medium;
   }
   
-  /* VIP Input Styles */
-  .input-vip {
-    @apply w-full px-6 py-4 bg-black/50 border border-white/20 rounded-xl text-white placeholder-white/40 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all duration-300;
+  .badge-error {
+    @apply bg-red-100 text-red-800 px-2 py-1 rounded-full text-xs font-medium;
   }
   
-  /* VIP Navigation */
-  .nav-vip {
-    @apply bg-black/95 backdrop-blur-xl border-b border-white/10;
+  .badge-info {
+    @apply bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs font-medium;
   }
   
-  /* VIP Animations */
-  .animate-vip-glow {
-    animation: vip-glow 2s ease-in-out infinite alternate;
+  .badge-neutral {
+    @apply bg-slate-100 text-slate-800 px-2 py-1 rounded-full text-xs font-medium;
   }
   
-  @keyframes vip-glow {
-    from {
-      box-shadow: 0 0 20px rgba(0, 102, 255, 0.3);
-    }
-    to {
-      box-shadow: 0 0 40px rgba(0, 102, 255, 0.6);
-    }
+  /* Supabase-style navigation */
+  .nav-item {
+    @apply flex items-center px-3 py-2 text-sm font-medium rounded-lg transition-colors;
   }
   
-  /* VIP Scrollbar */
-  ::-webkit-scrollbar {
-    width: 8px;
+  .nav-item-active {
+    @apply bg-green-50 text-green-700 border border-green-200;
   }
   
-  ::-webkit-scrollbar-track {
-    background: #000000;
+  .nav-item-inactive {
+    @apply text-slate-600 hover:text-slate-900 hover:bg-slate-50;
   }
   
-  ::-webkit-scrollbar-thumb {
-    background: linear-gradient(135deg, #0066ff, #00aaff);
-    border-radius: 4px;
+  /* Supabase-style status indicators */
+  .status-online {
+    @apply bg-green-500;
   }
   
-  ::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(135deg, #0052cc, #0066ff);
+  .status-offline {
+    @apply bg-slate-400;
+  }
+  
+  .status-warning {
+    @apply bg-yellow-500;
+  }
+  
+  .status-error {
+    @apply bg-red-500;
+  }
+  
+  /* Supabase-style loading states */
+  .loading-spinner {
+    @apply animate-spin rounded-full border-2 border-slate-300 border-t-green-600;
+  }
+  
+  /* Supabase-style empty states */
+  .empty-state {
+    @apply text-center py-12;
+  }
+  
+  .empty-state-icon {
+    @apply w-12 h-12 bg-slate-100 rounded-lg flex items-center justify-center mx-auto mb-4;
+  }
+  
+  .empty-state-title {
+    @apply text-lg font-medium text-slate-900 mb-2;
+  }
+  
+  .empty-state-description {
+    @apply text-slate-600;
+  }
+  
+  /* Supabase-style data tables */
+  .data-table {
+    @apply w-full border-collapse;
+  }
+  
+  .data-table th {
+    @apply px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider border-b border-slate-200;
+  }
+  
+  .data-table td {
+    @apply px-6 py-4 whitespace-nowrap text-sm text-slate-900 border-b border-slate-200;
+  }
+  
+  /* Supabase-style modals */
+  .modal-overlay {
+    @apply fixed inset-0 bg-slate-900 bg-opacity-50 flex items-center justify-center p-4 z-50;
+  }
+  
+  .modal-content {
+    @apply bg-white rounded-lg shadow-xl max-w-md w-full max-h-screen overflow-y-auto;
+  }
+  
+  .modal-header {
+    @apply px-6 py-4 border-b border-slate-200 flex justify-between items-center;
+  }
+  
+  .modal-body {
+    @apply p-6;
+  }
+  
+  .modal-footer {
+    @apply px-6 py-4 border-t border-slate-200 flex justify-end space-x-3;
   }
 }
 
-@layer utilities {
-  .text-shadow-vip {
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
-  }
-  
-  .backdrop-blur-vip {
-    backdrop-filter: blur(20px);
-  }
-  
-  .shadow-vip {
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
-  }
-  
-  .hover\:shadow-vip:hover {
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
-  }
+/* Custom scrollbar for Supabase style */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Supabase-style focus states */
+.focus-ring {
+  @apply focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2;
+}
+
+/* Supabase-style transitions */
+.transition-supabase {
+  @apply transition-all duration-200 ease-in-out;
+}
+
+/* Supabase-style shadows */
+.shadow-supabase {
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
+.shadow-supabase-lg {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* Supabase-style gradients */
+.gradient-supabase {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+}
+
+.gradient-supabase-light {
+  background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
 }
