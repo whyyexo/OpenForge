@@ -1,8 +1,8 @@
 import React from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import { supabase } from '../lib/supabase';
-import SubscriptionManager from '../components/SubscriptionManager';
+import { supabase } from '../../lib/supabase';
+import SubscriptionManager from '../../components/SubscriptionManager';
 
 const Dashboard: React.FC = () => {
   const { user, profile, isAdmin } = useAuth();

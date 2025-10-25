@@ -1,6 +1,6 @@
 import React from 'react';
 import { useAuth } from '../contexts/AuthContext';
-import SubscriptionStats from '../components/SubscriptionStats';
+import SubscriptionStats from '../../components/SubscriptionStats';
 
 const Admin: React.FC = () => {
   const { user, profile } = useAuth();
