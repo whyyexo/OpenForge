@@ -5,7 +5,7 @@ const Admin: React.FC = () => {
   const { user, profile } = useAuth();
 
   return (
-    <div className="ml-64 p-8 bg-[#0f1117] min-h-screen">
+    <div className="p-8 bg-[#0f1117] min-h-screen w-full">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="mb-8">

@@ -15,10 +15,10 @@ const ProtectedRoute: React.FC<{ children: React.ReactNode; requireAdmin?: boole
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-supabase-dark-900 flex items-center justify-center">
+      <div className="min-h-screen bg-[#0f1117] flex items-center justify-center">
         <div className="text-center">
-          <div className="w-8 h-8 border-2 border-accent-green border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-supabase-dark-400">Loading...</p>
+          <div className="w-8 h-8 border-2 border-[#00E38C] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-gray-400">Loading...</p>
         </div>
       </div>
     );
@@ -38,13 +38,11 @@ const ProtectedRoute: React.FC<{ children: React.ReactNode; requireAdmin?: boole
 // Main App Layout
 const AppLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
-    <div className="min-h-screen bg-supabase-dark-900">
+    <div className="min-h-screen bg-[#0f1117]">
       <Sidebar />
-      <div className="ml-64">
-        <main className="min-h-screen">
-          {children}
-        </main>
-      </div>
+      <main className="ml-64 min-h-screen">
+        {children}
+      </main>
     </div>
   );
 };
