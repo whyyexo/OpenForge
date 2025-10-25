@@ -10,52 +10,54 @@ const Pricing: React.FC = () => {
 
   const plans = [
     {
-      name: 'Lunch',
-      price: 'Free',
-      description: 'Perfect for getting started',
+      name: 'Personal',
+      price: '0',
+      period: '/month',
+      description: 'For individuals to get started with OpenForge.',
       features: [
-        'Public project access',
-        'Basic support',
-        'Community features',
-        'Standard templates'
+        'Everything in Personal and:',
+        'OpenForge\'s fully browser-based IDE',
+        'Unlimited public projects and collections',
+        'Open and edit public GitHub repositories',
+        'Up to 1MB of file uploads per project',
+        'Community support',
+        'Plus all the features of Bolt Personal'
       ],
       popular: false,
-      gradient: false,
       priceId: null // Free plan
     },
     {
       name: 'Boost',
-      price: '$20',
+      price: '20',
       period: '/month',
-      description: 'Ideal for growing teams',
+      description: 'For individuals to get started with OpenForge.',
       features: [
-        'Everything in Lunch',
-        'Private projects',
-        'Priority support',
-        'Advanced templates',
-        'Team collaboration',
-        'Custom integrations'
+        'Everything in Personal and:',
+        'OpenForge\'s fully browser-based IDE',
+        'Unlimited public projects and collections',
+        'Open and edit public GitHub repositories',
+        'Up to 1MB of file uploads per project',
+        'Community support',
+        'Plus all the features of Bolt Personal'
       ],
       popular: true,
-      gradient: true,
       priceId: process.env.NEXT_PUBLIC_STRIPE_BOOST_PRICE_ID || 'price_boost_placeholder'
     },
     {
       name: 'Scale',
-      price: '$35',
+      price: '35',
       period: '/month',
-      description: 'For enterprise teams',
+      description: 'For individuals to get started with OpenForge.',
       features: [
-        'Everything in Boost',
-        'Unlimited projects',
-        '24/7 support',
-        'Custom templates',
-        'Advanced analytics',
-        'API access',
-        'White-label options'
+        'Everything in Personal and:',
+        'OpenForge\'s fully browser-based IDE',
+        'Unlimited public projects and collections',
+        'Open and edit public GitHub repositories',
+        'Up to 1MB of file uploads per project',
+        'Community support',
+        'Plus all the features of Bolt Personal'
       ],
       popular: false,
-      gradient: false,
       priceId: process.env.NEXT_PUBLIC_STRIPE_SCALE_PRICE_ID || 'price_scale_placeholder'
     }
   ];
@@ -71,11 +73,11 @@ const Pricing: React.FC = () => {
   // };
 
   return (
-    <div className="min-h-screen bg-[#0f1117] py-16">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-[#0f1117] pt-24 pb-16">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center mb-16">
-          <h1 className="text-4xl font-bold text-[#EAEAEA] mb-4">
+        <div className="text-center mb-20">
+          <h1 className="text-4xl font-medium text-[#EAEAEA] mb-4">
             Simple, transparent pricing
           </h1>
           <p className="text-xl text-gray-400 max-w-3xl mx-auto">
@@ -84,36 +86,34 @@ const Pricing: React.FC = () => {
         </div>
 
         {/* Pricing Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
           {plans.map((plan) => (
             <div
               key={plan.name}
-              className={`relative rounded-2xl p-8 ${
-                plan.gradient
-                  ? 'bg-gradient-to-br from-[#181B22] to-[#00E38C]/20 border-2 border-[#00E38C]/30'
-                  : 'bg-[#181B22] border border-gray-700'
-              } ${plan.popular ? 'ring-2 ring-[#00E38C]' : ''}`}
+              className={`relative rounded-lg p-8 h-full ${
+                plan.popular
+                  ? 'bg-gradient-to-br from-[#181B22] to-[#00E38C]/20 border border-[#00E38C]/30'
+                  : 'bg-[#181B22] border border-gray-600'
+              }`}
             >
               {plan.popular && (
-                <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                  <span className="bg-[#00E38C] text-black px-4 py-1 rounded-full text-sm font-medium">
+                <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
+                  <span className="bg-[#00E38C] text-black px-3 py-1 rounded-full text-sm font-medium">
                     Most Popular
                   </span>
                 </div>
               )}
 
-              <div className="text-center mb-8">
-                <h3 className="text-2xl font-bold text-[#EAEAEA] mb-2">{plan.name}</h3>
+              <div className="text-left mb-8">
+                <h3 className="text-2xl font-medium text-[#EAEAEA] mb-2">{plan.name}</h3>
                 <p className="text-gray-400 mb-4">{plan.description}</p>
-                <div className="flex items-baseline justify-center">
-                  <span className="text-4xl font-bold text-[#EAEAEA]">{plan.price}</span>
-                  {plan.period && (
-                    <span className="text-gray-400 ml-1">{plan.period}</span>
-                  )}
+                <div className="flex items-baseline">
+                  <span className="text-4xl font-medium text-[#EAEAEA]">${plan.price}</span>
+                  <span className="text-gray-400 ml-1">{plan.period}</span>
                 </div>
               </div>
 
-              <ul className="space-y-4 mb-8">
+              <ul className="space-y-3 mb-8 text-left">
                 {plan.features.map((feature, index) => (
                   <li key={index} className="flex items-start">
                     <svg
@@ -132,24 +132,20 @@ const Pricing: React.FC = () => {
                 ))}
               </ul>
 
-              {plan.name === 'Lunch' ? (
+              {plan.name === 'Personal' ? (
                 <button
-                  className="w-full py-3 px-6 rounded-lg font-medium transition-all duration-200 bg-gray-700 text-[#EAEAEA] hover:bg-gray-600 hover:scale-105"
+                  className="w-full py-3 px-6 rounded-lg font-medium transition-colors duration-200 bg-gray-700 text-[#EAEAEA] hover:bg-gray-600"
                   onClick={() => {
-                    alert('Lunch plan is free!');
+                    alert('Personal plan is free!');
                   }}
                 >
-                  Get Free Plan
+                  Sign in with GitHub
                 </button>
               ) : (
                 <StripeButton
                   planName={plan.name}
                   priceId={plan.priceId!}
-                  className={`${
-                    plan.popular
-                      ? 'bg-[#00E38C] text-black hover:bg-[#00E38C]/90'
-                      : 'bg-gray-700 text-[#EAEAEA] hover:bg-gray-600'
-                  }`}
+                  className="w-full py-3 px-6 rounded-lg font-medium transition-colors duration-200 bg-gray-700 text-[#EAEAEA] hover:bg-gray-600"
                 />
               )}
             </div>
@@ -157,20 +153,20 @@ const Pricing: React.FC = () => {
         </div>
 
         {/* FAQ Section */}
-        <div className="mt-20 text-center">
-          <h2 className="text-2xl font-bold text-[#EAEAEA] mb-8">Frequently Asked Questions</h2>
+        <div className="mt-24 text-center">
+          <h2 className="text-2xl font-medium text-[#EAEAEA] mb-8">Frequently Asked Questions</h2>
           <div className="max-w-3xl mx-auto space-y-6">
-            <div className="bg-[#181B22] rounded-lg p-6 border border-gray-700">
-              <h3 className="text-lg font-semibold text-[#EAEAEA] mb-2">Can I change plans anytime?</h3>
+            <div className="bg-[#181B22] rounded-lg p-6 border border-gray-600">
+              <h3 className="text-lg font-medium text-[#EAEAEA] mb-2">Can I change plans anytime?</h3>
               <p className="text-gray-400">Yes, you can upgrade or downgrade your plan at any time. Changes take effect immediately.</p>
             </div>
-            <div className="bg-[#181B22] rounded-lg p-6 border border-gray-700">
-              <h3 className="text-lg font-semibold text-[#EAEAEA] mb-2">What payment methods do you accept?</h3>
+            <div className="bg-[#181B22] rounded-lg p-6 border border-gray-600">
+              <h3 className="text-lg font-medium text-[#EAEAEA] mb-2">What payment methods do you accept?</h3>
               <p className="text-gray-400">We accept all major credit cards, PayPal, and bank transfers through Stripe.</p>
             </div>
-            <div className="bg-[#181B22] rounded-lg p-6 border border-gray-700">
-              <h3 className="text-lg font-semibold text-[#EAEAEA] mb-2">Is there a free trial?</h3>
-              <p className="text-gray-400">Yes! The Lunch plan is completely free forever. No credit card required.</p>
+            <div className="bg-[#181B22] rounded-lg p-6 border border-gray-600">
+              <h3 className="text-lg font-medium text-[#EAEAEA] mb-2">Is there a free trial?</h3>
+              <p className="text-gray-400">Yes! The Personal plan is completely free forever. No credit card required.</p>
             </div>
           </div>
         </div>
