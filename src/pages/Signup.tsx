@@ -33,7 +33,6 @@ const Signup: React.FC = () => {
       if (error) {
         setError(error.message);
       } else {
-        // Redirect to login or show success message
         navigate('/login');
       }
     } catch (err: any) {
