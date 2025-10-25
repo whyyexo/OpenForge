@@ -12,8 +12,8 @@
 
 body {
   font-family: 'Inter', sans-serif;
-  background-color: #f9fafb;
-  color: #111827;
+  background-color: #0f1117;
+  color: #EAEAEA;
   line-height: 1.6;
 }
 
@@ -23,16 +23,16 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f5f9;
+  background: #0f1117;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
+  background: #181B22;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+  background: #2a2d35;
 }
 
 /* Focus styles */
@@ -42,12 +42,12 @@ body {
 
 /* Button focus styles */
 button:focus-visible {
-  outline: 2px solid #10b981;
+  outline: 2px solid #00E38C;
   outline-offset: 2px;
 }
 
 /* Input focus styles */
 input:focus-visible {
-  outline: 2px solid #10b981;
+  outline: 2px solid #00E38C;
   outline-offset: 2px;
 }

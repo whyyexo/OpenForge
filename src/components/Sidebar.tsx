@@ -18,35 +18,35 @@ const Sidebar: React.FC = () => {
   };
 
   return (
-    <div className="fixed left-0 top-0 h-full w-64 bg-white border-r border-gray-200 flex flex-col">
+    <div className="fixed left-0 top-0 h-full w-64 bg-[#181B22] border-r border-gray-700 flex flex-col">
       {/* Logo */}
-      <div className="p-6 border-b border-gray-200">
+      <div className="p-6 border-b border-gray-700">
         <div className="flex items-center space-x-3">
-          <div className="w-8 h-8 bg-green-600 rounded-lg flex items-center justify-center">
-            <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+          <div className="w-8 h-8 bg-[#00E38C] rounded-lg flex items-center justify-center">
+            <svg className="w-5 h-5 text-black" fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.207A1 1 0 013 6.5V4z" clipRule="evenodd" />
             </svg>
           </div>
           <div>
-            <h1 className="text-lg font-semibold text-gray-900">OpenForge</h1>
-            <p className="text-gray-500 text-sm">Dashboard</p>
+            <h1 className="text-lg font-semibold text-[#EAEAEA]">OpenForge</h1>
+            <p className="text-gray-400 text-sm">Dashboard</p>
           </div>
         </div>
       </div>
 
       {/* User Info */}
-      <div className="p-4 border-b border-gray-200">
+      <div className="p-4 border-b border-gray-700">
         <div className="flex items-center space-x-3">
-          <div className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center">
-            <span className="text-gray-700 font-medium text-sm">
+          <div className="w-10 h-10 bg-gray-600 rounded-full flex items-center justify-center">
+            <span className="text-gray-200 font-medium text-sm">
               {profile?.username?.charAt(0).toUpperCase() || user?.email?.charAt(0).toUpperCase() || 'U'}
             </span>
           </div>
           <div className="flex-1 min-w-0">
-            <p className="text-gray-900 font-medium text-sm truncate">
+            <p className="text-[#EAEAEA] font-medium text-sm truncate">
               {profile?.display_name || profile?.username || user?.email}
             </p>
-            <p className="text-gray-500 text-xs truncate">
+            <p className="text-gray-400 text-xs truncate">
               {profile?.subscription_tier || 'Member'}
             </p>
           </div>
@@ -62,8 +62,8 @@ const Sidebar: React.FC = () => {
                 onClick={() => navigate(item.path)}
                 className={`w-full flex items-center space-x-3 px-3 py-2 rounded-md text-left transition-colors ${
                   location.pathname === item.path
-                    ? 'bg-green-50 text-green-700 border-r-2 border-green-600'
-                    : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'
+                    ? 'bg-[#00E38C]/20 text-[#00E38C] border-r-2 border-[#00E38C]'
+                    : 'text-gray-300 hover:bg-gray-700 hover:text-[#EAEAEA]'
                 }`}
               >
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
@@ -77,15 +77,15 @@ const Sidebar: React.FC = () => {
       </nav>
 
       {/* Logout */}
-      <div className="p-4 border-t border-gray-200">
+      <div className="p-4 border-t border-gray-700">
         <button
           onClick={handleLogout}
-          className="w-full flex items-center space-x-3 px-3 py-2 rounded-md text-gray-700 hover:bg-gray-50 hover:text-gray-900 transition-colors"
+          className="w-full flex items-center space-x-3 px-3 py-2 rounded-md text-gray-300 hover:bg-gray-700 hover:text-[#EAEAEA] transition-colors"
         >
           <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
             <path fillRule="evenodd" d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z" clipRule="evenodd" />
           </svg>
-          <span className="font-medium">Logout</span>
+          <span className="font-medium">Se déconnecter</span>
         </button>
       </div>
     </div>
