@@ -76,11 +76,9 @@ const WebsiteNavigation: React.FC = () => {
                 className="flex items-center space-x-1 text-gray-400 hover:text-[#EAEAEA] transition-colors text-sm"
               >
                 <span>Products</span>
-                {isProductsOpen && (
-                  <svg className="w-3 h-3 ml-1" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" clipRule="evenodd" />
-                  </svg>
-                )}
+                <svg className="w-3 h-3 ml-1" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
+                </svg>
               </button>
 
               {isProductsOpen && (
@@ -100,10 +98,10 @@ const WebsiteNavigation: React.FC = () => {
                       href={EXTERNAL_LINKS.FIVERFLOW_APP} 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className="group flex items-center justify-between px-4 py-2 text-sm text-gray-300 hover:text-[#EAEAEA] transition-colors"
+                      className="group flex items-center px-4 py-2 text-sm text-gray-300 hover:text-[#EAEAEA] transition-colors"
                     >
                       <span>FiverFlow</span>
-                      <svg className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" fill="currentColor" viewBox="0 0 20 20">
+                      <svg className="w-3 h-3 ml-1 opacity-0 group-hover:opacity-100 transition-opacity" fill="currentColor" viewBox="0 0 20 20">
                         <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
                       </svg>
                     </a>
@@ -144,11 +142,9 @@ const WebsiteNavigation: React.FC = () => {
                 className="flex items-center space-x-1 text-gray-400 hover:text-[#EAEA] transition-colors text-sm"
               >
                 <span>More</span>
-                {isMoreOpen && (
-                  <svg className="w-3 h-3 ml-1" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" clipRule="evenodd" />
-                  </svg>
-                )}
+                <svg className="w-3 h-3 ml-1" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
+                </svg>
               </button>
 
               {isMoreOpen && (
@@ -168,10 +164,10 @@ const WebsiteNavigation: React.FC = () => {
                       href={EXTERNAL_LINKS.COMMUNITY} 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className="group flex items-center justify-between px-4 py-2 text-sm text-gray-300 hover:text-[#EAEAEA] transition-colors"
+                      className="group flex items-center px-4 py-2 text-sm text-gray-300 hover:text-[#EAEAEA] transition-colors"
                     >
                       <span>{t.community}</span>
-                      <svg className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" fill="currentColor" viewBox="0 0 20 20">
+                      <svg className="w-3 h-3 ml-1 opacity-0 group-hover:opacity-100 transition-opacity" fill="currentColor" viewBox="0 0 20 20">
                         <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
                       </svg>
                     </a>
@@ -179,10 +175,10 @@ const WebsiteNavigation: React.FC = () => {
                       href={EXTERNAL_LINKS.CAREER} 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className="group flex items-center justify-between px-4 py-2 text-sm text-gray-300 hover:text-[#EAEAEA] transition-colors"
+                      className="group flex items-center px-4 py-2 text-sm text-gray-300 hover:text-[#EAEAEA] transition-colors"
                     >
                       <span>{t.career}</span>
-                      <svg className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" fill="currentColor" viewBox="0 0 20 20">
+                      <svg className="w-3 h-3 ml-1 opacity-0 group-hover:opacity-100 transition-opacity" fill="currentColor" viewBox="0 0 20 20">
                         <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
                       </svg>
                     </a>
@@ -191,10 +187,10 @@ const WebsiteNavigation: React.FC = () => {
                       href={EXTERNAL_LINKS.LEGAL} 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className="group flex items-center justify-between px-4 py-2 text-sm text-gray-300 hover:text-[#EAEAEA] transition-colors"
+                      className="group flex items-center px-4 py-2 text-sm text-gray-300 hover:text-[#EAEAEA] transition-colors"
                     >
                       <span>{t.legal}</span>
-                      <svg className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" fill="currentColor" viewBox="0 0 20 20">
+                      <svg className="w-3 h-3 ml-1 opacity-0 group-hover:opacity-100 transition-opacity" fill="currentColor" viewBox="0 0 20 20">
                         <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
                       </svg>
                     </a>

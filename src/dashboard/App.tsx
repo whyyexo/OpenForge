@@ -38,6 +38,14 @@ const DashboardApp: React.FC = () => {
         }
       />
       <Route
+        path="/dashboard"
+        element={
+          <DashboardLayout>
+            <Dashboard />
+          </DashboardLayout>
+        }
+      />
+      <Route
         path="/admin"
         element={
           <DashboardLayout>
