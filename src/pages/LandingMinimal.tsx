@@ -8,32 +8,58 @@ const LandingMinimal: React.FC = () => {
     <div className="min-h-screen bg-[#0a0a0a] text-white">
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#0a0a0a]">
+        {/* Animated Background */}
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 bg-gradient-to-br from-[#0a0a0a] via-[#1a1a1a] to-[#0a0a0a]" />
+          
+          {/* Animated Grid Pattern */}
+          <div className="absolute inset-0 opacity-20">
+            <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg%20width%3D%2260%22%20height%3D%2260%22%20viewBox%3D%220%200%2060%2060%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cg%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%3Cg%20fill%3D%22%2300E38C%22%20fill-opacity%3D%220.1%22%3E%3Cpath%20d%3D%22M36%2034v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6%2034v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6%204V0H4v4H0v2h4v4h2V6h4V4H6z%22/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] animate-pulse" />
+          </div>
+          
+          {/* Floating Elements */}
+          <div className="absolute inset-0">
+            {[...Array(8)].map((_, i) => (
+              <div
+                key={i}
+                className="absolute w-2 h-2 bg-[#00E38C] rounded-full opacity-30 animate-bounce"
+                style={{
+                  left: `${Math.random() * 100}%`,
+                  top: `${Math.random() * 100}%`,
+                  animationDelay: `${Math.random() * 3}s`,
+                  animationDuration: `${2 + Math.random() * 2}s`,
+                }}
+              />
+            ))}
+          </div>
+        </div>
+
         <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
-          <h1 className="text-5xl md:text-7xl font-light text-white mb-8 leading-tight">
+          <h1 className="text-6xl md:text-8xl font-bold text-white mb-8 leading-tight">
             Build.{' '}
-            <span className="text-[#00E38C] font-normal">
+            <span className="text-[#00E38C]">
               Connect.
             </span>{' '}
             Create.
           </h1>
 
-          <p className="text-lg md:text-xl text-gray-400 mb-12 max-w-2xl mx-auto leading-relaxed font-light">
+          <p className="text-xl text-gray-400 mb-12 max-w-3xl mx-auto leading-relaxed">
             OpenForge empowers creators and developers to build next-generation platforms.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <button
-              onClick={() => navigate('/signup')}
-              className="bg-[#00E38C] text-black px-6 py-3 rounded-md font-medium text-sm hover:bg-[#00E38C]/90 transition-all duration-200"
+              onClick={() => navigate('/docs')}
+              className="bg-[#00E38C] text-black px-8 py-4 rounded-lg font-semibold text-lg hover:bg-[#00E38C]/90 transition-all duration-200"
             >
-              Get Started
+              Explore Tools
             </button>
             
             <button
-              onClick={() => navigate('/docs')}
-              className="border border-gray-700 text-gray-300 px-6 py-3 rounded-md font-medium text-sm hover:border-[#00E38C] hover:text-[#00E38C] transition-all duration-200"
+              onClick={() => navigate('/dashboard/sign-in')}
+              className="border border-gray-600 text-gray-300 px-8 py-4 rounded-lg font-semibold text-lg hover:border-gray-400 hover:text-white hover:bg-gray-800 transition-all duration-200"
             >
-              View Docs
+              Sign In
             </button>
           </div>
         </div>
@@ -42,11 +68,12 @@ const LandingMinimal: React.FC = () => {
       {/* Features Section */}
       <section className="py-20 bg-[#0a0a0a]">
         <div className="max-w-6xl mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-light text-white mb-4">
-              Powerful Features
+          <div className="mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 text-left">
+              Powerful{' '}
+              <span className="text-[#00E38C]">Features</span>
             </h2>
-            <p className="text-gray-400 max-w-xl mx-auto font-light">
+            <p className="text-xl text-gray-400 max-w-3xl text-left">
               Everything you need to build, deploy, and scale your applications
             </p>
           </div>
@@ -284,50 +311,35 @@ const LandingMinimal: React.FC = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-[#0a0a0a]">
+      <section className="py-20 bg-gradient-to-r from-[#00E38C]/10 via-[#00E38C]/5 to-[#00E38C]/10">
         <div className="max-w-4xl mx-auto px-4 text-center">
-          <h2 className="text-4xl md:text-5xl font-light text-white mb-6">
-            Join OpenForge{' '}
-            <span className="text-[#00E38C]">
-              Today
+          <h2 className="text-4xl md:text-6xl font-bold text-white mb-6">
+            Ready to{' '}
+            <span className="bg-gradient-to-r from-[#00E38C] to-[#00B894] bg-clip-text text-transparent">
+              Transform
             </span>
+            <br />
+            Your Development?
           </h2>
 
-          <p className="text-lg text-gray-400 mb-8 max-w-2xl mx-auto font-light">
-            Create your account and start building the future. Join thousands of developers already using OpenForge.
+          <p className="text-xl text-gray-300 mb-12 max-w-2xl mx-auto">
+            Join thousands of developers who are already building the future with OpenForge.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button
               onClick={() => navigate('/signup')}
-              className="bg-[#00E38C] text-black px-6 py-3 rounded-md font-medium text-sm hover:bg-[#00E38C]/90 transition-all duration-200"
+              className="bg-[#00E38C] text-black px-10 py-4 rounded-xl font-bold text-lg hover:bg-[#00E38C]/90 transition-all duration-200 shadow-lg hover:shadow-[#00E38C]/25"
             >
-              Create Account
+              Start Building Now
             </button>
             
             <button
               onClick={() => navigate('/docs')}
-              className="border border-gray-700 text-gray-300 px-6 py-3 rounded-md font-medium text-sm hover:border-[#00E38C] hover:text-[#00E38C] transition-all duration-200"
+              className="border-2 border-gray-600 text-gray-300 px-10 py-4 rounded-xl font-bold text-lg hover:border-gray-400 hover:text-white hover:bg-gray-800 transition-all duration-200"
             >
-              Learn More
+              View Documentation
             </button>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-2xl mx-auto">
-            {[
-              { number: '10K+', label: 'Active Users' },
-              { number: '99.9%', label: 'Uptime' },
-              { number: '24/7', label: 'Support' }
-            ].map((stat, index) => (
-              <div key={stat.label} className="text-center">
-                <div className="text-2xl font-light text-[#00E38C] mb-1">
-                  {stat.number}
-                </div>
-                <div className="text-gray-400 text-sm">
-                  {stat.label}
-                </div>
-              </div>
-            ))}
           </div>
         </div>
       </section>
@@ -364,7 +376,7 @@ const LandingMinimal: React.FC = () => {
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-8 h-8 bg-gray-800 rounded-md flex items-center justify-center text-gray-400 hover:bg-[#00E38C] hover:text-black transition-all duration-200"
+                    className="w-8 h-8 bg-gray-800 rounded-md flex items-center justify-center text-gray-500 hover:text-white hover:bg-gray-700 transition-all duration-200"
                   >
                     {social.icon}
                   </a>
