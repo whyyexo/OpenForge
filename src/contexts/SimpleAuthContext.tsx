@@ -22,51 +22,59 @@ export const useAuth = () => {
   return context;
 };
 
-export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const SimpleAuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [profile, setProfile] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Timeout de sécurité pour éviter le blocage indéfini
-    const timeout = setTimeout(() => {
-      console.warn('Auth loading timeout, setting loading to false');
-      setLoading(false);
-    }, 10000); // 10 secondes max
+    let mounted = true;
 
-    // Get initial session
-    const getInitialSession = async () => {
+    const initializeAuth = async () => {
       try {
-        console.log('🔍 Checking auth session...');
+        console.log('🔍 Initializing auth...');
+        
+        // Get initial session
         const { data: { session }, error } = await supabase.auth.getSession();
         
         if (error) {
           console.warn('Auth session error:', error);
-          setUser(null);
-        } else {
-          console.log('✅ Auth session loaded:', session ? 'User logged in' : 'No user');
+          if (mounted) {
+            setUser(null);
+            setLoading(false);
+          }
+          return;
+        }
+
+        if (mounted) {
           setUser(session?.user ?? null);
           
           if (session?.user) {
+            console.log('✅ User found, loading profile...');
             await loadProfile();
+          } else {
+            console.log('ℹ️ No user session');
           }
+          
+          setLoading(false);
         }
       } catch (error) {
-        console.warn('Supabase not configured, running in demo mode:', error);
-        setUser(null);
+        console.warn('Auth initialization error:', error);
+        if (mounted) {
+          setUser(null);
+          setLoading(false);
+        }
       }
-      
-      setLoading(false);
-      clearTimeout(timeout);
     };
 
-    getInitialSession();
+    initializeAuth();
 
     // Listen for auth changes
-    let subscription: any = null;
-    try {
-      const { data: { subscription: authSubscription } } = supabase.auth.onAuthStateChange(
-        async (event, session) => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      async (event, session) => {
+        console.log('🔄 Auth state changed:', event);
+        
+        if (mounted) {
           setUser(session?.user ?? null);
           
           if (session?.user) {
@@ -77,18 +85,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           
           setLoading(false);
         }
-      );
-      subscription = authSubscription;
-    } catch (error) {
-      console.warn('Auth state change listener not available:', error);
-      setLoading(false);
-    }
+      }
+    );
 
     return () => {
-      clearTimeout(timeout);
-      if (subscription) {
-        subscription.unsubscribe();
-      }
+      mounted = false;
+      subscription?.unsubscribe();
     };
   }, []);
 
@@ -146,7 +148,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     try {
       const result = await supabaseHelpers.updateProfile(updates);
       if (result && !result.error) {
-        await loadProfile(); // Reload profile after update
+        await loadProfile();
       }
       return result;
     } catch (error) {

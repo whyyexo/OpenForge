@@ -15,6 +15,7 @@ import Docs from './components/Docs';
 import Auth from './components/Auth';
 import OAuthCallback from './components/OAuthCallback';
 import SimpleAdminPanel from './components/SimpleAdminPanel';
+import AuthTest from './components/AuthTest';
 
 function AppContent() {
   const [currentPage, setCurrentPage] = useState('dashboard');
@@ -61,6 +62,8 @@ function AppContent() {
         return <OAuthCallback />;
       case 'admin':
         return <SimpleAdminPanel />;
+      case 'auth-test':
+        return <AuthTest />;
       default:
         return <Dashboard />;
     }
