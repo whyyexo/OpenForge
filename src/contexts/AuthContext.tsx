@@ -29,6 +29,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // Timeout de sécurité pour éviter le loading infini
+    const loadingTimeout = setTimeout(() => {
+      console.warn('⚠️ Loading timeout - forcing loading to false');
+      setLoading(false);
+    }, 10000); // 10 secondes max
+
     // Get initial session
     const initializeAuth = async () => {
       try {
@@ -38,6 +44,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         if (error) {
           console.error('❌ Session error:', error);
           setLoading(false);
+          clearTimeout(loadingTimeout);
           return;
         }
 
@@ -50,9 +57,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           console.log('ℹ️ No existing session');
           setLoading(false);
         }
+        clearTimeout(loadingTimeout);
       } catch (error) {
         console.error('❌ Auth initialization error:', error);
         setLoading(false);
+        clearTimeout(loadingTimeout);
       }
     };
 
@@ -76,7 +85,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       }
     });
 
-    return () => subscription.unsubscribe();
+    return () => {
+      subscription.unsubscribe();
+      clearTimeout(loadingTimeout);
+    };
   }, []);
 
   const fetchProfile = async (userId: string) => {
@@ -189,9 +201,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         display_name: user?.email?.split('@')[0] || 'User',
         is_admin: false,
         subscription_tier: 'lunch',
-        is_active: true
+        is_active: true,
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString()
       };
       setProfile(fallbackProfile);
+      setLoading(false); // Important : arrêter le loading même en cas d'erreur
     } finally {
       setLoading(false);
     }
