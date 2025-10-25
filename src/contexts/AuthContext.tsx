@@ -1,15 +1,15 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { User } from '@supabase/supabase-js';
-import { supabase, supabaseHelpers } from '../lib/supabase';
+import { User, Session } from '@supabase/supabase-js';
+import { supabase, Profile } from '../lib/supabase';
 
 interface AuthContextType {
   user: User | null;
-  profile: any;
+  profile: Profile | null;
+  session: Session | null;
   loading: boolean;
-  signUp: (email: string, password: string, username: string) => Promise<any>;
-  signIn: (email: string, password: string) => Promise<any>;
+  signIn: (email: string, password: string) => Promise<{ error: any }>;
   signOut: () => Promise<void>;
-  updateProfile: (updates: any) => Promise<any>;
+  isAdmin: boolean;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -24,150 +24,88 @@ export const useAuth = () => {
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
-  const [profile, setProfile] = useState<any>(null);
+  const [profile, setProfile] = useState<Profile | null>(null);
+  const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Timeout de sécurité pour éviter le blocage indéfini
-    const timeout = setTimeout(() => {
-      console.warn('Auth loading timeout, setting loading to false');
-      setLoading(false);
-    }, 10000); // 10 secondes max
-
     // Get initial session
-    const getInitialSession = async () => {
-      try {
-        console.log('🔍 Checking auth session...');
-        const { data: { session }, error } = await supabase.auth.getSession();
-        
-        if (error) {
-          console.warn('Auth session error:', error);
-          setUser(null);
-        } else {
-          console.log('✅ Auth session loaded:', session ? 'User logged in' : 'No user');
-          setUser(session?.user ?? null);
-          
-          if (session?.user) {
-            await loadProfile();
-          }
-        }
-      } catch (error) {
-        console.warn('Supabase not configured, running in demo mode:', error);
-        setUser(null);
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+      setUser(session?.user ?? null);
+      if (session?.user) {
+        fetchProfile(session.user.id);
+      } else {
+        setLoading(false);
       }
-      
-      setLoading(false);
-      clearTimeout(timeout);
-    };
-
-    getInitialSession();
+    });
 
     // Listen for auth changes
-    let subscription: any = null;
-    try {
-      const { data: { subscription: authSubscription } } = supabase.auth.onAuthStateChange(
-        async (event, session) => {
-          setUser(session?.user ?? null);
-          
-          if (session?.user) {
-            await loadProfile();
-          } else {
-            setProfile(null);
-          }
-          
-          setLoading(false);
-        }
-      );
-      subscription = authSubscription;
-    } catch (error) {
-      console.warn('Auth state change listener not available:', error);
-      setLoading(false);
-    }
-
-    return () => {
-      clearTimeout(timeout);
-      if (subscription) {
-        subscription.unsubscribe();
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange(async (event, session) => {
+      setSession(session);
+      setUser(session?.user ?? null);
+      
+      if (session?.user) {
+        await fetchProfile(session.user.id);
+      } else {
+        setProfile(null);
+        setLoading(false);
       }
-    };
+    });
+
+    return () => subscription.unsubscribe();
   }, []);
 
-  const loadProfile = async () => {
+  const fetchProfile = async (userId: string) => {
     try {
-      const { data, error } = await supabaseHelpers.getProfile();
-      if (data && !error) {
+      console.log('🔍 Fetching profile for user:', userId);
+      const { data, error } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('user_id', userId)
+        .single();
+
+      if (error) {
+        console.error('Error fetching profile:', error);
+        setProfile(null);
+      } else {
+        console.log('✅ Profile loaded:', data);
+        console.log('🔑 Admin status:', data.is_admin);
         setProfile(data);
       }
     } catch (error) {
-      console.error('Error loading profile:', error);
-    }
-  };
-
-  const signUp = async (email: string, password: string, username: string) => {
-    setLoading(true);
-    try {
-      const result = await supabaseHelpers.signUp(email, password, username);
-      return result;
-    } catch (error) {
-      console.error('Error signing up:', error);
-      throw error;
+      console.error('Error fetching profile:', error);
+      setProfile(null);
     } finally {
       setLoading(false);
     }
   };
 
   const signIn = async (email: string, password: string) => {
-    setLoading(true);
-    try {
-      const result = await supabaseHelpers.signIn(email, password);
-      return result;
-    } catch (error) {
-      console.error('Error signing in:', error);
-      throw error;
-    } finally {
-      setLoading(false);
-    }
+    const { error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+    return { error };
   };
 
   const signOut = async () => {
-    setLoading(true);
-    try {
-      await supabaseHelpers.signOut();
-      setUser(null);
-      setProfile(null);
-    } catch (error) {
-      console.error('Error signing out:', error);
-    } finally {
-      setLoading(false);
-    }
+    await supabase.auth.signOut();
   };
 
-  const updateProfile = async (updates: any) => {
-    try {
-      const result = await supabaseHelpers.updateProfile(updates);
-      if (result && !result.error) {
-        await loadProfile(); // Reload profile after update
-      }
-      return result;
-    } catch (error) {
-      console.error('Error updating profile:', error);
-      throw error;
-    }
-  };
+  const isAdmin = profile?.is_admin || false;
 
   const value = {
     user,
     profile,
+    session,
     loading,
-    signUp,
     signIn,
     signOut,
-    updateProfile,
+    isAdmin,
   };
 
-  return (
-    <AuthContext.Provider value={value}>
-      {children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

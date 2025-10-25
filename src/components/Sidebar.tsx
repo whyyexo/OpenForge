@@ -1,156 +1,63 @@
-import {
-  LayoutDashboard,
-  Sparkles,
-  Bot,
-  Store,
-  BarChart3,
-  Plug,
-  User,
-  Settings,
-  CreditCard,
-  MessageSquare,
-  BookOpen,
-  LogOut,
-  Shield
-} from 'lucide-react';
-import { useState } from 'react';
+import React from 'react';
 import { useAuth } from '../contexts/AuthContext';
+import { useNavigate, useLocation } from 'react-router-dom';
 
-interface SidebarProps {
-  currentPage: string;
-  onPageChange: (page: string) => void;
-  onExpandedChange: (expanded: boolean) => void;
-}
+const Sidebar: React.FC = () => {
+  const { signOut, isAdmin } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
 
-const menuItems = [
-  { id: 'dashboard', icon: LayoutDashboard, label: 'Dashboard' },
-  { id: 'studio', icon: Sparkles, label: 'Studio' },
-  { id: 'agents', icon: Bot, label: 'Agents' },
-  { id: 'marketplace', icon: Store, label: 'Marketplace' },
-  { id: 'analytics', icon: BarChart3, label: 'Analytics' },
-  { id: 'separator1', isSeparator: true },
-  { id: 'connections', icon: Plug, label: 'Connections' },
-  { id: 'settings', icon: Settings, label: 'Settings' },
-  { id: 'separator2', isSeparator: true },
-  { id: 'pricing', icon: CreditCard, label: 'Pricing' },
-  { id: 'chat', icon: MessageSquare, label: 'Chat AI' },
-  { id: 'docs', icon: BookOpen, label: 'Docs' },
-  { id: 'admin', icon: Shield, label: 'Admin', adminOnly: true },
-];
+  const menuItems = [
+    { path: '/dashboard', label: 'Dashboard', icon: '📊' },
+    ...(isAdmin ? [{ path: '/admin', label: 'Admin', icon: '⚙️' }] : []),
+  ];
 
-export default function Sidebar({ currentPage, onPageChange, onExpandedChange }: SidebarProps) {
-  const [isExpanded, setIsExpanded] = useState(false);
-  const { profile, signOut } = useAuth();
-
-  const handleMouseEnter = () => {
-    setIsExpanded(true);
-    onExpandedChange(true);
-  };
-
-  const handleMouseLeave = () => {
-    setIsExpanded(false);
-    onExpandedChange(false);
+  const handleLogout = async () => {
+    await signOut();
+    navigate('/login');
   };
 
   return (
-    <div
-      className={`fixed left-0 top-0 h-screen bg-black/95 backdrop-blur-xl border-r border-white/10 transition-all duration-500 z-50 ${
-        isExpanded ? 'w-64 shadow-2xl shadow-black/50' : 'w-20'
-      }`}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-    >
-      <div className="flex flex-col h-full">
-        <div className="flex items-center h-20 px-6 border-b border-white/10">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 to-blue-500 flex items-center justify-center shadow-lg shadow-blue-500/30">
-            <LayoutDashboard className="w-6 h-6 text-white" />
-          </div>
-          {isExpanded && (
-            <span className="ml-4 font-black text-white text-lg tracking-wide whitespace-nowrap">
-              NEUROFLOW
-            </span>
-          )}
-        </div>
+    <div className="fixed left-0 top-0 h-full w-64 bg-supabase-dark-800 border-r border-supabase-dark-700 flex flex-col">
+      {/* Logo */}
+      <div className="p-6 border-b border-supabase-dark-700">
+        <h1 className="text-xl font-bold text-white">OpenForge</h1>
+        <p className="text-supabase-dark-400 text-sm">Dashboard</p>
+      </div>
 
-        <nav className="flex-1 py-4 overflow-y-auto">
-          {menuItems.map((item) => {
-            if (item.isSeparator) {
-              return (
-                <div key={item.id} className="mx-4 my-2 border-b border-white/10"></div>
-              );
-            }
-
-            // Check if user is admin for admin-only items (temporarily disabled)
-            // if (item.adminOnly && !profile?.is_admin) {
-            //   return null;
-            // }
-
-            const Icon = item.icon;
-            const isActive = currentPage === item.id;
-
-            return (
+      {/* Navigation */}
+      <nav className="flex-1 p-4">
+        <ul className="space-y-2">
+          {menuItems.map((item) => (
+            <li key={item.path}>
               <button
-                key={item.id}
-                onClick={() => onPageChange(item.id)}
-                className={`w-full flex items-center px-4 py-2.5 transition-all duration-500 ease-out ${
-                  isActive
-                    ? 'bg-gradient-to-r from-blue-600/20 to-blue-500/10 text-blue-400 border-l-4 border-blue-500 shadow-lg shadow-blue-500/20'
-                    : 'text-white/60 hover:text-white hover:bg-white/5 border-l-4 border-transparent hover:border-white/20'
+                onClick={() => navigate(item.path)}
+                className={`w-full flex items-center px-4 py-3 rounded-lg text-left transition-colors ${
+                  location.pathname === item.path
+                    ? 'bg-accent-green/10 text-accent-green border border-accent-green/20'
+                    : 'text-supabase-dark-300 hover:bg-supabase-dark-700 hover:text-white'
                 }`}
               >
-                <div className="w-5 h-5 flex items-center justify-center flex-shrink-0">
-                  <Icon className={`w-5 h-5 ${isActive ? 'text-blue-400' : 'text-white/60'}`} />
-                </div>
-                {isExpanded && (
-                  <span className="ml-3 whitespace-nowrap transition-opacity duration-500 font-medium text-sm tracking-wide">{item.label}</span>
-                )}
+                <span className="mr-3 text-lg">{item.icon}</span>
+                {item.label}
               </button>
-            );
-          })}
-        </nav>
+            </li>
+          ))}
+        </ul>
+      </nav>
 
-        <div className="border-t border-white/10">
-          <button
-            onClick={() => onPageChange('profile')}
-            className={`w-full flex items-center px-4 py-2.5 transition-all duration-500 ease-out ${
-              currentPage === 'profile'
-                ? 'bg-gradient-to-r from-blue-600/20 to-blue-500/10 text-blue-400 border-l-4 border-blue-500 shadow-lg shadow-blue-500/20'
-                : 'text-white/60 hover:text-white hover:bg-white/5 border-l-4 border-transparent hover:border-white/20'
-            }`}
-          >
-            <div className="w-5 h-5 flex items-center justify-center flex-shrink-0">
-              {profile?.avatar_url ? (
-                <img 
-                  src={profile.avatar_url} 
-                  alt="Avatar" 
-                  className="w-full h-full rounded-lg object-cover"
-                />
-              ) : (
-                <User className="w-5 h-5" />
-              )}
-            </div>
-            {isExpanded && (
-              <span className="ml-3 whitespace-nowrap transition-opacity duration-500 font-medium text-sm tracking-wide">
-                {profile?.display_name || profile?.username || 'Profile'}
-              </span>
-            )}
-          </button>
-          
-          <button
-            onClick={signOut}
-            className="w-full flex items-center px-4 py-2.5 transition-all duration-500 ease-out text-white/60 hover:text-white hover:bg-white/5 border-l-4 border-transparent hover:border-white/20"
-          >
-            <div className="w-5 h-5 flex items-center justify-center flex-shrink-0">
-              <LogOut className="w-5 h-5" />
-            </div>
-            {isExpanded && (
-              <span className="ml-3 whitespace-nowrap transition-opacity duration-500 font-medium text-sm tracking-wide">
-                Sign Out
-              </span>
-            )}
-          </button>
-        </div>
+      {/* Logout */}
+      <div className="p-4 border-t border-supabase-dark-700">
+        <button
+          onClick={handleLogout}
+          className="w-full flex items-center px-4 py-3 rounded-lg text-left text-supabase-dark-300 hover:bg-supabase-dark-700 hover:text-white transition-colors"
+        >
+          <span className="mr-3 text-lg">🚪</span>
+          Logout
+        </button>
       </div>
     </div>
   );
-}
+};
+
+export default Sidebar;
