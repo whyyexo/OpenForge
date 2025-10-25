@@ -6,8 +6,15 @@ const Dashboard: React.FC = () => {
   const { user, profile, isAdmin } = useAuth();
   const navigate = useNavigate();
 
-  const handleRefreshProfile = () => {
+  const handleRefreshProfile = async () => {
+    console.log('🔄 Refreshing profile...');
     window.location.reload();
+  };
+
+  const handleForceAdmin = () => {
+    // Fonction temporaire pour tester l'admin
+    console.log('🔧 Force admin mode (temporary)');
+    // Cette fonction sera supprimée en production
   };
 
   return (
@@ -35,6 +42,12 @@ const Dashboard: React.FC = () => {
                 className="px-4 py-2 bg-supabase-dark-700 text-white rounded-lg font-medium hover:bg-supabase-dark-600 transition-colors"
               >
                 🔄 Refresh Profile
+              </button>
+              <button
+                onClick={handleForceAdmin}
+                className="px-4 py-2 bg-yellow-600 text-white rounded-lg font-medium hover:bg-yellow-700 transition-colors"
+              >
+                🔧 Debug Admin
               </button>
             </div>
           </div>
@@ -109,28 +122,36 @@ const Dashboard: React.FC = () => {
           </div>
         </div>
 
-        {/* Additional Info */}
+        {/* Debug Information */}
         <div className="mt-8 bg-supabase-dark-800 rounded-lg p-6 border border-supabase-dark-700">
-          <h3 className="text-lg font-semibold text-white mb-4">System Information</h3>
+          <h3 className="text-lg font-semibold text-white mb-4">Debug Information</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <p className="text-supabase-dark-400 text-sm mb-1">User ID</p>
               <p className="text-supabase-dark-300 font-mono text-sm">{user?.id}</p>
             </div>
             <div>
-              <p className="text-supabase-dark-400 text-sm mb-1">Last Login</p>
+              <p className="text-supabase-dark-400 text-sm mb-1">Email</p>
+              <p className="text-supabase-dark-300 text-sm">{user?.email}</p>
+            </div>
+            <div>
+              <p className="text-supabase-dark-400 text-sm mb-1">Profile ID</p>
+              <p className="text-supabase-dark-300 font-mono text-sm">{profile?.id || 'Not found'}</p>
+            </div>
+            <div>
+              <p className="text-supabase-dark-400 text-sm mb-1">Username</p>
+              <p className="text-supabase-dark-300 text-sm">{profile?.username || 'Not set'}</p>
+            </div>
+            <div>
+              <p className="text-supabase-dark-400 text-sm mb-1">Admin Status</p>
               <p className="text-supabase-dark-300 text-sm">
-                {profile?.last_login ? new Date(profile.last_login).toLocaleString() : 'Never'}
+                {profile?.is_admin ? '✅ True' : '❌ False'}
               </p>
             </div>
             <div>
-              <p className="text-supabase-dark-400 text-sm mb-1">Login Count</p>
-              <p className="text-supabase-dark-300 text-sm">{profile?.login_count || 0}</p>
-            </div>
-            <div>
-              <p className="text-supabase-dark-400 text-sm mb-1">Account Created</p>
+              <p className="text-supabase-dark-400 text-sm mb-1">Profile Active</p>
               <p className="text-supabase-dark-300 text-sm">
-                {profile?.created_at ? new Date(profile.created_at).toLocaleDateString() : 'Unknown'}
+                {profile?.is_active ? '✅ Active' : '❌ Inactive'}
               </p>
             </div>
           </div>
