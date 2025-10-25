@@ -100,6 +100,14 @@ const Login: React.FC = () => {
           <p className="text-supabase-dark-400 text-sm">
             Using the same credentials as FiverFlow
           </p>
+          <div className="mt-4 p-4 bg-yellow-500/10 border border-yellow-500/20 rounded-lg">
+            <p className="text-yellow-400 text-sm">
+              ⚠️ Demo Mode: Configure your Supabase credentials in .env file
+            </p>
+            <p className="text-yellow-300 text-xs mt-1">
+              Copy your FiverFlow credentials to openforge/.env
+            </p>
+          </div>
         </div>
       </div>
     </div>

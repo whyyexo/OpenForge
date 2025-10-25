@@ -1,17 +1,43 @@
 import React from 'react';
 import { useAuth } from '../contexts/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 const Dashboard: React.FC = () => {
-  const { user, profile } = useAuth();
+  const { user, profile, isAdmin } = useAuth();
+  const navigate = useNavigate();
+
+  const handleRefreshProfile = () => {
+    window.location.reload();
+  };
 
   return (
     <div className="p-8">
       <div className="max-w-4xl mx-auto">
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-white mb-2">Dashboard</h1>
-          <p className="text-supabase-dark-400">
-            Welcome back, {profile?.display_name || profile?.username || user?.email}
-          </p>
+          <div className="flex justify-between items-center">
+            <div>
+              <h1 className="text-3xl font-bold text-white mb-2">Dashboard</h1>
+              <p className="text-supabase-dark-400">
+                Welcome back, {profile?.display_name || profile?.username || user?.email}
+              </p>
+            </div>
+            <div className="flex gap-4">
+              {isAdmin && (
+                <button
+                  onClick={() => navigate('/admin')}
+                  className="px-4 py-2 bg-accent-green text-supabase-dark-900 rounded-lg font-medium hover:bg-accent-green/90 transition-colors"
+                >
+                  🚀 Admin Panel
+                </button>
+              )}
+              <button
+                onClick={handleRefreshProfile}
+                className="px-4 py-2 bg-supabase-dark-700 text-white rounded-lg font-medium hover:bg-supabase-dark-600 transition-colors"
+              >
+                🔄 Refresh Profile
+              </button>
+            </div>
+          </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -51,6 +77,16 @@ const Dashboard: React.FC = () => {
               </p>
               <p className="text-supabase-dark-300">
                 <span className="font-medium">Status:</span> {profile?.is_active ? 'Active' : 'Inactive'}
+              </p>
+              <p className="text-supabase-dark-300">
+                <span className="font-medium">Admin:</span> 
+                <span className={`ml-2 px-2 py-1 rounded text-xs font-medium ${
+                  isAdmin 
+                    ? 'bg-accent-green/20 text-accent-green border border-accent-green/30' 
+                    : 'bg-supabase-dark-600 text-supabase-dark-300'
+                }`}>
+                  {isAdmin ? '✅ Admin' : '❌ Member'}
+                </span>
               </p>
             </div>
           </div>
