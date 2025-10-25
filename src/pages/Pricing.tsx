@@ -1,12 +1,7 @@
 import React, { useState } from 'react';
-import { useAuth } from '../contexts/AuthContext';
-import { useLanguage } from '../contexts/LanguageContext';
 import StripeButton from '../components/StripeButton';
 
 const Pricing: React.FC = () => {
-  const { user, profile } = useAuth();
-  const { t } = useLanguage();
-  const [loading, setLoading] = useState<string | null>(null);
   const [isAnnual, setIsAnnual] = useState(false);
 
   const plans = [
