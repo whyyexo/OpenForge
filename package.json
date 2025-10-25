@@ -8,7 +8,10 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "typecheck": "tsc --noEmit -p tsconfig.app.json"
+    "typecheck": "tsc --noEmit -p tsconfig.app.json",
+    "migrate:test": "node test-migration.js",
+    "migrate:users": "node migrate-users.js",
+    "migrate:help": "echo 'Migration commands: npm run migrate:test (test first), npm run migrate:users (full migration)'"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.57.4",

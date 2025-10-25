@@ -12,7 +12,7 @@ CREATE TYPE service_type AS ENUM ('discord', 'slack', 'webhook', 'api', 'email')
 CREATE TYPE resource_type AS ENUM ('api_call', 'tokens', 'storage', 'execution');
 CREATE TYPE oauth_provider AS ENUM ('discord', 'github', 'google', 'twitter', 'linkedin', 'spotify');
 
--- Users/Profiles table
+-- Users/Profiles table (Enhanced for migration)
 CREATE TABLE profiles (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     user_id UUID UNIQUE NOT NULL, -- This will reference auth.users
@@ -23,6 +23,38 @@ CREATE TABLE profiles (
     banner_url TEXT,
     subscription_tier subscription_tier DEFAULT 'lunch',
     social_links JSONB DEFAULT '{}',
+    -- Additional fields for migration compatibility
+    is_admin BOOLEAN DEFAULT false,
+    original_data JSONB DEFAULT '{}', -- Store all original data from source
+    -- Extended profile fields
+    first_name VARCHAR(100),
+    last_name VARCHAR(100),
+    phone VARCHAR(20),
+    date_of_birth DATE,
+    gender VARCHAR(20),
+    location VARCHAR(200),
+    timezone VARCHAR(50),
+    language VARCHAR(10) DEFAULT 'en',
+    -- Preferences
+    preferences JSONB DEFAULT '{}',
+    -- Account status
+    is_verified BOOLEAN DEFAULT false,
+    is_active BOOLEAN DEFAULT true,
+    last_login TIMESTAMP WITH TIME ZONE,
+    login_count INTEGER DEFAULT 0,
+    -- Subscription details
+    subscription_start_date TIMESTAMP WITH TIME ZONE,
+    subscription_end_date TIMESTAMP WITH TIME ZONE,
+    subscription_status VARCHAR(20) DEFAULT 'active',
+    -- Notifications
+    email_notifications BOOLEAN DEFAULT true,
+    push_notifications BOOLEAN DEFAULT true,
+    sms_notifications BOOLEAN DEFAULT false,
+    -- Privacy settings
+    profile_visibility VARCHAR(20) DEFAULT 'public',
+    show_email BOOLEAN DEFAULT false,
+    show_phone BOOLEAN DEFAULT false,
+    -- Timestamps
     created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );

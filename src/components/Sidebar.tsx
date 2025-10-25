@@ -10,7 +10,8 @@ import {
   CreditCard,
   MessageSquare,
   BookOpen,
-  LogOut
+  LogOut,
+  Shield
 } from 'lucide-react';
 import { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
@@ -34,6 +35,7 @@ const menuItems = [
   { id: 'pricing', icon: CreditCard, label: 'Pricing' },
   { id: 'chat', icon: MessageSquare, label: 'Chat AI' },
   { id: 'docs', icon: BookOpen, label: 'Docs' },
+  { id: 'admin', icon: Shield, label: 'Admin', adminOnly: true },
 ];
 
 export default function Sidebar({ currentPage, onPageChange, onExpandedChange }: SidebarProps) {
@@ -76,6 +78,11 @@ export default function Sidebar({ currentPage, onPageChange, onExpandedChange }:
               return (
                 <div key={item.id} className="mx-4 my-2 border-b border-white/10"></div>
               );
+            }
+
+            // Check if user is admin for admin-only items
+            if (item.adminOnly && !profile?.is_admin) {
+              return null;
             }
 
             const Icon = item.icon;
