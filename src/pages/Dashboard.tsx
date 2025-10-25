@@ -9,6 +9,10 @@ const Dashboard: React.FC = () => {
 
   const handleRefreshProfile = async () => {
     console.log('🔄 Refreshing profile...');
+    // Vider complètement le cache
+    localStorage.clear();
+    sessionStorage.clear();
+    // Forcer le rechargement
     window.location.reload();
   };
 

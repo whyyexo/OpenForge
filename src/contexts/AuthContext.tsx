@@ -29,11 +29,16 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // Vider le cache local au démarrage
+    console.log('🧹 Clearing auth cache...');
+    localStorage.removeItem('openforge-auth');
+    sessionStorage.clear();
+    
     // Timeout de sécurité pour éviter le loading infini
     const loadingTimeout = setTimeout(() => {
       console.warn('⚠️ Loading timeout - forcing loading to false');
       setLoading(false);
-    }, 10000); // 10 secondes max
+    }, 5000); // 5 secondes max
 
     // Get initial session
     const initializeAuth = async () => {

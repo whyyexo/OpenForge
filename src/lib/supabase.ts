@@ -19,7 +19,15 @@ export const supabase = (() => {
         autoRefreshToken: true,
         persistSession: true,
         detectSessionInUrl: true,
-        storageKey: 'openforge-auth'
+        storageKey: 'openforge-auth',
+        flowType: 'pkce'
+      },
+      global: {
+        headers: {
+          'Cache-Control': 'no-cache, no-store, must-revalidate',
+          'Pragma': 'no-cache',
+          'Expires': '0'
+        }
       }
     });
   }
