@@ -44,7 +44,7 @@ const AppLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
     <div className="min-h-screen bg-[#0f1117]">
       <Navigation />
-      <div className="flex">
+      <div className="flex pt-12">
         <Sidebar />
         <main className="ml-64 min-h-screen flex-1">
           {children}

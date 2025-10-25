@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { EXTERNAL_LINKS } from '../config/links';
-import logo from '../Icon/Icon - Vert.png';
+import logo from './icons/Icon - Vert.png';
 
 const Navigation: React.FC = () => {
   const { user, profile, signOut } = useAuth();
@@ -33,24 +33,38 @@ const Navigation: React.FC = () => {
   };
 
   return (
-    <nav className="bg-[#181B22] border-b border-gray-700 px-6 py-4">
-      <div className="flex items-center justify-between">
+    <nav className="bg-[#181B22] border-b border-gray-700 px-6 py-2 fixed top-0 left-0 right-0 z-50">
+      <div className="flex items-center justify-between w-full">
         {/* Logo et liens principaux */}
-        <div className="flex items-center space-x-8">
-          {/* Logo */}
-          <a 
-            href={EXTERNAL_LINKS.FIVERFLOW} 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="flex items-center space-x-2 hover:opacity-80 transition-opacity"
-          >
-            <img 
-              src={logo} 
-              alt="OpenForge Logo" 
-              className="w-8 h-8"
-            />
-            <span className="text-xl font-semibold text-[#EAEAEA]">OpenForge</span>
-          </a>
+        <div className="flex items-center space-x-6">
+          {/* Logo avec Dashboard */}
+          <div className="flex items-center space-x-3">
+            <a 
+              href={EXTERNAL_LINKS.FIVERFLOW} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="flex items-center hover:opacity-80 transition-opacity"
+            >
+              <img 
+                src={logo} 
+                alt="OpenForge Logo" 
+                className="w-6 h-6"
+              />
+            </a>
+            
+            {/* Ligne diagonale de séparation */}
+            <div className="w-px h-6 bg-gray-600 transform rotate-12"></div>
+            
+            {/* Dashboard */}
+            <button
+              onClick={() => navigate('/dashboard')}
+              className="p-1 rounded hover:bg-gray-700 transition-colors"
+            >
+              <svg className="w-5 h-5 text-gray-300" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.207A1 1 0 013 6.5V4z" clipRule="evenodd" />
+              </svg>
+            </button>
+          </div>
 
           {/* Liens de navigation */}
           <div className="hidden md:flex items-center space-x-6">
@@ -58,7 +72,7 @@ const Navigation: React.FC = () => {
               href={EXTERNAL_LINKS.DOCS} 
               target="_blank" 
               rel="noopener noreferrer"
-              className="text-gray-300 hover:text-[#EAEAEA] transition-colors"
+              className="text-gray-300 hover:text-[#EAEAEA] transition-colors text-sm"
             >
               Docs
             </a>
@@ -66,9 +80,7 @@ const Navigation: React.FC = () => {
               href={EXTERNAL_LINKS.PRICING} 
               target="_blank" 
               rel="noopener noreferrer"
-              className="text-gray-300 hover:text-[#EAEAEA] transition-colors"
-            >
-              Pricing
+              className="text-gray-300 hover:text-[#EAEAEA] transition-colors text-sm"
             </a>
             
             {/* Dropdown More */}
@@ -118,14 +130,14 @@ const Navigation: React.FC = () => {
           </div>
         </div>
 
-        {/* Bouton Try FiverFlow et profil */}
+        {/* Liens et profil */}
         <div className="flex items-center space-x-4">
-          {/* Bouton Try FiverFlow */}
+          {/* Try FiverFlow avec les autres liens */}
           <a 
             href={EXTERNAL_LINKS.FIVERFLOW_APP} 
             target="_blank" 
             rel="noopener noreferrer"
-            className="px-4 py-2 bg-[#00E38C] text-black rounded-md font-medium hover:bg-[#00E38C]/90 transition-colors"
+            className="px-3 py-1.5 bg-[#00E38C] text-black rounded text-sm font-medium hover:bg-[#00E38C]/90 transition-colors"
           >
             Try FiverFlow
           </a>
@@ -195,6 +207,23 @@ const Navigation: React.FC = () => {
                     >
                       Your Team
                     </button>
+                    
+                    <div className="border-t border-gray-700 my-1"></div>
+                    
+                    {/* Theme Selector */}
+                    <div className="px-4 py-2">
+                      <p className="text-xs text-gray-400 mb-2">Theme</p>
+                      <div className="flex items-center space-x-3">
+                        <button className="flex items-center space-x-2 text-sm text-gray-300 hover:text-[#EAEAEA] transition-colors">
+                          <div className="w-3 h-3 rounded-full bg-gray-500"></div>
+                          <span>Dark</span>
+                        </button>
+                        <button className="flex items-center space-x-2 text-sm text-gray-300 hover:text-[#EAEAEA] transition-colors">
+                          <div className="w-3 h-3 rounded-full border border-gray-500"></div>
+                          <span>Light</span>
+                        </button>
+                      </div>
+                    </div>
                     
                     <div className="border-t border-gray-700 my-1"></div>
                     
