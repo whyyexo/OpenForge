@@ -1,8 +1,8 @@
 import React from 'react';
-import LandingMinimal from './LandingMinimal';
+import LandingAlternative from './LandingAlternative';
 
 const Landing: React.FC = () => {
-  return <LandingMinimal />;
+  return <LandingAlternative />;
 };
 
 export default Landing;
