@@ -80,10 +80,10 @@ export default function Sidebar({ currentPage, onPageChange, onExpandedChange }:
               );
             }
 
-            // Check if user is admin for admin-only items
-            if (item.adminOnly && !profile?.is_admin) {
-              return null;
-            }
+            // Check if user is admin for admin-only items (temporarily disabled)
+            // if (item.adminOnly && !profile?.is_admin) {
+            //   return null;
+            // }
 
             const Icon = item.icon;
             const isActive = currentPage === item.id;

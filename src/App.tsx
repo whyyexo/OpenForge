@@ -14,7 +14,7 @@ import Chat from './components/Chat';
 import Docs from './components/Docs';
 import Auth from './components/Auth';
 import OAuthCallback from './components/OAuthCallback';
-import AdminPanel from './components/AdminPanel';
+import SimpleAdminPanel from './components/SimpleAdminPanel';
 
 function AppContent() {
   const [currentPage, setCurrentPage] = useState('dashboard');
@@ -60,7 +60,7 @@ function AppContent() {
       case 'oauth-callback':
         return <OAuthCallback />;
       case 'admin':
-        return <AdminPanel />;
+        return <SimpleAdminPanel />;
       default:
         return <Dashboard />;
     }

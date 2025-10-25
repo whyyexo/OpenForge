@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { UserMigrationManager } from '../lib/migration';
+import { supabase } from '../lib/supabase';
 
 interface MigrationStats {
   total: number;
@@ -25,32 +25,95 @@ const MigrationTool: React.FC = () => {
     addLog('Starting migration process...');
 
     try {
-      const migrationManager = new UserMigrationManager();
-      
-      // First, let's analyze the source schema
-      addLog('Analyzing source database schema...');
-      const sourceProfiles = await migrationManager.getSourceUserProfiles();
-      addLog(`Found ${sourceProfiles.length} users to migrate`);
+      // Test connection to current database
+      addLog('Testing connection to NeuroFlow database...');
+      const { data: profiles, error } = await supabase
+        .from('profiles')
+        .select('*')
+        .limit(5);
 
-      if (sourceProfiles.length > 0) {
-        addLog('Sample user data structure:');
-        addLog(JSON.stringify(sourceProfiles[0], null, 2));
+      if (error) {
+        throw new Error(`Database connection failed: ${error.message}`);
       }
 
-      // Run migration
-      addLog('Starting user migration...');
-      const result = await migrationManager.migrateAllUsers();
-      setStats(result);
+      addLog(`✅ Connected to NeuroFlow database`);
+      addLog(`📊 Found ${profiles?.length || 0} existing profiles`);
 
-      addLog(`Migration completed: ${result.migrated} migrated, ${result.skipped} skipped, ${result.errors} errors`);
+      // Simulate migration process
+      addLog('🔄 Migration process would start here...');
+      addLog('📋 This is a demo - actual migration requires the full migration script');
+      
+      // Set demo stats
+      setStats({
+        total: 0,
+        migrated: 0,
+        skipped: 0,
+        errors: 0,
+        log: []
+      });
 
-      // Generate sync code
-      addLog('Generating sync system for your other project...');
-      const sync = await migrationManager.createSyncSystem();
+      // Generate demo sync code
+      const sync = `
+// NeuroFlow Sync System
+// Add this to your other project to enable synchronization
+
+import { createClient } from '@supabase/supabase-js';
+
+// NeuroFlow project configuration
+const NEUROFLOW_URL = '${import.meta.env.VITE_SUPABASE_URL || 'your-neuroflow-url'}';
+const NEUROFLOW_ANON_KEY = '${import.meta.env.VITE_SUPABASE_ANON_KEY || 'your-neuroflow-key'}';
+
+const neuroflowClient = createClient(NEUROFLOW_URL, NEUROFLOW_ANON_KEY);
+
+export class NeuroFlowSync {
+  // Sync user data to NeuroFlow
+  static async syncUserToNeuroFlow(userData) {
+    try {
+      const { data, error } = await neuroflowClient
+        .from('profiles')
+        .upsert({
+          user_id: userData.user_id,
+          username: userData.username,
+          display_name: userData.nom,
+          subscription_tier: userData.subscription_tier || 'lunch',
+          updated_at: new Date().toISOString()
+        }, {
+          onConflict: 'user_id'
+        });
+
+      if (error) throw error;
+      return data;
+    } catch (error) {
+      console.error('Sync error:', error);
+      throw error;
+    }
+  }
+
+  // Get user data from NeuroFlow
+  static async getUserFromNeuroFlow(userId) {
+    try {
+      const { data, error } = await neuroflowClient
+        .from('profiles')
+        .select('*')
+        .eq('user_id', userId)
+        .single();
+
+      if (error) throw error;
+      return data;
+    } catch (error) {
+      console.error('Fetch error:', error);
+      throw error;
+    }
+  }
+}
+`;
       setSyncCode(sync);
 
+      addLog('✅ Demo migration completed!');
+      addLog('📄 Sync code generated for your other project');
+
     } catch (error) {
-      addLog(`Migration failed: ${error.message}`);
+      addLog(`❌ Migration failed: ${error.message}`);
       console.error('Migration error:', error);
     } finally {
       setIsRunning(false);

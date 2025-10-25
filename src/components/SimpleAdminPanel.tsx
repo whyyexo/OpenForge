@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
-import MigrationTool from './MigrationTool';
 
 interface AdminStats {
   totalUsers: number;
-  adminUsers: number;
   subscriptionStats: {
     lunch: number;
     scale: number;
@@ -13,10 +11,9 @@ interface AdminStats {
   recentUsers: any[];
 }
 
-const AdminPanel: React.FC = () => {
+const SimpleAdminPanel: React.FC = () => {
   const [stats, setStats] = useState<AdminStats | null>(null);
   const [loading, setLoading] = useState(true);
-  const [showMigrationTool, setShowMigrationTool] = useState(false);
 
   useEffect(() => {
     loadAdminStats();
@@ -26,16 +23,6 @@ const AdminPanel: React.FC = () => {
     try {
       setLoading(true);
       
-      // Get all users (agents)
-      const { data: users, error: usersError } = await supabase
-        .from('ai_agents')
-        .select('*');
-
-      if (usersError) {
-        console.error('Error loading users:', usersError);
-        return;
-      }
-
       // Get all profiles
       const { data: profiles, error: profilesError } = await supabase
         .from('profiles')
@@ -49,7 +36,6 @@ const AdminPanel: React.FC = () => {
 
       // Calculate stats
       const totalUsers = profiles?.length || 0;
-      const adminUsers = 0; // Will be updated when we add is_admin field
       
       const subscriptionStats = {
         lunch: profiles?.filter((p: any) => p.subscription_tier === 'lunch').length || 0,
@@ -61,7 +47,6 @@ const AdminPanel: React.FC = () => {
 
       setStats({
         totalUsers,
-        adminUsers,
         subscriptionStats,
         recentUsers
       });
@@ -77,20 +62,6 @@ const AdminPanel: React.FC = () => {
     return (
       <div className="flex items-center justify-center min-h-screen">
         <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600"></div>
-      </div>
-    );
-  }
-
-  if (showMigrationTool) {
-    return (
-      <div>
-        <button
-          onClick={() => setShowMigrationTool(false)}
-          className="mb-4 px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700"
-        >
-          ← Back to Admin Panel
-        </button>
-        <MigrationTool />
       </div>
     );
   }
@@ -114,20 +85,6 @@ const AdminPanel: React.FC = () => {
             <div className="ml-4">
               <p className="text-sm font-medium text-gray-600">Total Users</p>
               <p className="text-2xl font-semibold text-gray-900">{stats?.totalUsers || 0}</p>
-            </div>
-          </div>
-        </div>
-
-        <div className="bg-white p-6 rounded-lg shadow-lg">
-          <div className="flex items-center">
-            <div className="p-3 bg-red-100 rounded-full">
-              <svg className="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-              </svg>
-            </div>
-            <div className="ml-4">
-              <p className="text-sm font-medium text-gray-600">Admin Users</p>
-              <p className="text-2xl font-semibold text-gray-900">{stats?.adminUsers || 0}</p>
             </div>
           </div>
         </div>
@@ -159,6 +116,20 @@ const AdminPanel: React.FC = () => {
             </div>
           </div>
         </div>
+
+        <div className="bg-white p-6 rounded-lg shadow-lg">
+          <div className="flex items-center">
+            <div className="p-3 bg-gray-100 rounded-full">
+              <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
+              </svg>
+            </div>
+            <div className="ml-4">
+              <p className="text-sm font-medium text-gray-600">Lunch Users</p>
+              <p className="text-2xl font-semibold text-gray-900">{stats?.subscriptionStats.lunch || 0}</p>
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Subscription Breakdown */}
@@ -180,37 +151,24 @@ const AdminPanel: React.FC = () => {
         </div>
       </div>
 
-      {/* Action Buttons */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-        <button
-          onClick={() => setShowMigrationTool(true)}
-          className="p-6 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg shadow-lg hover:from-blue-700 transition-all"
-        >
-          <div className="flex items-center">
-            <svg className="w-8 h-8 mr-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
-            </svg>
-            <div>
-              <h3 className="text-lg font-semibold">User Migration</h3>
-              <p className="text-sm opacity-90">Migrate users from your other project</p>
-            </div>
+      {/* Migration Info */}
+      <div className="bg-blue-50 p-6 rounded-lg shadow-lg mb-8">
+        <h3 className="text-lg font-semibold mb-4">Migration System</h3>
+        <div className="space-y-4">
+          <p className="text-gray-700">
+            To migrate users from your other project, use the migration scripts:
+          </p>
+          <div className="bg-gray-800 text-green-400 p-4 rounded-lg font-mono text-sm">
+            <div># Test migration first</div>
+            <div>npm run migrate:test</div>
+            <div></div>
+            <div># Run full migration</div>
+            <div>npm run migrate:users</div>
           </div>
-        </button>
-
-        <button
-          onClick={loadAdminStats}
-          className="p-6 bg-gradient-to-r from-green-600 to-teal-600 text-white rounded-lg shadow-lg hover:from-green-700 transition-all"
-        >
-          <div className="flex items-center">
-            <svg className="w-8 h-8 mr-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-            </svg>
-            <div>
-              <h3 className="text-lg font-semibold">Refresh Data</h3>
-              <p className="text-sm opacity-90">Update statistics and user data</p>
-            </div>
-          </div>
-        </button>
+          <p className="text-sm text-gray-600">
+            The migration will transfer all users from your other Supabase project to NeuroFlow.
+          </p>
+        </div>
       </div>
 
       {/* Recent Users */}
@@ -223,7 +181,6 @@ const AdminPanel: React.FC = () => {
                 <tr>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">User</th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Subscription</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Role</th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Joined</th>
                 </tr>
               </thead>
@@ -254,11 +211,6 @@ const AdminPanel: React.FC = () => {
                         {user.subscription_tier}
                       </span>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <span className="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-gray-100 text-gray-800">
-                        User
-                      </span>
-                    </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                       {new Date(user.created_at).toLocaleDateString()}
                     </td>
@@ -273,4 +225,4 @@ const AdminPanel: React.FC = () => {
   );
 };
 
-export default AdminPanel;
+export default SimpleAdminPanel;
