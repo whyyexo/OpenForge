@@ -1,12 +1,14 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import { useLanguage } from '../contexts/LanguageContext';
 import { EXTERNAL_LINKS } from '../config/links';
 import logo from './icons/Icon - Vert.png';
 
 const Navigation: React.FC = () => {
   const { user, profile, signOut } = useAuth();
   const navigate = useNavigate();
+  const { t, language, setLanguage } = useLanguage();
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isMoreOpen, setIsMoreOpen] = useState(false);
   const profileRef = useRef<HTMLDivElement>(null);
@@ -74,7 +76,7 @@ const Navigation: React.FC = () => {
               rel="noopener noreferrer"
               className="text-gray-300 hover:text-[#EAEAEA] transition-colors text-sm"
             >
-              Docs
+              {t.docs}
             </a>
             <a 
               href={EXTERNAL_LINKS.PRICING} 
@@ -82,7 +84,7 @@ const Navigation: React.FC = () => {
               rel="noopener noreferrer"
               className="text-gray-300 hover:text-[#EAEAEA] transition-colors text-sm"
             >
-              Pricing
+              {t.pricing}
             </a>
             <a 
               href="https://fiverflow.com/feedback" 
@@ -90,7 +92,7 @@ const Navigation: React.FC = () => {
               rel="noopener noreferrer"
               className="text-gray-300 hover:text-[#EAEAEA] transition-colors text-sm"
             >
-              Feedback
+              {t.feedback}
             </a>
             
             {/* Dropdown More */}
@@ -99,7 +101,7 @@ const Navigation: React.FC = () => {
                 onClick={() => setIsMoreOpen(!isMoreOpen)}
                 className="flex items-center space-x-1 text-gray-300 hover:text-[#EAEAEA] transition-colors text-sm"
               >
-                <span>More</span>
+                <span>{t.more}</span>
                 <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
                 </svg>
@@ -114,7 +116,7 @@ const Navigation: React.FC = () => {
                       rel="noopener noreferrer"
                       className="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-[#EAEAEA] transition-colors"
                     >
-                      Community
+                      {t.community}
                     </a>
                     <a 
                       href={EXTERNAL_LINKS.CAREER} 
@@ -122,7 +124,7 @@ const Navigation: React.FC = () => {
                       rel="noopener noreferrer"
                       className="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-[#EAEAEA] transition-colors"
                     >
-                      Career
+                      {t.career}
                     </a>
                     <div className="border-t border-gray-700 my-1"></div>
                     <a 
@@ -131,7 +133,7 @@ const Navigation: React.FC = () => {
                       rel="noopener noreferrer"
                       className="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-[#EAEAEA] transition-colors"
                     >
-                      Legal
+                      {t.legal}
                     </a>
                   </div>
                 </div>
@@ -149,7 +151,7 @@ const Navigation: React.FC = () => {
             rel="noopener noreferrer"
             className="text-[#00E38C] hover:text-[#00E38C]/80 transition-colors text-sm"
           >
-            Try FiverFlow
+            {t.tryFiverFlow}
           </a>
 
           {/* Icônes sociales */}
@@ -165,13 +167,13 @@ const Navigation: React.FC = () => {
               </svg>
             </a>
             <a 
-              href="https://twitter.com/fiverflow" 
+              href="https://x.com/fiverflow" 
               target="_blank" 
               rel="noopener noreferrer"
               className="text-gray-400 hover:text-[#EAEAEA] transition-colors"
             >
               <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
               </svg>
             </a>
           </div>
@@ -191,7 +193,7 @@ const Navigation: React.FC = () => {
               </button>
 
               {isProfileOpen && (
-                <div className="absolute top-full right-0 mt-2 w-64 bg-[#181B22] border border-gray-700 rounded-lg shadow-lg z-50">
+                <div className="absolute top-full right-0 mt-2 w-56 bg-[#181B22] border border-gray-700 rounded-lg shadow-lg z-50">
                   <div className="p-4 border-b border-gray-700">
                     <p className="text-[#EAEAEA] font-medium">
                       {profile?.display_name || profile?.username || 'User'}
@@ -209,7 +211,7 @@ const Navigation: React.FC = () => {
                       }}
                       className="w-full text-left px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-[#EAEAEA] transition-colors"
                     >
-                      Your Dashboard
+                      {t.yourDashboard}
                     </button>
                     <button
                       onClick={() => {
@@ -218,7 +220,7 @@ const Navigation: React.FC = () => {
                       }}
                       className="w-full text-left px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-[#EAEAEA] transition-colors"
                     >
-                      Your Profile
+                      {t.yourProfile}
                     </button>
                     <button
                       onClick={() => {
@@ -227,7 +229,7 @@ const Navigation: React.FC = () => {
                       }}
                       className="w-full text-left px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-[#EAEAEA] transition-colors"
                     >
-                      Your Settings
+                      {t.yourSettings}
                     </button>
                     
                     <div className="border-t border-gray-700 my-1"></div>
@@ -239,22 +241,54 @@ const Navigation: React.FC = () => {
                       }}
                       className="w-full text-left px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-[#EAEAEA] transition-colors"
                     >
-                      Your Team
+                      {t.yourTeam}
                     </button>
                     
                     <div className="border-t border-gray-700 my-1"></div>
                     
-                    {/* Theme Selector */}
+                    {/* Language Selector */}
                     <div className="px-4 py-2">
-                      <p className="text-xs text-gray-400 mb-2">Theme</p>
-                      <div className="flex items-center space-x-3">
-                        <button className="flex items-center space-x-2 text-sm text-gray-300 hover:text-[#EAEAEA] transition-colors">
-                          <div className="w-3 h-3 rounded-full bg-gray-500"></div>
-                          <span>Dark</span>
+                      <p className="text-xs text-gray-400 mb-2">{t.language}</p>
+                      <div className="flex items-center space-x-2">
+                        <button
+                          onClick={() => setLanguage('en')}
+                          className={`px-2 py-1 text-xs rounded ${
+                            language === 'en' 
+                              ? 'bg-[#00E38C] text-black' 
+                              : 'text-gray-300 hover:text-[#EAEAEA]'
+                          }`}
+                        >
+                          EN
                         </button>
-                        <button className="flex items-center space-x-2 text-sm text-gray-300 hover:text-[#EAEAEA] transition-colors">
-                          <div className="w-3 h-3 rounded-full border border-gray-500"></div>
-                          <span>Light</span>
+                        <button
+                          onClick={() => setLanguage('fr')}
+                          className={`px-2 py-1 text-xs rounded ${
+                            language === 'fr' 
+                              ? 'bg-[#00E38C] text-black' 
+                              : 'text-gray-300 hover:text-[#EAEAEA]'
+                          }`}
+                        >
+                          FR
+                        </button>
+                        <button
+                          onClick={() => setLanguage('es')}
+                          className={`px-2 py-1 text-xs rounded ${
+                            language === 'es' 
+                              ? 'bg-[#00E38C] text-black' 
+                              : 'text-gray-300 hover:text-[#EAEAEA]'
+                          }`}
+                        >
+                          ES
+                        </button>
+                        <button
+                          onClick={() => setLanguage('de')}
+                          className={`px-2 py-1 text-xs rounded ${
+                            language === 'de' 
+                              ? 'bg-[#00E38C] text-black' 
+                              : 'text-gray-300 hover:text-[#EAEAEA]'
+                          }`}
+                        >
+                          DE
                         </button>
                       </div>
                     </div>
@@ -265,7 +299,7 @@ const Navigation: React.FC = () => {
                       onClick={handleSignOut}
                       className="w-full text-left px-4 py-2 text-sm text-red-400 hover:bg-red-500/10 hover:text-red-300 transition-colors"
                     >
-                      Sign out
+                      {t.signOut}
                     </button>
                   </div>
                 </div>
