@@ -2,22 +2,15 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { LanguageProvider } from './contexts/LanguageContext';
-import Sidebar from './components/Sidebar';
 import Navigation from './components/Navigation';
+import Landing from './pages/Landing';
 import Login from './pages/Login';
-import Dashboard from './pages/Dashboard';
-import Admin from './pages/Admin';
-import Profile from './pages/Profile';
-import Settings from './pages/Settings';
-import Team from './pages/Team';
 import Pricing from './pages/Pricing';
+import DashboardApp from './dashboard/App';
 
-// Protected Route Component
-const ProtectedRoute: React.FC<{ children: React.ReactNode; requireAdmin?: boolean }> = ({ 
-  children, 
-  requireAdmin = false 
-}) => {
-  const { user, loading, isAdmin } = useAuth();
+// Protected Route Component for Login
+const ProtectedLoginRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const { user, loading } = useAuth();
 
   if (loading) {
     return (
@@ -30,30 +23,11 @@ const ProtectedRoute: React.FC<{ children: React.ReactNode; requireAdmin?: boole
     );
   }
 
-  if (!user) {
-    return <Navigate to="/login" replace />;
-  }
-
-  if (requireAdmin && !isAdmin) {
+  if (user) {
     return <Navigate to="/dashboard" replace />;
   }
 
   return <>{children}</>;
-};
-
-// Main App Layout
-const AppLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  return (
-    <div className="min-h-screen bg-[#0f1117]">
-      <Navigation />
-      <div className="flex pt-12">
-        <Sidebar />
-        <main className="ml-16 min-h-screen flex-1 transition-all duration-300">
-          {children}
-        </main>
-      </div>
-    </div>
-  );
 };
 
 // Main App Component
@@ -63,69 +37,24 @@ const App: React.FC = () => {
       <AuthProvider>
         <Router>
           <Routes>
-            <Route path="/login" element={<Login />} />
-            <Route
-              path="/dashboard"
+            {/* Public Routes */}
+            <Route path="/" element={<Landing />} />
+            <Route path="/pricing" element={<Pricing />} />
+            <Route 
+              path="/login" 
               element={
-                <ProtectedRoute>
-                  <AppLayout>
-                    <Dashboard />
-                  </AppLayout>
-                </ProtectedRoute>
-              }
+                <ProtectedLoginRoute>
+                  <Login />
+                </ProtectedLoginRoute>
+              } 
             />
-            <Route
-              path="/admin"
-              element={
-                <ProtectedRoute requireAdmin={true}>
-                  <AppLayout>
-                    <Admin />
-                  </AppLayout>
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/profile"
-              element={
-                <ProtectedRoute>
-                  <AppLayout>
-                    <Profile />
-                  </AppLayout>
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/settings"
-              element={
-                <ProtectedRoute>
-                  <AppLayout>
-                    <Settings />
-                  </AppLayout>
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/team"
-              element={
-                <ProtectedRoute>
-                  <AppLayout>
-                    <Team />
-                  </AppLayout>
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/pricing"
-              element={
-                <div className="min-h-screen bg-[#0f1117]">
-                  <Navigation />
-                  <div className="pt-12">
-                    <Pricing />
-                  </div>
-                </div>
-              }
-            />
-            <Route path="/" element={<Navigate to="/dashboard" replace />} />
+            
+            {/* Dashboard Routes */}
+            <Route path="/dashboard/*" element={<DashboardApp />} />
+            <Route path="/admin/*" element={<DashboardApp />} />
+            <Route path="/profile/*" element={<DashboardApp />} />
+            <Route path="/settings/*" element={<DashboardApp />} />
+            <Route path="/team/*" element={<DashboardApp />} />
           </Routes>
         </Router>
       </AuthProvider>

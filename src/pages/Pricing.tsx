@@ -7,6 +7,7 @@ const Pricing: React.FC = () => {
   const { user, profile } = useAuth();
   const { t } = useLanguage();
   const [loading, setLoading] = useState<string | null>(null);
+  const [isAnnual, setIsAnnual] = useState(false);
 
   const plans = [
     {
@@ -80,9 +81,31 @@ const Pricing: React.FC = () => {
           <h1 className="text-[56px] font-medium text-[#EAEAEA] mb-4">
             Simple, transparent pricing
           </h1>
-          <p className="text-[15px] text-gray-400 max-w-3xl mx-auto">
+          <p className="text-[15px] text-gray-400 max-w-3xl mx-auto mb-8">
             Start with a free account to speed up your workflow on public projects or boost your entire team with instantly-opening production environments.
           </p>
+          
+          {/* Billing Toggle */}
+          <div className="flex items-center justify-center space-x-4 mb-4">
+            <span className={`text-sm ${!isAnnual ? 'text-[#EAEAEA]' : 'text-gray-400'}`}>Monthly</span>
+            <button
+              onClick={() => setIsAnnual(!isAnnual)}
+              className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
+                isAnnual ? 'bg-[#00E38C]' : 'bg-gray-600'
+              }`}
+            >
+              <span
+                className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+                  isAnnual ? 'translate-x-6' : 'translate-x-1'
+                }`}
+              />
+            </button>
+            <span className={`text-sm ${isAnnual ? 'text-[#EAEAEA]' : 'text-gray-400'}`}>Annual</span>
+          </div>
+          
+          {!isAnnual && (
+            <p className="text-sm text-[#00E38C]">Save 20% on annual billing</p>
+          )}
         </div>
 
         {/* Pricing Cards */}
@@ -96,14 +119,18 @@ const Pricing: React.FC = () => {
                 <h3 className="text-2xl font-medium text-[#EAEAEA] mb-2">{plan.name}</h3>
                 <p className="text-gray-400 mb-4">{plan.description}</p>
                 <div className="flex items-baseline">
-                  <span className="text-4xl font-medium text-[#EAEAEA]">${plan.price}</span>
-                  <span className="text-gray-400 ml-1">{plan.period}</span>
+                  <span className="text-4xl font-medium text-[#EAEAEA]">
+                    ${plan.name === 'Personal' ? '0' : isAnnual ? Math.round(parseInt(plan.price) * 12 * 0.8) : plan.price}
+                  </span>
+                  <span className="text-gray-400 ml-1">
+                    {plan.name === 'Personal' ? '/month' : isAnnual ? '/year' : plan.period}
+                  </span>
                 </div>
               </div>
 
               {plan.name === 'Personal' ? (
                 <button
-                  className="w-full py-3 px-6 rounded-lg font-medium transition-colors duration-200 bg-[#181B22] text-[#EAEAEA] hover:bg-[#2a2d35] mb-8"
+                  className="w-full py-3 px-6 rounded-lg font-medium transition-colors duration-200 bg-gray-700 text-[#EAEAEA] hover:bg-gray-600 mb-8"
                   onClick={() => {
                     alert('Personal plan is free!');
                   }}
@@ -114,7 +141,7 @@ const Pricing: React.FC = () => {
                 <StripeButton
                   planName={plan.name}
                   priceId={plan.priceId!}
-                  className="w-full py-3 px-6 rounded-lg font-medium transition-colors duration-200 bg-[#181B22] text-[#EAEAEA] hover:bg-[#2a2d35] mb-8"
+                  className="w-full py-3 px-6 rounded-lg font-medium transition-colors duration-200 bg-gray-700 text-[#EAEAEA] hover:bg-gray-600 mb-8"
                 />
               )}
 
