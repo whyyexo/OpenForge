@@ -142,12 +142,6 @@ const GlobalNavbar: React.FC = () => {
               >
                 Pricing
               </button>
-              <button
-                onClick={() => navigate('/docs')}
-                className="flex items-center space-x-1 text-green-400 hover:text-green-300 transition-colors duration-200 text-sm font-medium"
-              >
-                <span>DOCS</span>
-              </button>
               
               {/* More dropdown */}
               <div className="relative group" ref={moreRef}>
