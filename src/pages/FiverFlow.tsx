@@ -1,11 +1,11 @@
 import React from 'react';
-import Navbar from '../components/product/fiverflow/Navbar';
+import GlobalNavbar from '../components/GlobalNavbar';
+import GlobalFooter from '../components/GlobalFooter';
 import HeroSection from '../components/product/fiverflow/HeroSection';
 import OverviewSection from '../components/product/fiverflow/OverviewSection';
 import FeaturesSection from '../components/product/fiverflow/FeaturesSection';
 import StatsSection from '../components/product/fiverflow/StatsSection';
 import CTASection from '../components/product/fiverflow/CTASection';
-import Footer from '../components/product/fiverflow/Footer';
 
 const FiverFlow: React.FC = () => {
   return (
@@ -36,8 +36,8 @@ const FiverFlow: React.FC = () => {
       </head>
 
       <div className="min-h-screen bg-[#0A0A0A] text-white">
-        {/* Navbar */}
-        <Navbar />
+        {/* Global Navbar */}
+        <GlobalNavbar />
         
         {/* Hero Section */}
         <HeroSection />
@@ -54,8 +54,8 @@ const FiverFlow: React.FC = () => {
         {/* CTA Section */}
         <CTASection />
         
-        {/* Footer */}
-        <Footer />
+        {/* Global Footer */}
+        <GlobalFooter />
       </div>
     </>
   );

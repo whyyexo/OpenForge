@@ -1,7 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { LanguageProvider } from './contexts/LanguageContext';
-import PublicNavigation from './components/PublicNavigation';
+import GlobalNavbar from './components/GlobalNavbar';
+import GlobalFooter from './components/GlobalFooter';
 import AuthGuard from './components/AuthGuard';
 import Landing from './pages/Landing';
 import Pricing from './pages/Pricing';
@@ -18,19 +19,21 @@ const App: React.FC = () => {
         <Routes>
           {/* Routes publiques */}
           <Route path="/" element={
-            <div className="min-h-screen bg-[#0f1117]">
-              <PublicNavigation />
+            <div className="min-h-screen bg-[#0A0A0A]">
+              <GlobalNavbar />
               <div className="pt-16">
                 <Landing />
               </div>
+              <GlobalFooter />
             </div>
           } />
           <Route path="/pricing" element={
-            <div className="min-h-screen bg-[#0f1117]">
-              <PublicNavigation />
+            <div className="min-h-screen bg-[#0A0A0A]">
+              <GlobalNavbar />
               <div className="pt-16">
                 <Pricing />
               </div>
+              <GlobalFooter />
             </div>
           } />
           <Route path="/product/fiverflow" element={<FiverFlow />} />

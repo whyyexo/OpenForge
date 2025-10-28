@@ -1,7 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
+import logo from '../../icons/Full Vert - Blanc.png';
 
 const Navbar: React.FC = () => {
+  const navigate = useNavigate();
   const [isMoreOpen, setIsMoreOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const moreRef = useRef<HTMLDivElement>(null);
@@ -42,10 +45,16 @@ const Navbar: React.FC = () => {
           {/* Left: Logo */}
           <div className="flex items-center space-x-4">
             <div className="flex items-center space-x-3">
-              <div className="w-8 h-8 bg-white/10 rounded-sm flex items-center justify-center">
-                <div className="w-5 h-5 bg-white/60 rounded-sm"></div>
-              </div>
-              <span className="text-white font-medium text-lg">OpenForge</span>
+              <a 
+                onClick={() => navigate('/')}
+                className="flex items-center cursor-pointer"
+              >
+                <img 
+                  src={logo} 
+                  alt="OpenForge Logo" 
+                  className="h-6 w-auto"
+                />
+              </a>
             </div>
             
             {/* Vertical separator */}
