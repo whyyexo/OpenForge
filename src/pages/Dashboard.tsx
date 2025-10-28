@@ -44,6 +44,7 @@ const Dashboard: React.FC = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.2 }}
                   className="bg-white/5 border border-white/10 rounded-lg p-6 hover:border-white/20 transition-all duration-200"
+                >
                   <h3 className="text-lg font-semibold text-white mb-2">
                     Quick Start
                   </h3>
