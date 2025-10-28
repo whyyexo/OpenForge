@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { EXTERNAL_LINKS } from '../config/links';
 import { supabase } from '../lib/supabase';
-import logo from '../icons/Full Vert - Blanc.png';
+import logo from './icons/Full Vert - Blanc.png';
 
 const GlobalNavbar: React.FC = () => {
   const navigate = useNavigate();
