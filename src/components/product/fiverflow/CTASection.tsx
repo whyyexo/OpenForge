@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 
 const CTASection: React.FC = () => {
   return (
-    <section className="py-24 px-6">
+    <section className="py-24 px-6 bg-[#0A0A0A]">
       <div className="max-w-4xl mx-auto text-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -14,10 +14,10 @@ const CTASection: React.FC = () => {
         >
           {/* Title */}
           <div className="space-y-4">
-            <h2 className="text-3xl lg:text-4xl font-light text-gray-900">
+            <h2 className="text-4xl lg:text-5xl font-bold text-white">
               Start using FiverFlow today
             </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            <p className="text-lg text-white/60 max-w-2xl mx-auto">
               Experience next-level freelancing automation — powered by OpenForge.
             </p>
           </div>
@@ -34,43 +34,26 @@ const CTASection: React.FC = () => {
               href="https://fiverflow.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center px-8 py-3 bg-gray-900 text-white font-medium rounded-sm hover:bg-gray-800 transition-colors duration-200"
+              className="group inline-flex items-center justify-center px-8 py-4 bg-white text-black font-medium rounded-sm hover:bg-white/90 transition-all duration-200 transform hover:scale-[1.02]"
             >
-              View Live Site
-              <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              View Live
+              <svg className="w-4 h-4 ml-2 group-hover:translate-x-0.5 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
               </svg>
             </a>
           </motion.div>
 
-          {/* Additional Info */}
+          {/* Secondary Link */}
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.4 }}
             viewport={{ once: true }}
-            className="pt-8"
+            className="pt-4"
           >
-            <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-8 text-sm text-gray-500">
-              <div className="flex items-center space-x-2">
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 13l4 4L19 7" />
-                </svg>
-                <span>Free to try</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 13l4 4L19 7" />
-                </svg>
-                <span>No credit card required</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 13l4 4L19 7" />
-                </svg>
-                <span>Setup in minutes</span>
-              </div>
-            </div>
+            <a href="#" className="text-sm text-white/40 hover:text-white/60 transition-colors duration-200">
+              Contact / Press
+            </a>
           </motion.div>
         </motion.div>
       </div>

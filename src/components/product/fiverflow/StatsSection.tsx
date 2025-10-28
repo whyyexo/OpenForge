@@ -4,8 +4,9 @@ import { motion } from 'framer-motion';
 const StatsSection: React.FC = () => {
   const [counters, setCounters] = useState({
     users: 0,
-    processed: 0,
-    tasks: 0
+    revenue: 0,
+    tasks: 0,
+    uptime: 0
   });
 
   const stats = [
@@ -44,8 +45,9 @@ const StatsSection: React.FC = () => {
         
         setCounters({
           users: Math.floor(1200 * progress),
-          processed: Math.floor(45000 * progress),
-          tasks: Math.floor(5000 * progress)
+          revenue: Math.floor(45000 * progress),
+          tasks: Math.floor(5000 * progress),
+          uptime: Math.floor(99.9 * progress)
         });
 
         if (step >= steps) {
@@ -61,7 +63,7 @@ const StatsSection: React.FC = () => {
   }, []);
 
   return (
-    <section className="py-24 px-6 bg-gray-50">
+    <section className="py-24 px-6 bg-[#0A0A0A]">
       <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -79,21 +81,21 @@ const StatsSection: React.FC = () => {
               viewport={{ once: true }}
               className="text-center"
             >
-              <div className="bg-white border border-gray-200 rounded-sm p-8">
+              <div className="bg-white/5 border border-white/10 rounded-lg p-8 hover:border-white/20 transition-all duration-300">
                 <motion.div
                   initial={{ scale: 0.8 }}
                   whileInView={{ scale: 1 }}
                   transition={{ duration: 0.6, delay: index * 0.1 + 0.3 }}
                   viewport={{ once: true }}
-                  className="text-3xl lg:text-4xl font-light text-gray-900 mb-2"
+                  className="text-3xl lg:text-4xl font-bold text-white mb-2"
                 >
                   {stat.label === 'Active Users' && `+${counters.users.toLocaleString()}`}
-                  {stat.label === 'Revenue Processed' && `$${counters.processed.toLocaleString()}`}
+                  {stat.label === 'Revenue Processed' && `$${counters.revenue.toLocaleString()}`}
                   {stat.label === 'Tasks Automated' && `${counters.tasks.toLocaleString()}+`}
-                  {stat.label === 'Uptime' && '99.9%'}
+                  {stat.label === 'Uptime' && `${counters.uptime.toFixed(1)}%`}
                 </motion.div>
                 
-                <p className="text-gray-600 font-medium">
+                <p className="text-white/60 font-medium">
                   {stat.label}
                 </p>
               </div>

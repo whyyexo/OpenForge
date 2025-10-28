@@ -33,14 +33,7 @@ const App: React.FC = () => {
               </div>
             </div>
           } />
-          <Route path="/product/fiverflow" element={
-            <div className="min-h-screen bg-white">
-              <PublicNavigation />
-              <div className="pt-16">
-                <FiverFlow />
-              </div>
-            </div>
-          } />
+          <Route path="/product/fiverflow" element={<FiverFlow />} />
           
           {/* Page de connexion */}
           <Route path="/dashboard/sign-in" element={<SignIn />} />
