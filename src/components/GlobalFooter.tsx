@@ -18,12 +18,18 @@ const GlobalFooter: React.FC = () => {
         >
           {/* Left: Links */}
           <div className="flex items-center space-x-8">
-            <a href="#" className="text-sm text-white/40 hover:text-white/60 transition-colors duration-200">
+            <button 
+              onClick={() => navigate('/privacy')}
+              className="text-sm text-white/40 hover:text-white/60 transition-colors duration-200"
+            >
               Privacy
-            </a>
-            <a href="#" className="text-sm text-white/40 hover:text-white/60 transition-colors duration-200">
+            </button>
+            <button 
+              onClick={() => navigate('/terms')}
+              className="text-sm text-white/40 hover:text-white/60 transition-colors duration-200"
+            >
               Terms
-            </a>
+            </button>
             <button 
               onClick={() => navigate('/contact')}
               className="text-sm text-white/40 hover:text-white/60 transition-colors duration-200"

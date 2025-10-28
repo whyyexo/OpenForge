@@ -9,6 +9,10 @@ import Pricing from './pages/Pricing';
 import FiverFlow from './pages/FiverFlow';
 import Career from './pages/Career';
 import Contact from './pages/Contact';
+import Community from './pages/Community';
+import Legal from './pages/Legal';
+import Privacy from './pages/Privacy';
+import Terms from './pages/Terms';
 import SignIn from './pages/SignIn';
 import Dashboard from './pages/Dashboard';
 import Admin from './pages/Admin';
@@ -53,6 +57,42 @@ const App: React.FC = () => {
               <GlobalNavbar />
               <div className="pt-16">
                 <Contact />
+              </div>
+              <GlobalFooter />
+            </div>
+          } />
+          <Route path="/community" element={
+            <div className="min-h-screen bg-[#0A0A0A]">
+              <GlobalNavbar />
+              <div className="pt-16">
+                <Community />
+              </div>
+              <GlobalFooter />
+            </div>
+          } />
+          <Route path="/legal" element={
+            <div className="min-h-screen bg-[#0A0A0A]">
+              <GlobalNavbar />
+              <div className="pt-16">
+                <Legal />
+              </div>
+              <GlobalFooter />
+            </div>
+          } />
+          <Route path="/privacy" element={
+            <div className="min-h-screen bg-[#0A0A0A]">
+              <GlobalNavbar />
+              <div className="pt-16">
+                <Privacy />
+              </div>
+              <GlobalFooter />
+            </div>
+          } />
+          <Route path="/terms" element={
+            <div className="min-h-screen bg-[#0A0A0A]">
+              <GlobalNavbar />
+              <div className="pt-16">
+                <Terms />
               </div>
               <GlobalFooter />
             </div>

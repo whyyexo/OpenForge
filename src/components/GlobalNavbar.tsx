@@ -177,21 +177,19 @@ const GlobalNavbar: React.FC = () => {
                     Contact
                   </button>
                   <a 
-                    href={EXTERNAL_LINKS.COMMUNITY} 
+                    href="https://discord.gg/openforge" 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="block px-4 py-2 text-sm text-white/60 hover:text-white hover:bg-white/5 transition-colors duration-200"
                   >
                     Community
                   </a>
-                  <a 
-                    href={EXTERNAL_LINKS.LEGAL} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="block px-4 py-2 text-sm text-white/60 hover:text-white hover:bg-white/5 transition-colors duration-200"
+                  <button
+                    onClick={() => navigate('/legal')}
+                    className="block w-full text-left px-4 py-2 text-sm text-white/60 hover:text-white hover:bg-white/5 transition-colors duration-200"
                   >
                     Legal
-                  </a>
+                  </button>
                 </div>
               </div>
             </div>
