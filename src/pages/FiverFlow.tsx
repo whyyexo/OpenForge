@@ -1,25 +1,24 @@
 import React from 'react';
-import { motion } from 'framer-motion';
 import HeroSection from '../components/product/fiverflow/HeroSection';
 import OverviewSection from '../components/product/fiverflow/OverviewSection';
-import StatsSection from '../components/product/fiverflow/StatsSection';
 import FeaturesSection from '../components/product/fiverflow/FeaturesSection';
+import StatsSection from '../components/product/fiverflow/StatsSection';
 import CTASection from '../components/product/fiverflow/CTASection';
 
 const FiverFlow: React.FC = () => {
   return (
-    <div className="min-h-screen bg-[#0A0A0A] text-white">
+    <div className="min-h-screen bg-white text-gray-900">
       {/* Hero Section */}
       <HeroSection />
       
       {/* Overview Section */}
       <OverviewSection />
       
-      {/* Stats Section */}
-      <StatsSection />
-      
       {/* Features Section */}
       <FeaturesSection />
+      
+      {/* Stats Section */}
+      <StatsSection />
       
       {/* CTA Section */}
       <CTASection />

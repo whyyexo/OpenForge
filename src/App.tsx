@@ -34,7 +34,7 @@ const App: React.FC = () => {
             </div>
           } />
           <Route path="/product/fiverflow" element={
-            <div className="min-h-screen bg-[#0A0A0A]">
+            <div className="min-h-screen bg-white">
               <PublicNavigation />
               <div className="pt-16">
                 <FiverFlow />
