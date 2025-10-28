@@ -1,14 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { useLanguage } from '../../contexts/LanguageContext';
 import { EXTERNAL_LINKS } from '../../config/links';
 import { supabase } from '../../lib/supabase';
 import logo from '../icons/Full Vert - Blanc.png';
 
 const GlobalNavbar: React.FC = () => {
   const navigate = useNavigate();
-  const { t, language, setLanguage } = useLanguage();
   const [isMoreOpen, setIsMoreOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [user, setUser] = useState<any>(null);
