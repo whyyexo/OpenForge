@@ -5,6 +5,7 @@ import PublicNavigation from './components/PublicNavigation';
 import AuthGuard from './components/AuthGuard';
 import Landing from './pages/Landing';
 import Pricing from './pages/Pricing';
+import FiverFlow from './pages/FiverFlow';
 import SignIn from './pages/SignIn';
 import Dashboard from './pages/Dashboard';
 import Admin from './pages/Admin';
@@ -29,6 +30,14 @@ const App: React.FC = () => {
               <PublicNavigation />
               <div className="pt-16">
                 <Pricing />
+              </div>
+            </div>
+          } />
+          <Route path="/product/fiverflow" element={
+            <div className="min-h-screen bg-[#0A0A0A]">
+              <PublicNavigation />
+              <div className="pt-16">
+                <FiverFlow />
               </div>
             </div>
           } />
