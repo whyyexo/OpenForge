@@ -9,6 +9,8 @@ import Pricing from './pages/Pricing';
 import FiverFlow from './pages/FiverFlow';
 import Career from './pages/Career';
 import Contact from './pages/Contact';
+import DocsHome from './pages/docs/DocsHome';
+import FiverFlowDocs from './pages/docs/FiverFlowDocs';
 import SignIn from './pages/SignIn';
 import Dashboard from './pages/Dashboard';
 import Admin from './pages/Admin';
@@ -55,6 +57,25 @@ const App: React.FC = () => {
                 <Contact />
               </div>
               <GlobalFooter />
+            </div>
+          } />
+          
+          {/* Documentation Routes */}
+          <Route path="/docs" element={
+            <div className="min-h-screen bg-[#0A0A0A]">
+              <GlobalNavbar />
+              <div className="pt-16">
+                <DocsHome />
+              </div>
+              <GlobalFooter />
+            </div>
+          } />
+          <Route path="/docs/fiverflow" element={
+            <div className="min-h-screen bg-[#0A0A0A]">
+              <GlobalNavbar />
+              <div className="pt-16">
+                <FiverFlowDocs />
+              </div>
             </div>
           } />
           

@@ -142,14 +142,12 @@ const GlobalNavbar: React.FC = () => {
               >
                 Pricing
               </button>
-              <a 
-                href={EXTERNAL_LINKS.DOCS} 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="text-white/60 hover:text-white transition-colors duration-200 text-sm font-medium"
+              <button
+                onClick={() => navigate('/docs')}
+                className="flex items-center space-x-1 text-green-400 hover:text-green-300 transition-colors duration-200 text-sm font-medium"
               >
-                Docs
-              </a>
+                <span>DOCS</span>
+              </button>
               
               {/* More dropdown */}
               <div className="relative group" ref={moreRef}>
