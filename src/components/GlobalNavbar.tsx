@@ -1,8 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { EXTERNAL_LINKS } from '../../config/links';
-import { supabase } from '../../lib/supabase';
+import { EXTERNAL_LINKS } from '../config/links';
+import { supabase } from '../lib/supabase';
 import logo from '../icons/Full Vert - Blanc.png';
 
 const GlobalNavbar: React.FC = () => {
