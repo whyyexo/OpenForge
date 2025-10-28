@@ -44,17 +44,20 @@ const CTASection: React.FC = () => {
           </motion.div>
 
           {/* Secondary Link */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            viewport={{ once: true }}
-            className="pt-4"
-          >
-            <a href="#" className="text-sm text-white/40 hover:text-white/60 transition-colors duration-200">
-              Contact / Press
-            </a>
-          </motion.div>
+              <motion.div
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+                viewport={{ once: true }}
+                className="pt-4"
+              >
+                <button 
+                  onClick={() => window.location.href = '/contact'}
+                  className="text-sm text-white/40 hover:text-white/60 transition-colors duration-200"
+                >
+                  Contact / Press
+                </button>
+              </motion.div>
         </motion.div>
       </div>
     </section>

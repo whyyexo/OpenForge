@@ -7,6 +7,8 @@ import AuthGuard from './components/AuthGuard';
 import Landing from './pages/Landing';
 import Pricing from './pages/Pricing';
 import FiverFlow from './pages/FiverFlow';
+import Career from './pages/Career';
+import Contact from './pages/Contact';
 import SignIn from './pages/SignIn';
 import Dashboard from './pages/Dashboard';
 import Admin from './pages/Admin';
@@ -37,6 +39,24 @@ const App: React.FC = () => {
             </div>
           } />
           <Route path="/product/fiverflow" element={<FiverFlow />} />
+          <Route path="/career" element={
+            <div className="min-h-screen bg-[#0A0A0A]">
+              <GlobalNavbar />
+              <div className="pt-16">
+                <Career />
+              </div>
+              <GlobalFooter />
+            </div>
+          } />
+          <Route path="/contact" element={
+            <div className="min-h-screen bg-[#0A0A0A]">
+              <GlobalNavbar />
+              <div className="pt-16">
+                <Contact />
+              </div>
+              <GlobalFooter />
+            </div>
+          } />
           
           {/* Page de connexion */}
           <Route path="/dashboard/sign-in" element={<SignIn />} />

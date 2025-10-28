@@ -1,7 +1,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 
 const GlobalFooter: React.FC = () => {
+  const navigate = useNavigate();
   const currentYear = new Date().getFullYear();
 
   return (
@@ -22,9 +24,12 @@ const GlobalFooter: React.FC = () => {
             <a href="#" className="text-sm text-white/40 hover:text-white/60 transition-colors duration-200">
               Terms
             </a>
-            <a href="#" className="text-sm text-white/40 hover:text-white/60 transition-colors duration-200">
+            <button 
+              onClick={() => navigate('/contact')}
+              className="text-sm text-white/40 hover:text-white/60 transition-colors duration-200"
+            >
               Contact
-            </a>
+            </button>
           </div>
 
           {/* Right: Copyright */}
