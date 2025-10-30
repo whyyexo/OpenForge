@@ -40,7 +40,7 @@ const GlobalFooter: React.FC = () => {
 
           {/* Right: Copyright */}
           <div className="text-sm text-white/40">
-            © {currentYear} OpenForge
+            © {currentYear} StriveLabs
           </div>
         </motion.div>
       </div>

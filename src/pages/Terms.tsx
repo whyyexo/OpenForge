@@ -6,7 +6,7 @@ const Terms: React.FC = () => {
     {
       title: 'Acceptance of Terms',
       content: [
-        'By accessing and using OpenForge services, you accept and agree to be bound by the terms and provision of this agreement.',
+        'By accessing and using StriveLabs services, you accept and agree to be bound by the terms and provision of this agreement.',
         'If you do not agree to abide by the above, please do not use this service.',
         'These terms apply to all visitors, users, and others who access or use the service.',
         'We reserve the right to modify these terms at any time without prior notice.'
@@ -15,10 +15,10 @@ const Terms: React.FC = () => {
     {
       title: 'Use License',
       content: [
-        'Permission is granted to temporarily use OpenForge services for personal, non-commercial transitory viewing only.',
+        'Permission is granted to temporarily use StriveLabs services for personal, non-commercial transitory viewing only.',
         'This is the grant of a license, not a transfer of title, and under this license you may not modify or copy the materials.',
         'Use the materials for any commercial purpose or for any public display (commercial or non-commercial).',
-        'Attempt to decompile or reverse engineer any software contained on the OpenForge website.'
+        'Attempt to decompile or reverse engineer any software contained on the StriveLabs website.'
       ]
     },
     {
@@ -51,7 +51,7 @@ const Terms: React.FC = () => {
     {
       title: 'Intellectual Property',
       content: [
-        'The OpenForge service and its original content, features, and functionality are owned by OpenForge.',
+        'The StriveLabs service and its original content, features, and functionality are owned by StriveLabs.',
         'Our trademarks and trade dress may not be used without our prior written consent.',
         'You retain ownership of any content you create using our services.',
         'You grant us a license to use your content as necessary to provide our services.'
@@ -63,13 +63,13 @@ const Terms: React.FC = () => {
         'Use our service for any unlawful purpose or to solicit others to perform unlawful acts.',
         'Violate any international, federal, provincial, or state regulations, rules, laws, or local ordinances.',
         'Transmit, or procure the sending of, any advertising or promotional material without our prior written consent.',
-        'Impersonate or attempt to impersonate OpenForge, an employee, another user, or any other person or entity.'
+        'Impersonate or attempt to impersonate StriveLabs, an employee, another user, or any other person or entity.'
       ]
     },
     {
       title: 'Limitation of Liability',
       content: [
-        'In no event shall OpenForge, nor its directors, employees, partners, agents, suppliers, or affiliates, be liable for any indirect, incidental, special, consequential, or punitive damages.',
+        'In no event shall StriveLabs, nor its directors, employees, partners, agents, suppliers, or affiliates, be liable for any indirect, incidental, special, consequential, or punitive damages.',
         'This includes, without limitation, loss of profits, data, use, goodwill, or other intangible losses.',
         'Our total liability to you for all damages shall not exceed the amount you paid us in the 12 months preceding the claim.',
         'Some jurisdictions do not allow the limitation of liability, so these limitations may not apply to you.'
@@ -131,7 +131,7 @@ const Terms: React.FC = () => {
               Terms of Service
             </h1>
             <p className="text-xl text-white/60 max-w-2xl mx-auto">
-              Terms and conditions for using OpenForge services and products.
+              Terms and conditions for using StriveLabs services and products.
             </p>
             <p className="text-sm text-white/40">
               Last updated: December 2024
@@ -154,8 +154,8 @@ const Terms: React.FC = () => {
               Introduction
             </h2>
             <p className="text-white/60 leading-relaxed mb-4">
-              These Terms of Service ("Terms") govern your use of OpenForge's website and services (the "Service") 
-              operated by OpenForge ("us", "we", or "our").
+              These Terms of Service ("Terms") govern your use of StriveLabs's website and services (the "Service") 
+              operated by StriveLabs ("us", "we", or "our").
             </p>
             <p className="text-white/60 leading-relaxed">
               By accessing or using our Service, you agree to be bound by these Terms. If you disagree with any part 
@@ -279,7 +279,7 @@ const Terms: React.FC = () => {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
-                href="mailto:legal@openforge.com"
+                href="mailto:legal@strivelabs.com"
                 className="inline-flex items-center justify-center px-8 py-4 bg-white text-black font-medium rounded-lg hover:bg-white/90 transition-all duration-200"
               >
                 Contact Legal Team

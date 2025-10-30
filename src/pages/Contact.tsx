@@ -42,7 +42,7 @@ const Contact: React.FC = () => {
       ),
       title: 'Discord',
       description: 'Join our community',
-      value: 'discord.gg/openforge'
+      value: 'dsc.gg/fiverflow'
     },
     {
       icon: (

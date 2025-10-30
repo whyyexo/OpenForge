@@ -18,7 +18,7 @@ const CTASection: React.FC = () => {
               Start using FiverFlow today
             </h2>
             <p className="text-lg text-white/60 max-w-2xl mx-auto">
-              Experience next-level freelancing automation — powered by OpenForge.
+                  Experience next-level freelancing automation — powered by StriveLabs.
             </p>
           </div>
 

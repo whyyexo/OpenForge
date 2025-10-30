@@ -74,7 +74,7 @@ const GlobalNavbar: React.FC = () => {
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center space-x-4">
-              <img src={logo} alt="OpenForge Logo" className="h-6 w-auto" />
+              <img src={logo} alt="StriveLabs Logo" className="h-6 w-auto" />
             </div>
             <div className="text-white/40">Loading...</div>
           </div>
@@ -125,14 +125,12 @@ const GlobalNavbar: React.FC = () => {
                 </button>
                 
                 <div className="absolute top-full left-0 mt-2 w-48 bg-black/90 backdrop-blur-sm border border-white/10 rounded-lg py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                  <a
-                    href={EXTERNAL_LINKS.FIVERFLOW}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block w-full px-4 py-2 text-sm text-white/60 hover:text-white hover:bg-white/5 transition-colors duration-200"
+                  <button
+                    onClick={() => navigate('/product/fiverflow')}
+                    className="block w-full text-left px-4 py-2 text-sm text-white/60 hover:text-white hover:bg-white/5 transition-colors duration-200"
                   >
                     FiverFlow
-                  </a>
+                  </button>
                 </div>
               </div>
               
@@ -177,7 +175,7 @@ const GlobalNavbar: React.FC = () => {
                     Contact
                   </button>
                   <a 
-                    href="https://discord.gg/openforge" 
+                    href="https://dsc.gg/fiverflow" 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="block px-4 py-2 text-sm text-white/60 hover:text-white hover:bg-white/5 transition-colors duration-200"

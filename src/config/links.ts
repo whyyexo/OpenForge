@@ -4,7 +4,7 @@ export const EXTERNAL_LINKS = {
   FIVERFLOW_APP: 'https://fiverflow2-0.vercel.app',
   DOCS: 'https://fiverflow.com/docs',
   PRICING: 'https://fiverflow.com/pricing',
-  COMMUNITY: 'https://fiverflow.com/community',
+  COMMUNITY: 'https://dsc.gg/fiverflow',
   CAREER: 'https://fiverflow.com/career',
   LEGAL: 'https://fiverflow.com/legal'
 } as const;

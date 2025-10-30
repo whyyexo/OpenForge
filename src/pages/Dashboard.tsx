@@ -31,7 +31,7 @@ const Dashboard: React.FC = () => {
                   className="bg-white/5 border border-white/10 rounded-lg p-6 hover:border-white/20 transition-all duration-200"
                 >
                   <h3 className="text-lg font-semibold text-white mb-2">
-                    Welcome to OpenForge
+                    Welcome to StriveLabs
                   </h3>
                   <p className="text-white/60">
                     Your development environment is ready to use.
@@ -64,7 +64,7 @@ const Dashboard: React.FC = () => {
                     Documentation
                   </h3>
                   <p className="text-white/60">
-                    Learn how to use OpenForge effectively.
+                    Learn how to use StriveLabs effectively.
                   </p>
                 </motion.div>
               </div>

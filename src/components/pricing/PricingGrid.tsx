@@ -90,10 +90,10 @@ const PricingGrid: React.FC<PricingGridProps> = ({ isAnnual, isAllInOne, onToggl
               <div className="text-center space-y-8">
                 <div>
                   <h3 className="text-2xl font-bold text-white mb-2">
-                    OpenForge Suite
+                    StriveLabs Suite
                   </h3>
                   <p className="text-white/60 text-sm">
-                    Unlimited access to all OpenForge tools — FiverFlow, CoreAI, and future releases.
+                    Unlimited access to all StriveLabs tools — FiverFlow, CoreAI, and future releases.
                   </p>
                 </div>
 
@@ -112,7 +112,7 @@ const PricingGrid: React.FC<PricingGridProps> = ({ isAnnual, isAllInOne, onToggl
 
                 <div className="space-y-3 text-left">
                   {[
-                    'Access to every OpenForge product',
+                    'Access to every StriveLabs product',
                     'Unlimited AI automation workflows',
                     'Priority updates and new releases',
                     'Early access to experimental tools'

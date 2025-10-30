@@ -5,7 +5,7 @@ const Legal: React.FC = () => {
   const legalSections = [
     {
       title: 'Terms of Service',
-      description: 'Our terms and conditions for using OpenForge services and products.',
+      description: 'Our terms and conditions for using StriveLabs services and products.',
       lastUpdated: 'Last updated: December 2024',
       link: '/terms'
     },
@@ -86,7 +86,7 @@ const Legal: React.FC = () => {
               Legal
             </h1>
             <p className="text-xl text-white/60 max-w-2xl mx-auto">
-              Legal information, policies, and compliance documentation for OpenForge.
+              Legal information, policies, and compliance documentation for StriveLabs.
             </p>
           </motion.div>
         </div>
@@ -215,7 +215,7 @@ const Legal: React.FC = () => {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
-                href="mailto:legal@openforge.com"
+                href="mailto:legal@strivelabs.com"
                 className="inline-flex items-center justify-center px-8 py-4 bg-white text-black font-medium rounded-lg hover:bg-white/90 transition-all duration-200"
               >
                 Contact Legal Team

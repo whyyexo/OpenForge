@@ -20,26 +20,26 @@ const Pricing: React.FC = () => {
     <>
       {/* SEO Meta Tags */}
       <head>
-        <title>Pricing – OpenForge</title>
-        <meta name="description" content="Flexible, transparent pricing for OpenForge tools and suite. Choose the full OpenForge Suite or subscribe per product. No hidden fees." />
-        <meta name="keywords" content="OpenForge pricing, FiverFlow pricing, CoreAI pricing, FlowSync pricing, enterprise pricing" />
+        <title>Pricing – StriveLabs</title>
+        <meta name="description" content="Flexible, transparent pricing for StriveLabs tools and suite. Choose the full StriveLabs Suite or subscribe per product. No hidden fees." />
+        <meta name="keywords" content="StriveLabs pricing, FiverFlow pricing, CoreAI pricing, FlowSync pricing, enterprise pricing" />
         
         {/* Open Graph */}
-        <meta property="og:title" content="Pricing – OpenForge" />
-        <meta property="og:description" content="Flexible, transparent pricing for OpenForge tools and suite. Choose the full OpenForge Suite or subscribe per product." />
+        <meta property="og:title" content="Pricing – StriveLabs" />
+        <meta property="og:description" content="Flexible, transparent pricing for StriveLabs tools and suite. Choose the full StriveLabs Suite or subscribe per product." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://openforge.com/pricing" />
         <meta property="og:image" content="https://openforge.com/og-image-pricing.png" />
         
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Pricing – OpenForge" />
-        <meta name="twitter:description" content="Flexible, transparent pricing for OpenForge tools and suite. Choose the full OpenForge Suite or subscribe per product." />
+        <meta name="twitter:title" content="Pricing – StriveLabs" />
+        <meta name="twitter:description" content="Flexible, transparent pricing for StriveLabs tools and suite. Choose the full StriveLabs Suite or subscribe per product." />
         <meta name="twitter:image" content="https://openforge.com/og-image-pricing.png" />
         
         {/* Additional */}
         <meta name="robots" content="index, follow" />
-        <meta name="author" content="OpenForge" />
+        <meta name="author" content="StriveLabs" />
         <link rel="canonical" href="https://openforge.com/pricing" />
       </head>
 
@@ -97,8 +97,8 @@ const Pricing: React.FC = () => {
                   answer: "We offer a 30-day money-back guarantee for all paid plans."
                 },
                 {
-                  question: "What's included in the OpenForge Suite?",
-                  answer: "The Suite includes unlimited access to FiverFlow, CoreAI, FlowSync, and all future OpenForge products."
+                  question: "What's included in the StriveLabs Suite?",
+                  answer: "The Suite includes unlimited access to FiverFlow, CoreAI, FlowSync, and all future StriveLabs products."
                 },
                 {
                   question: "Can I use individual tools without the Suite?",

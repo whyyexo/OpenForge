@@ -216,7 +216,7 @@ const WebsiteNavigation: React.FC = () => {
           {/* Icônes sociales */}
           <div className="flex items-center space-x-3">
             <a 
-              href="https://discord.gg/fiverflow" 
+              href="https://dsc.gg/fiverflow" 
               target="_blank" 
               rel="noopener noreferrer"
               className="text-gray-400 hover:text-[#EAEAEA] transition-colors"

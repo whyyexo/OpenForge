@@ -126,7 +126,7 @@ const Privacy: React.FC = () => {
               Introduction
             </h2>
             <p className="text-white/60 leading-relaxed mb-4">
-              At OpenForge, we are committed to protecting your privacy and ensuring the security of your personal information. 
+              At StriveLabs, we are committed to protecting your privacy and ensuring the security of your personal information. 
               This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our services.
             </p>
             <p className="text-white/60 leading-relaxed">
@@ -252,7 +252,7 @@ const Privacy: React.FC = () => {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
-                href="mailto:privacy@openforge.com"
+                href="mailto:privacy@strivelabs.com"
                 className="inline-flex items-center justify-center px-8 py-4 bg-white text-black font-medium rounded-lg hover:bg-white/90 transition-all duration-200"
               >
                 Contact Privacy Team
