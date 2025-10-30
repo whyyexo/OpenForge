@@ -13,7 +13,7 @@ const Landing: React.FC = () => {
         {/* Gradient base */}
         <div className="absolute inset-0 bg-gradient-to-br from-[#0a0a0a] via-[#0e0e0e] to-[#0a0a0a]" />
 
-        {/* Slow moving radial spotlight */
+        {/* Slow moving radial spotlight */}
         <motion.div
           className="absolute -inset-1 opacity-40"
           style={{
@@ -30,7 +30,7 @@ const Landing: React.FC = () => {
           transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }}
         />
 
-        {/* Subtle animated particles */
+        {/* Subtle animated particles */}
         <div className="absolute inset-0">
           {Array.from({ length: 24 }).map((_, i) => (
             <motion.div
