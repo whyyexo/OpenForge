@@ -6,9 +6,9 @@ const Landing: React.FC = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-[#0A0A0A] text-white">
+    <div className="relative min-h-screen text-white">
       {/* Global animated dark background */}
-      <div className="fixed inset-0 -z-10 overflow-hidden">
+      <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
         {/* Gradient base */}
         <div className="absolute inset-0 bg-gradient-to-br from-[#0a0a0a] via-[#0e0e0e] to-[#0a0a0a]" />
 
@@ -35,14 +35,9 @@ const Landing: React.FC = () => {
             <motion.div
               key={i}
               className="absolute w-2 h-2 bg-[#00E38C] rounded-full opacity-50"
-              style={{ left: `${(i * 37) % 100}%`, top: `${(i * 53) % 100}%` }}
               animate={{ y: [0, -20, 0], opacity: [0.3, 0.9, 0.3] }}
               transition={{ duration: 4 + (i % 5), repeat: Infinity, delay: i * 0.12 }}
-              style={{
-                left: `${(i * 37) % 100}%`,
-                top: `${(i * 53) % 100}%`,
-                boxShadow: '0 0 12px rgba(0,227,140,0.45)'
-              }}
+              style={{ left: `${(i * 37) % 100}%`, top: `${(i * 53) % 100}%`, boxShadow: '0 0 12px rgba(0,227,140,0.45)' }}
             />
           ))}
         </div>
@@ -378,7 +373,7 @@ const Landing: React.FC = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-24 px-6 bg-[#0A0A0A]">
+      <section className="py-24 px-6 bg-transparent">
         <div className="max-w-4xl mx-auto text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
