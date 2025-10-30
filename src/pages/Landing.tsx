@@ -31,7 +31,7 @@ const Landing: React.FC = () => {
             </h1>
 
             <p className="text-xl text-white/60 mb-12 max-w-3xl mx-auto leading-relaxed">
-              OpenForge empowers creators and developers to build next-generation platforms with cutting-edge tools and seamless integrations.
+              Taking ai Software to the next Level
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
