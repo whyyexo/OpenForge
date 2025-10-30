@@ -12,15 +12,37 @@ const Landing: React.FC = () => {
         {/* Gradient base */}
         <div className="absolute inset-0 bg-gradient-to-br from-[#0a0a0a] via-[#0e0e0e] to-[#0a0a0a]" />
 
+        {/* Slow moving radial spotlight */}
+        <motion.div
+          className="absolute -inset-1 opacity-40"
+          style={{
+            background:
+              'radial-gradient(600px 600px at 20% 30%, rgba(0, 227, 140, 0.12), transparent 60%), radial-gradient(600px 600px at 80% 70%, rgba(0, 227, 140, 0.08), transparent 60%)'
+          }}
+          animate={{
+            backgroundPosition: [
+              '20% 30%, 80% 70%',
+              '25% 35%, 75% 65%',
+              '20% 30%, 80% 70%'
+            ]
+          }}
+          transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }}
+        />
+
         {/* Subtle animated particles */}
         <div className="absolute inset-0">
           {Array.from({ length: 24 }).map((_, i) => (
             <motion.div
               key={i}
-              className="absolute w-1 h-1 bg-[#00E38C] rounded-full opacity-20"
+              className="absolute w-2 h-2 bg-[#00E38C] rounded-full opacity-50"
               style={{ left: `${(i * 37) % 100}%`, top: `${(i * 53) % 100}%` }}
-              animate={{ y: [0, -15, 0], opacity: [0.2, 0.6, 0.2] }}
-              transition={{ duration: 3 + (i % 5), repeat: Infinity, delay: i * 0.1 }}
+              animate={{ y: [0, -20, 0], opacity: [0.3, 0.9, 0.3] }}
+              transition={{ duration: 4 + (i % 5), repeat: Infinity, delay: i * 0.12 }}
+              style={{
+                left: `${(i * 37) % 100}%`,
+                top: `${(i * 53) % 100}%`,
+                boxShadow: '0 0 12px rgba(0,227,140,0.45)'
+              }}
             />
           ))}
         </div>
