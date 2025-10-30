@@ -3,10 +3,9 @@ import GlobalNavbar from '../components/GlobalNavbar';
 import GlobalFooter from '../components/GlobalFooter';
 import HeroSection from '../components/product/fiverflow/HeroSection';
 import ProductOverview from '../components/product/fiverflow/ProductOverview';
-import CoreFeatures from '../components/product/fiverflow/CoreFeatures';
-import DetailedFeatures from '../components/product/fiverflow/DetailedFeatures';
+import FeatureStories from '../components/product/fiverflow/FeatureStories';
 import Integrations from '../components/product/fiverflow/Integrations';
-import PlansPreview from '../components/product/fiverflow/PlansPreview';
+import PricingPreview from '../components/product/fiverflow/PricingPreview';
 import FooterCTA from '../components/product/fiverflow/FooterCTA';
 
 const FiverFlow: React.FC = () => {
@@ -20,7 +19,7 @@ const FiverFlow: React.FC = () => {
         
         {/* Open Graph */}
         <meta property="og:title" content="FiverFlow | StriveLabs Product" />
-        <meta property="og:description" content="The next generation workspace automation platform - AI-powered automation, smart dashboard, and complete workflow management." />
+        <meta property="og:description" content="The ultimate workspace automation platform - AI-powered automation, smart dashboard, and complete workflow management." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://openforge.com/product/fiverflow" />
         <meta property="og:image" content="https://openforge.com/og-image-fiverflow.png" />
@@ -28,7 +27,7 @@ const FiverFlow: React.FC = () => {
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="FiverFlow | StriveLabs Product" />
-        <meta name="twitter:description" content="The next generation workspace automation platform - AI-powered automation, smart dashboard, and complete workflow management." />
+        <meta name="twitter:description" content="The ultimate workspace automation platform - AI-powered automation, smart dashboard, and complete workflow management." />
         <meta name="twitter:image" content="https://openforge.com/og-image-fiverflow.png" />
         
         {/* Additional */}
@@ -44,20 +43,17 @@ const FiverFlow: React.FC = () => {
         {/* Hero Section */}
         <HeroSection />
         
-        {/* Product Overview */}
+        {/* Product Overview Cards */}
         <ProductOverview />
         
-        {/* Core Features Grid */}
-        <CoreFeatures />
-        
-        {/* Detailed Feature Sections */}
-        <DetailedFeatures />
+        {/* Feature Stories (5 varied sections) */}
+        <FeatureStories />
         
         {/* Integrations */}
         <Integrations />
         
-        {/* Plans Preview */}
-        <PlansPreview />
+        {/* Pricing Preview */}
+        <PricingPreview />
         
         {/* Footer CTA */}
         <FooterCTA />
