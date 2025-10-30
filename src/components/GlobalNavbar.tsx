@@ -125,14 +125,14 @@ const GlobalNavbar: React.FC = () => {
                 </button>
                 
                 <div className="absolute top-full left-0 mt-2 w-48 bg-black/90 backdrop-blur-sm border border-white/10 rounded-lg py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                  <button
-                    onClick={() => {
-                      navigate('/product/fiverflow');
-                    }}
-                    className="block w-full text-left px-4 py-2 text-sm text-white/60 hover:text-white hover:bg-white/5 transition-colors duration-200"
+                  <a
+                    href={EXTERNAL_LINKS.FIVERFLOW}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block w-full px-4 py-2 text-sm text-white/60 hover:text-white hover:bg-white/5 transition-colors duration-200"
                   >
                     FiverFlow
-                  </button>
+                  </a>
                 </div>
               </div>
               
