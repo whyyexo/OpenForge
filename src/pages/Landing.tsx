@@ -59,11 +59,11 @@ const Landing: React.FC = () => {
             className="space-y-8"
           >
             <h1 className="text-5xl lg:text-7xl font-bold text-white leading-tight tracking-tight">
-              Studio de création d'applications web
+              Web App Creation Studio
             </h1>
 
             <p className="text-xl text-white/70 mb-12 max-w-3xl mx-auto leading-relaxed">
-              Nous concevons et développons des expériences digitales élégantes et performantes. De l'idée au produit, sur mesure.
+              We design and build elegant, high‑performance digital experiences. From idea to product, tailored to you.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
@@ -71,7 +71,7 @@ const Landing: React.FC = () => {
                 href="#work"
                 className="group inline-flex items-center justify-center px-8 py-4 bg-white text-black font-medium rounded-sm hover:bg-white/90 transition-all duration-200 transform hover:scale-[1.02]"
               >
-                Voir nos projets
+                View our work
                 <svg className="w-4 h-4 ml-2 group-hover:translate-x-0.5 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                 </svg>
@@ -81,28 +81,27 @@ const Landing: React.FC = () => {
                 onClick={() => navigate('/contact')}
                 className="inline-flex items-center justify-center px-8 py-4 border border-white/20 text-white font-medium rounded-sm hover:border-white/40 hover:bg-white/5 transition-all duration-200"
               >
-                Nous contacter
+                Contact us
               </button>
             </div>
           </motion.div>
         </div>
       </section>
 
-      {/* Features Section */}
+      {/* Services Section */}
       <section className="py-24 px-6 bg-transparent">
         <div className="max-w-6xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
             className="text-center mb-20"
           >
             <h2 className="text-4xl lg:text-5xl font-bold text-white mb-4">
-              Powerful Features
+              Services
             </h2>
             <p className="text-lg text-white/60 max-w-2xl mx-auto">
-              Everything you need to build, deploy, and scale your applications
+              Design, conception and development of modern, scalable web applications.
             </p>
           </motion.div>
 
@@ -111,38 +110,37 @@ const Landing: React.FC = () => {
               {
                 icon: (
                   <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M5 7l5 5L5 17m7-10h7M12 12h7m-7 5h7" />
                   </svg>
                 ),
-                title: 'Unified Accounts',
-                description: 'One account across all OpenForge products. Seamless integration between FiverFlow and OpenForge platforms.'
+                title: 'Design & Branding',
+                description: 'Visual identity, UI/UX, design systems and high‑fidelity prototyping.'
               },
               {
                 icon: (
                   <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M12 8c-1.657 0-3 1.567-3 3.5S10.343 15 12 15s3-1.567 3-3.5S13.657 8 12 8z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M19.4 15A7.5 7.5 0 116.6 9" />
                   </svg>
                 ),
-                title: 'Smart Automation',
-                description: 'AI tools and integrations that save time. Automated workflows and intelligent suggestions.'
+                title: 'Web Apps & AI',
+                description: 'Full‑stack apps, AI integrations and intelligent workflows.'
               },
               {
                 icon: (
                   <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M3 3h18l-2 12H5L3 3zM7 21h10" />
                   </svg>
                 ),
-                title: 'Secure & Scalable',
-                description: 'Built on Supabase & Stripe for reliability. Enterprise-grade security with infinite scalability.'
+                title: 'E‑commerce & Payments',
+                description: 'Stripe, subscriptions, marketplaces and frictionless checkout experiences.'
               }
             ].map((feature, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
                 className="group"
               >
                 <div className="bg-white/5 border border-white/10 rounded-lg p-8 hover:border-white/20 transition-all duration-300 h-full">
@@ -166,25 +164,24 @@ const Landing: React.FC = () => {
         </div>
       </section>
 
-      {/* Réalisations */}
+      {/* Selected Work */}
       <section id="work" className="py-24 px-6 bg-transparent">
         <div className="max-w-6xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Réalisations</h2>
-            <p className="text-lg text-white/60 max-w-xl mx-auto">Une sélection de projets conçus et développés par notre studio.</p>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Selected Work</h2>
+            <p className="text-lg text-white/60 max-w-xl mx-auto">A selection of projects designed and built by our studio.</p>
           </motion.div>
 
           <div className="grid md:grid-cols-3 gap-8">
             {[
-              { t: 'FiverFlow', d: "Plateforme d'automatisation pour freelances — IA & workflows.", h: EXTERNAL_LINKS.FIVERFLOW },
-              { t: 'Dashboard Finance', d: 'Admin sur mesure, analytics temps réel, intégrations API.', h: '#' },
-              { t: 'Sites Marketing', d: 'Vitrines ultra‑rapides, SEO, animations et assets brandés.', h: '#' }
+              { t: 'FiverFlow', d: 'Automation platform for freelancers — AI & workflows.', h: EXTERNAL_LINKS.FIVERFLOW },
+              { t: 'Finance Dashboard', d: 'Custom admin, real‑time analytics, API integrations.', h: '#' },
+              { t: 'Marketing Sites', d: 'Ultra‑fast showcases, SEO, animations and branded assets.', h: '#' }
             ].map((w, i) => (
               <motion.a
                 key={w.t}
@@ -192,9 +189,8 @@ const Landing: React.FC = () => {
                 target={w.h.startsWith('http') ? '_blank' : undefined}
                 rel={w.h.startsWith('http') ? 'noopener noreferrer' : undefined}
                 initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: i * 0.1 }}
-                viewport={{ once: true }}
                 className="block group"
               >
                 <div className="aspect-video rounded-lg border border-white/10 bg-gradient-to-br from-white/5 to-white/0 group-hover:border-white/20 transition-colors" />
@@ -213,28 +209,26 @@ const Landing: React.FC = () => {
         <div className="max-w-5xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Notre méthode</h2>
-            <p className="text-lg text-white/60 max-w-xl mx-auto">Un processus clair, collaboratif et orienté impact.</p>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Our Process</h2>
+            <p className="text-lg text-white/60 max-w-xl mx-auto">A clear, collaborative and impact‑driven workflow.</p>
           </motion.div>
 
           <div className="grid md:grid-cols-4 gap-6">
             {[
-              { step: '01', title: 'Découverte', text: "Objectifs, contraintes, audience et KPI." },
-              { step: '02', title: 'Design', text: "Wireframes, UI/UX, prototypage et validations." },
-              { step: '03', title: 'Build', text: "Développement, intégrations et qualité." },
-              { step: '04', title: 'Lancement', text: "Mise en production, suivi et amélioration." }
+              { step: '01', title: 'Discovery', text: 'Goals, constraints, audience and KPIs.' },
+              { step: '02', title: 'Design', text: 'Wireframes, UI/UX, prototyping and validation.' },
+              { step: '03', title: 'Build', text: 'Development, integrations and quality assurance.' },
+              { step: '04', title: 'Launch', text: 'Go‑live, monitoring and continuous improvement.' }
             ].map((p, i) => (
               <motion.div
                 key={p.step}
                 initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: i * 0.05 }}
-                viewport={{ once: true }}
                 className="bg-white/5 border border-white/10 rounded-lg p-6"
               >
                 <div className="text-white/40 text-sm">{p.step}</div>
@@ -251,16 +245,15 @@ const Landing: React.FC = () => {
         <div className="max-w-5xl mx-auto">
           <div className="grid md:grid-cols-3 gap-6">
             {[
-              { quote: "Une équipe incroyablement pro, résultat impeccable.", author: 'Amélie, COO' },
-              { quote: "Design magnifique et app ultra‑fluide.", author: 'Lucas, Founder' },
-              { quote: "Livré à temps, au‑delà des attentes.", author: 'Maya, PM' }
+              { quote: 'Incredibly professional team, flawless results.', author: 'Amelia, COO' },
+              { quote: 'Beautiful design and ultra‑smooth app.', author: 'Lucas, Founder' },
+              { quote: 'Delivered on time, beyond expectations.', author: 'Maya, PM' }
             ].map((t, idx) => (
               <motion.div
                 key={idx}
                 initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: idx * 0.05 }}
-                viewport={{ once: true }}
                 className="bg-white/5 border border-white/10 rounded-lg p-6"
               >
                 <div className="text-white/80">“{t.quote}”</div>
@@ -281,16 +274,16 @@ const Landing: React.FC = () => {
             viewport={{ once: true }}
             className="space-y-8"
           >
-            <h2 className="text-4xl md:text-6xl font-bold text-white">Un projet en tête ? Parlons‑en.</h2>
+            <h2 className="text-4xl md:text-6xl font-bold text-white">Have a project in mind? Let’s talk.</h2>
 
-            <p className="text-xl text-white/60 mb-12 max-w-2xl mx-auto">Contactez‑nous pour transformer votre idée en une application remarquable.</p>
+            <p className="text-xl text-white/60 mb-12 max-w-2xl mx-auto">Reach out and we’ll turn your idea into a remarkable application.</p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <button
                 onClick={() => navigate('/contact')}
                 className="group inline-flex items-center justify-center px-10 py-4 bg-white text-black font-medium rounded-sm hover:bg-white/90 transition-all duration-200 transform hover:scale-[1.02]"
               >
-                Démarrer mon projet
+                Start my project
                 <svg className="w-4 h-4 ml-2 group-hover:translate-x-0.5 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                 </svg>
@@ -300,7 +293,7 @@ const Landing: React.FC = () => {
                 onClick={() => navigate('/team')}
                 className="inline-flex items-center justify-center px-10 py-4 border border-white/20 text-white font-medium rounded-sm hover:border-white/40 hover:bg-white/5 transition-all duration-200"
               >
-                En savoir plus
+                Learn more
               </button>
             </div>
           </motion.div>
