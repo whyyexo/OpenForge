@@ -43,6 +43,24 @@ const Landing: React.FC = () => {
           ))}
         </div>
       </div>
+
+      {/* Floating Menu */}
+      <div className="fixed bottom-6 inset-x-0 z-40 flex justify-center px-4">
+        <nav className="flex items-center gap-2 rounded-full border border-white/10 bg-black/40 backdrop-blur-md px-3 py-2 shadow-lg">
+          <a href="#top" className="px-3 py-1.5 text-sm text-white/80 hover:text-white transition-colors">Home</a>
+          <span className="h-4 w-px bg-white/10" />
+          <a href="#capabilities" className="px-3 py-1.5 text-sm text-white/80 hover:text-white transition-colors">Capabilities</a>
+          <span className="h-4 w-px bg-white/10" />
+          <a href="#work" className="px-3 py-1.5 text-sm text-white/80 hover:text-white transition-colors">Work</a>
+          <span className="h-4 w-px bg-white/10" />
+          <button
+            onClick={() => navigate('/contact')}
+            className="px-3 py-1.5 text-sm text-white/80 hover:text-white transition-colors"
+          >
+            Contact
+          </button>
+        </nav>
+      </div>
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
         {/* Subtle background elements */}
@@ -105,7 +123,7 @@ const Landing: React.FC = () => {
       </section>
 
       {/* Services Section */}
-      <section className="py-24 px-6 bg-transparent">
+      <section id="capabilities" className="py-24 px-6 bg-transparent">
         <div className="max-w-6xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
