@@ -13,12 +13,12 @@ const Landing: React.FC = () => {
         {/* Gradient base */}
         <div className="absolute inset-0 bg-gradient-to-br from-[#0a0a0a] via-[#0e0e0e] to-[#0a0a0a]" />
 
-        {/* Slow moving radial spotlight */}
+        {/* Slow moving radial spotlight */
         <motion.div
           className="absolute -inset-1 opacity-40"
           style={{
             background:
-              'radial-gradient(600px 600px at 20% 30%, rgba(0, 227, 140, 0.12), transparent 60%), radial-gradient(600px 600px at 80% 70%, rgba(0, 227, 140, 0.08), transparent 60%)'
+              'radial-gradient(600px 600px at 20% 30%, rgba(59, 130, 246, 0.12), transparent 60%), radial-gradient(600px 600px at 80% 70%, rgba(59, 130, 246, 0.08), transparent 60%)'
           }}
           animate={{
             backgroundPosition: [
@@ -30,15 +30,15 @@ const Landing: React.FC = () => {
           transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }}
         />
 
-        {/* Subtle animated particles */}
+        {/* Subtle animated particles */
         <div className="absolute inset-0">
           {Array.from({ length: 24 }).map((_, i) => (
             <motion.div
               key={i}
-              className="absolute w-2 h-2 bg-[#00E38C] rounded-full opacity-50"
+              className="absolute w-2 h-2 bg-[#3B82F6] rounded-full opacity-50"
               animate={{ y: [0, -20, 0], opacity: [0.3, 0.9, 0.3] }}
               transition={{ duration: 4 + (i % 5), repeat: Infinity, delay: i * 0.12 }}
-              style={{ left: `${(i * 37) % 100}%`, top: `${(i * 53) % 100}%`, boxShadow: '0 0 12px rgba(0,227,140,0.45)' }}
+              style={{ left: `${(i * 37) % 100}%`, top: `${(i * 53) % 100}%`, boxShadow: '0 0 12px rgba(59,130,246,0.45)' }}
             />
           ))}
         </div>
@@ -78,7 +78,7 @@ const Landing: React.FC = () => {
           >
             <div className="flex justify-center">
               <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-sm text-white/70 backdrop-blur">
-                <span className="h-1.5 w-1.5 rounded-full bg-[#00E38C]"></span>
+                <span className="h-1.5 w-1.5 rounded-full bg-[#3B82F6]"></span>
                 AI‑first, design‑driven, performance‑obsessed
               </div>
             </div>
