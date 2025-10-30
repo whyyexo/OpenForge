@@ -53,18 +53,34 @@ const Landing: React.FC = () => {
 
         <div className="relative z-10 text-center px-6 max-w-6xl mx-auto">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             className="space-y-8"
           >
+            <div className="flex justify-center">
+              <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-sm text-white/70 backdrop-blur">
+                <span className="h-1.5 w-1.5 rounded-full bg-[#00E38C]"></span>
+                AI‑first, design‑driven, performance‑obsessed
+              </div>
+            </div>
+
             <h1 className="text-5xl lg:text-7xl font-bold text-white leading-tight tracking-tight">
-              Web App Creation Studio
+              We craft AI‑first web apps
+              <span className="text-white/50"> — built for what’s next.</span>
             </h1>
 
-            <p className="text-xl text-white/70 mb-12 max-w-3xl mx-auto leading-relaxed">
-              We design and build elegant, high‑performance digital experiences. From idea to product, tailored to you.
+            <p className="text-xl text-white/70 max-w-3xl mx-auto leading-relaxed">
+              Intentional UX, realtime interactivity and production‑ready AI. We partner with teams to ship modern, resilient software that feels effortless.
             </p>
+
+            <div className="flex flex-wrap justify-center gap-3 text-xs text-white/60">
+              <div className="rounded-full border border-white/10 px-3 py-1 bg-white/5">LLM agents & tools</div>
+              <div className="rounded-full border border-white/10 px-3 py-1 bg-white/5">Streaming UX</div>
+              <div className="rounded-full border border-white/10 px-3 py-1 bg-white/5">Vector & RAG</div>
+              <div className="rounded-full border border-white/10 px-3 py-1 bg-white/5">Stripe & subscriptions</div>
+              <div className="rounded-full border border-white/10 px-3 py-1 bg-white/5">Supabase</div>
+            </div>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <a
@@ -101,7 +117,7 @@ const Landing: React.FC = () => {
               Services
             </h2>
             <p className="text-lg text-white/60 max-w-2xl mx-auto">
-              Design, conception and development of modern, scalable web applications.
+              AI‑native capabilities to elevate your product.
             </p>
           </motion.div>
 
@@ -113,8 +129,8 @@ const Landing: React.FC = () => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M5 7l5 5L5 17m7-10h7M12 12h7m-7 5h7" />
                   </svg>
                 ),
-                title: 'Design & Branding',
-                description: 'Visual identity, UI/UX, design systems and high‑fidelity prototyping.'
+                title: 'LLM Agents & Orchestration',
+                description: 'Autonomous agents, tool use, evals and safe guardrails for production.'
               },
               {
                 icon: (
@@ -123,8 +139,8 @@ const Landing: React.FC = () => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M19.4 15A7.5 7.5 0 116.6 9" />
                   </svg>
                 ),
-                title: 'Web Apps & AI',
-                description: 'Full‑stack apps, AI integrations and intelligent workflows.'
+                title: 'Realtime & Streaming UX',
+                description: 'Latency‑aware interfaces, progressive streaming and optimistic updates.'
               },
               {
                 icon: (
@@ -132,8 +148,8 @@ const Landing: React.FC = () => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M3 3h18l-2 12H5L3 3zM7 21h10" />
                   </svg>
                 ),
-                title: 'E‑commerce & Payments',
-                description: 'Stripe, subscriptions, marketplaces and frictionless checkout experiences.'
+                title: 'Data & Integrations',
+                description: 'RAG, vector DBs, Stripe subscriptions, analytics and partner APIs.'
               }
             ].map((feature, index) => (
               <motion.div
@@ -213,16 +229,16 @@ const Landing: React.FC = () => {
             transition={{ duration: 0.6 }}
             className="text-center mb-16"
           >
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Our Process</h2>
-            <p className="text-lg text-white/60 max-w-xl mx-auto">A clear, collaborative and impact‑driven workflow.</p>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Our Principles</h2>
+            <p className="text-lg text-white/60 max-w-xl mx-auto">Clarity over complexity. Speed without compromise. AI where it matters.</p>
           </motion.div>
 
           <div className="grid md:grid-cols-4 gap-6">
             {[
-              { step: '01', title: 'Discovery', text: 'Goals, constraints, audience and KPIs.' },
-              { step: '02', title: 'Design', text: 'Wireframes, UI/UX, prototyping and validation.' },
-              { step: '03', title: 'Build', text: 'Development, integrations and quality assurance.' },
-              { step: '04', title: 'Launch', text: 'Go‑live, monitoring and continuous improvement.' }
+              { step: '01', title: 'Define Impact', text: 'Pinpoint outcomes, success metrics and constraints.' },
+              { step: '02', title: 'Design for Flow', text: 'UI/UX that reduces friction and elevates intent.' },
+              { step: '03', title: 'Ship Fast', text: 'Iterate in weeks, not months. Test, measure, refine.' },
+              { step: '04', title: 'AI‑native', text: 'Agents, context and signals embedded where they help.' }
             ].map((p, i) => (
               <motion.div
                 key={p.step}
@@ -274,9 +290,9 @@ const Landing: React.FC = () => {
             viewport={{ once: true }}
             className="space-y-8"
           >
-            <h2 className="text-4xl md:text-6xl font-bold text-white">Have a project in mind? Let’s talk.</h2>
+            <h2 className="text-4xl md:text-6xl font-bold text-white">Build with an AI‑native team.</h2>
 
-            <p className="text-xl text-white/60 mb-12 max-w-2xl mx-auto">Reach out and we’ll turn your idea into a remarkable application.</p>
+            <p className="text-xl text-white/60 mb-12 max-w-2xl mx-auto">Let’s turn your product vision into a fast, intelligent experience.</p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <button
