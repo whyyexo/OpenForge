@@ -7,6 +7,24 @@ const Landing: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-[#0A0A0A] text-white">
+      {/* Global animated dark background */}
+      <div className="fixed inset-0 -z-10 overflow-hidden">
+        {/* Gradient base */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[#0a0a0a] via-[#0e0e0e] to-[#0a0a0a]" />
+
+        {/* Subtle animated particles */}
+        <div className="absolute inset-0">
+          {Array.from({ length: 24 }).map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute w-1 h-1 bg-[#00E38C] rounded-full opacity-20"
+              style={{ left: `${(i * 37) % 100}%`, top: `${(i * 53) % 100}%` }}
+              animate={{ y: [0, -15, 0], opacity: [0.2, 0.6, 0.2] }}
+              transition={{ duration: 3 + (i % 5), repeat: Infinity, delay: i * 0.1 }}
+            />
+          ))}
+        </div>
+      </div>
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
         {/* Subtle background elements */}
@@ -57,7 +75,7 @@ const Landing: React.FC = () => {
       </section>
 
       {/* Features Section */}
-      <section className="py-24 px-6 bg-[#0A0A0A]">
+      <section className="py-24 px-6 bg-transparent">
         <div className="max-w-6xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -135,7 +153,7 @@ const Landing: React.FC = () => {
       </section>
 
       {/* Integrations Section */}
-      <section className="py-24 px-6 bg-[#0A0A0A]">
+      <section className="py-24 px-6 bg-transparent">
         <div className="max-w-6xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -226,7 +244,7 @@ const Landing: React.FC = () => {
       </section>
 
       {/* Pricing Preview */}
-      <section className="py-24 px-6 bg-[#0A0A0A]">
+      <section className="py-24 px-6 bg-transparent">
         <div className="max-w-5xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
