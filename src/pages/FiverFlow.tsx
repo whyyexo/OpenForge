@@ -2,23 +2,25 @@ import React from 'react';
 import GlobalNavbar from '../components/GlobalNavbar';
 import GlobalFooter from '../components/GlobalFooter';
 import HeroSection from '../components/product/fiverflow/HeroSection';
-import OverviewSection from '../components/product/fiverflow/OverviewSection';
-import FeaturesSection from '../components/product/fiverflow/FeaturesSection';
-import StatsSection from '../components/product/fiverflow/StatsSection';
-import CTASection from '../components/product/fiverflow/CTASection';
+import ProductOverview from '../components/product/fiverflow/ProductOverview';
+import CoreFeatures from '../components/product/fiverflow/CoreFeatures';
+import DetailedFeatures from '../components/product/fiverflow/DetailedFeatures';
+import Integrations from '../components/product/fiverflow/Integrations';
+import PlansPreview from '../components/product/fiverflow/PlansPreview';
+import FooterCTA from '../components/product/fiverflow/FooterCTA';
 
 const FiverFlow: React.FC = () => {
   return (
     <>
       {/* SEO Meta Tags */}
       <head>
-        <title>FiverFlow | StriveLabs Product - AI automation for freelance workflows</title>
-        <meta name="description" content="FiverFlow is an intelligent automation platform designed specifically for freelancers and small teams. Automate client onboarding, task handling and billing with perceptive AI workflows." />
-        <meta name="keywords" content="freelance automation, AI workflows, client onboarding, task automation, billing integration, freelancer tools" />
+        <title>FiverFlow | StriveLabs Product - Workspace Automation Platform</title>
+        <meta name="description" content="FiverFlow is a comprehensive workspace automation platform. Manage clients, orders, invoices, and workflows with AI-powered automation and smart analytics." />
+        <meta name="keywords" content="workspace automation, AI assistant, client management, invoice generation, freelance tools, workflow automation" />
         
         {/* Open Graph */}
         <meta property="og:title" content="FiverFlow | StriveLabs Product" />
-        <meta property="og:description" content="AI automation for freelance workflows - Automate client onboarding, task handling and billing with perceptive AI workflows." />
+        <meta property="og:description" content="The next generation workspace automation platform - AI-powered automation, smart dashboard, and complete workflow management." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://openforge.com/product/fiverflow" />
         <meta property="og:image" content="https://openforge.com/og-image-fiverflow.png" />
@@ -26,7 +28,7 @@ const FiverFlow: React.FC = () => {
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="FiverFlow | StriveLabs Product" />
-        <meta name="twitter:description" content="AI automation for freelance workflows - Automate client onboarding, task handling and billing with perceptive AI workflows." />
+        <meta name="twitter:description" content="The next generation workspace automation platform - AI-powered automation, smart dashboard, and complete workflow management." />
         <meta name="twitter:image" content="https://openforge.com/og-image-fiverflow.png" />
         
         {/* Additional */}
@@ -42,17 +44,23 @@ const FiverFlow: React.FC = () => {
         {/* Hero Section */}
         <HeroSection />
         
-        {/* Overview Section */}
-        <OverviewSection />
+        {/* Product Overview */}
+        <ProductOverview />
         
-        {/* Features Section */}
-        <FeaturesSection />
+        {/* Core Features Grid */}
+        <CoreFeatures />
         
-        {/* Stats Section */}
-        <StatsSection />
+        {/* Detailed Feature Sections */}
+        <DetailedFeatures />
         
-        {/* CTA Section */}
-        <CTASection />
+        {/* Integrations */}
+        <Integrations />
+        
+        {/* Plans Preview */}
+        <PlansPreview />
+        
+        {/* Footer CTA */}
+        <FooterCTA />
         
         {/* Global Footer */}
         <GlobalFooter />
