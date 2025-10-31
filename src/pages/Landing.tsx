@@ -49,9 +49,9 @@ const Landing: React.FC = () => {
         <nav className="flex items-center gap-2 rounded-full border border-white/10 bg-black/40 backdrop-blur-md px-3 py-2 shadow-lg">
           <a href="#top" className="px-3 py-1.5 text-sm text-white/80 hover:text-white transition-colors">Home</a>
           <span className="h-4 w-px bg-white/10" />
-          <a href="#capabilities" className="px-3 py-1.5 text-sm text-white/80 hover:text-white transition-colors">Capabilities</a>
+          <a href="#products" className="px-3 py-1.5 text-sm text-white/80 hover:text-white transition-colors">Products</a>
           <span className="h-4 w-px bg-white/10" />
-          <a href="#work" className="px-3 py-1.5 text-sm text-white/80 hover:text-white transition-colors">Work</a>
+          <a href="#features" className="px-3 py-1.5 text-sm text-white/80 hover:text-white transition-colors">Features</a>
           <span className="h-4 w-px bg-white/10" />
           <a href="#faq" className="px-3 py-1.5 text-sm text-white/80 hover:text-white transition-colors">FAQ</a>
           <span className="h-4 w-px bg-white/10" />
@@ -90,7 +90,7 @@ const Landing: React.FC = () => {
             </h1>
 
             <p className="text-xl text-white/70 max-w-3xl mx-auto leading-relaxed">
-              Intentional UX, realtime interactivity and production‑ready AI. We partner with teams to ship modern, resilient software that feels effortless.
+              Intentional UX, realtime interactivity and production‑ready AI. We build powerful software products that transform how teams work and scale.
             </p>
 
             <div className="flex flex-wrap justify-center gap-3 text-xs text-white/60">
@@ -103,20 +103,20 @@ const Landing: React.FC = () => {
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <a
-                href="#work"
+                href="#products"
                 className="group inline-flex items-center justify-center px-8 py-4 bg-white text-black font-medium rounded-sm hover:bg-white/90 transition-all duration-200 transform hover:scale-[1.02]"
               >
-                View our work
+                Explore Products
                 <svg className="w-4 h-4 ml-2 group-hover:translate-x-0.5 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                 </svg>
               </a>
               
               <button
-                onClick={() => navigate('/contact')}
+                onClick={() => navigate('/pricing')}
                 className="inline-flex items-center justify-center px-8 py-4 border border-white/20 text-white font-medium rounded-sm hover:border-white/40 hover:bg-white/5 transition-all duration-200"
               >
-                Contact us
+                View Pricing
               </button>
             </div>
           </motion.div>
@@ -134,10 +134,10 @@ const Landing: React.FC = () => {
             className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12"
           >
             {[
-              { value: '50+', label: 'Projects Delivered' },
+              { value: '10K+', label: 'Active Users' },
               { value: '99.9%', label: 'Uptime SLA' },
               { value: '24/7', label: 'Support' },
-              { value: '5+', label: 'Years Experience' }
+              { value: '2+', label: 'Products Live' }
             ].map((stat, idx) => (
               <motion.div
                 key={idx}
@@ -155,8 +155,8 @@ const Landing: React.FC = () => {
         </div>
       </section>
 
-      {/* Services Section */}
-      <section id="capabilities" className="relative z-10 py-24 px-6 bg-transparent">
+      {/* Products Section */}
+      <section id="products" className="relative z-10 py-24 px-6 bg-transparent">
         <div className="max-w-6xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -165,10 +165,10 @@ const Landing: React.FC = () => {
             className="text-center mb-20"
           >
             <h2 className="text-4xl lg:text-5xl font-bold text-white mb-4">
-              Services
+              Our Products
             </h2>
             <p className="text-lg text-white/60 max-w-2xl mx-auto">
-              AI‑native capabilities to elevate your product.
+              AI‑powered platforms built to transform how you work and scale.
             </p>
           </motion.div>
 
@@ -177,30 +177,29 @@ const Landing: React.FC = () => {
               {
                 icon: (
                   <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M5 7l5 5L5 17m7-10h7M12 12h7m-7 5h7" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M13 10V3L4 14h7v7l9-11h-7z" />
                   </svg>
                 ),
-                title: 'LLM Agents & Orchestration',
-                description: 'Autonomous agents, tool use, evals and safe guardrails for production.'
+                title: 'FiverFlow',
+                description: 'Automation platform for freelancers. AI-powered workflows, client management, and smart invoicing.'
               },
               {
                 icon: (
                   <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M12 8c-1.657 0-3 1.567-3 3.5S10.343 15 12 15s3-1.567 3-3.5S13.657 8 12 8z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M19.4 15A7.5 7.5 0 116.6 9" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
                   </svg>
                 ),
-                title: 'Realtime & Streaming UX',
-                description: 'Latency‑aware interfaces, progressive streaming and optimistic updates.'
+                title: 'NeuralEdge',
+                description: 'The most advanced AI Business Operating System. Unify CRM, ERP, HR, finance, and operations in one intelligent platform.'
               },
               {
                 icon: (
                   <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M3 3h18l-2 12H5L3 3zM7 21h10" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M12 4v16m8-8H4" />
                   </svg>
                 ),
-                title: 'Data & Integrations',
-                description: 'RAG, vector DBs, Stripe subscriptions, analytics and partner APIs.'
+                title: 'More Coming Soon',
+                description: 'We\'re continuously building new products to solve real business challenges with AI and automation.'
               }
             ].map((feature, index) => (
               <motion.div
@@ -281,7 +280,7 @@ const Landing: React.FC = () => {
       </section>
 
       {/* Selected Work */}
-      <section id="work" className="relative z-10 py-24 px-6 bg-transparent">
+      <section className="relative z-10 py-24 px-6 bg-transparent">
         <div className="max-w-6xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -289,15 +288,15 @@ const Landing: React.FC = () => {
             transition={{ duration: 0.6 }}
             className="text-center mb-16"
           >
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Selected Work</h2>
-            <p className="text-lg text-white/60 max-w-xl mx-auto">A selection of projects designed and built by our studio.</p>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Our Products</h2>
+            <p className="text-lg text-white/60 max-w-xl mx-auto">Built with AI at the core, designed for the future of work.</p>
           </motion.div>
 
           <div className="grid md:grid-cols-3 gap-8">
             {[
               { t: 'FiverFlow', d: 'Automation platform for freelancers — AI & workflows.', h: EXTERNAL_LINKS.FIVERFLOW, comingSoon: false },
               { t: 'NeuralEdge', d: 'The most advanced AI Business Operating System ever built.', h: '/product/neuraledge', comingSoon: true },
-              { t: 'Marketing Sites', d: 'Ultra‑fast showcases, SEO, animations and branded assets.', h: '#', comingSoon: false }
+              { t: 'More Products', d: 'We\'re building the next generation of AI-powered tools. Stay tuned.', h: '#', comingSoon: false }
             ].map((w, i) => (
               <motion.div
                 key={w.t}
@@ -348,16 +347,16 @@ const Landing: React.FC = () => {
             transition={{ duration: 0.6 }}
             className="text-center mb-16"
           >
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Our Principles</h2>
-            <p className="text-lg text-white/60 max-w-xl mx-auto">Clarity over complexity. Speed without compromise. AI where it matters.</p>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">How We Build</h2>
+            <p className="text-lg text-white/60 max-w-xl mx-auto">Our approach to creating products that matter — fast, intelligent, and built to last.</p>
           </motion.div>
 
           <div className="grid md:grid-cols-4 gap-6">
             {[
-              { step: '01', title: 'Define Impact', text: 'Pinpoint outcomes, success metrics and constraints.' },
-              { step: '02', title: 'Design for Flow', text: 'UI/UX that reduces friction and elevates intent.' },
-              { step: '03', title: 'Ship Fast', text: 'Iterate in weeks, not months. Test, measure, refine.' },
-              { step: '04', title: 'AI‑native', text: 'Agents, context and signals embedded where they help.' }
+              { step: '01', title: 'User First', text: 'Start with real problems. Build solutions that users actually need and love.' },
+              { step: '02', title: 'AI Native', text: 'Intelligence built-in from day one. Not an add-on, but the foundation.' },
+              { step: '03', title: 'Ship & Iterate', text: 'Launch fast, learn faster. Continuous improvement driven by user feedback.' },
+              { step: '04', title: 'Scale Smart', text: 'Built to grow. Architecture that scales with your success.' }
             ].map((p, i) => (
               <motion.div
                 key={p.step}
@@ -375,8 +374,8 @@ const Landing: React.FC = () => {
         </div>
       </section>
 
-      {/* Benefits Section */}
-      <section className="relative z-10 py-24 px-6 bg-transparent">
+      {/* Features Section */}
+      <section id="features" className="relative z-10 py-24 px-6 bg-transparent">
         <div className="max-w-6xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -385,35 +384,35 @@ const Landing: React.FC = () => {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Why Choose Us</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Powerful Features</h2>
             <p className="text-lg text-white/60 max-w-2xl mx-auto">
-              We combine technical excellence with design thinking to deliver exceptional results.
+              Everything you need to work smarter, not harder. Built into every product.
             </p>
           </motion.div>
 
           <div className="grid md:grid-cols-2 gap-8">
             {[
               {
-                title: 'Rapid Development',
-                description: 'Ship features in weeks, not months. Our agile process ensures fast iteration and delivery.',
+                title: 'AI-Powered Automation',
+                description: 'Let AI handle repetitive tasks. Our products learn from your workflow and automate intelligently.',
                 icon: (
                   <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
                   </svg>
                 )
               },
               {
-                title: 'Scalable Architecture',
-                description: 'Built to grow with your business. Our solutions handle millions of users without breaking a sweat.',
+                title: 'Real-time Collaboration',
+                description: 'Work together seamlessly. Share updates, collaborate on projects, and stay in sync across teams.',
                 icon: (
                   <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                   </svg>
                 )
               },
               {
-                title: 'Security First',
-                description: 'Enterprise-grade security with encryption, authentication, and compliance built-in from day one.',
+                title: 'Enterprise Security',
+                description: 'Your data is protected with bank-level encryption, compliance, and continuous monitoring.',
                 icon: (
                   <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
@@ -421,8 +420,8 @@ const Landing: React.FC = () => {
                 )
               },
               {
-                title: '24/7 Support',
-                description: 'Round-the-clock assistance. We\'re here when you need us, ensuring your app stays online and optimized.',
+                title: 'Always Available',
+                description: '99.9% uptime with 24/7 monitoring. Your workflows never stop, your data never sleeps.',
                 icon: (
                   <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z" />
@@ -458,11 +457,20 @@ const Landing: React.FC = () => {
       {/* Testimonials */}
       <section className="relative z-10 py-24 px-6 bg-transparent">
         <div className="max-w-5xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">What Users Say</h2>
+          </motion.div>
           <div className="grid md:grid-cols-3 gap-6">
             {[
-              { quote: 'Incredibly professional team, flawless results.', author: 'Amelia, COO' },
-              { quote: 'Beautiful design and ultra‑smooth app.', author: 'Lucas, Founder' },
-              { quote: 'Delivered on time, beyond expectations.', author: 'Maya, PM' }
+              { quote: 'FiverFlow transformed how I manage clients. The AI automation is incredible.', author: 'Sarah, Freelancer' },
+              { quote: 'Finally, a platform that understands what I need. The workflow automation is game-changing.', author: 'Mike, Designer' },
+              { quote: 'Best investment I\'ve made for my business. The time saved is remarkable.', author: 'Emma, Consultant' }
             ].map((t, idx) => (
               <motion.div
                 key={idx}
@@ -491,31 +499,31 @@ const Landing: React.FC = () => {
           >
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Frequently Asked Questions</h2>
             <p className="text-lg text-white/60 max-w-xl mx-auto">
-              Everything you need to know about working with us.
+              Everything you need to know about our products.
             </p>
           </motion.div>
 
           <div className="space-y-4">
             {[
               {
-                question: 'How long does a typical project take?',
-                answer: 'Project timelines vary based on scope and complexity. Most MVP projects take 4-8 weeks, while full-featured applications typically require 8-16 weeks. We provide detailed timelines during our initial consultation.'
+                question: 'How do I get started?',
+                answer: 'Simply sign up for an account. Most products offer a free tier to get you started. You can upgrade to a paid plan anytime to unlock advanced features and higher usage limits.'
               },
               {
-                question: 'What technologies do you specialize in?',
-                answer: 'We specialize in modern web technologies including React, TypeScript, Node.js, Supabase, and AI integrations. Our stack is optimized for performance, scalability, and developer experience.'
+                question: 'What makes your products different?',
+                answer: 'All our products are AI-native from the ground up. We don\'t add AI as an afterthought — intelligence is built into every feature, making our tools more powerful and intuitive than traditional alternatives.'
               },
               {
-                question: 'Do you provide ongoing support?',
-                answer: 'Yes, we offer comprehensive support packages including maintenance, updates, monitoring, and 24/7 assistance. Support can be tailored to your specific needs and budget.'
+                question: 'Do you offer support?',
+                answer: 'Yes, we provide 24/7 customer support for all users. Premium plans include priority support with faster response times and dedicated account assistance.'
               },
               {
-                question: 'Can you work with our existing team?',
-                answer: 'Absolutely. We are experienced in collaborating with in-house teams, providing technical leadership, code reviews, and knowledge transfer to ensure seamless integration.'
+                question: 'Can I integrate with my existing tools?',
+                answer: 'Absolutely. Our products offer extensive integrations with popular tools and services. We provide APIs and webhooks for custom integrations as well.'
               },
               {
                 question: 'What is your pricing model?',
-                answer: 'We offer flexible pricing models including fixed-price projects, time-based billing, and retainer agreements. Contact us for a custom quote tailored to your project requirements.'
+                answer: 'We offer transparent, usage-based pricing with multiple tiers. Visit our pricing page to see detailed plans for each product. Most products include a free tier to get you started.'
               }
             ].map((faq, idx) => (
               <motion.div
@@ -544,27 +552,27 @@ const Landing: React.FC = () => {
             viewport={{ once: true }}
             className="space-y-8"
           >
-            <h2 className="text-4xl md:text-6xl font-bold text-white">Build with an AI‑native team.</h2>
+            <h2 className="text-4xl md:text-6xl font-bold text-white">Ready to Transform Your Workflow?</h2>
 
-            <p className="text-xl text-white/60 mb-12 max-w-2xl mx-auto">Let’s turn your product vision into a fast, intelligent experience.</p>
+            <p className="text-xl text-white/60 mb-12 max-w-2xl mx-auto">Join thousands of users who are already working smarter with our AI-powered products.</p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <button
-                onClick={() => navigate('/contact')}
+                onClick={() => navigate('/pricing')}
                 className="group inline-flex items-center justify-center px-10 py-4 bg-white text-black font-medium rounded-sm hover:bg-white/90 transition-all duration-200 transform hover:scale-[1.02]"
               >
-                Start my project
+                Get Started Free
                 <svg className="w-4 h-4 ml-2 group-hover:translate-x-0.5 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                 </svg>
               </button>
               
-              <button
-                onClick={() => navigate('/team')}
+              <a
+                href="#products"
                 className="inline-flex items-center justify-center px-10 py-4 border border-white/20 text-white font-medium rounded-sm hover:border-white/40 hover:bg-white/5 transition-all duration-200"
               >
-                Learn more
-              </button>
+                Explore Products
+              </a>
             </div>
           </motion.div>
         </div>
