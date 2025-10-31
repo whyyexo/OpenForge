@@ -7,6 +7,7 @@ import AuthGuard from './components/AuthGuard';
 import Landing from './pages/Landing';
 import Pricing from './pages/Pricing';
 import FiverFlow from './pages/FiverFlow';
+import NeuralEdge from './pages/NeuralEdge';
 import Career from './pages/Career';
 import Contact from './pages/Contact';
 import Community from './pages/Community';
@@ -43,6 +44,7 @@ const App: React.FC = () => {
             </div>
           } />
           <Route path="/product/fiverflow" element={<FiverFlow />} />
+          <Route path="/product/neuraledge" element={<NeuralEdge />} />
           <Route path="/career" element={
             <div className="min-h-screen bg-[#0A0A0A]">
               <GlobalNavbar />

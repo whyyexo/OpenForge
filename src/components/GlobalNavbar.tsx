@@ -124,12 +124,21 @@ const GlobalNavbar: React.FC = () => {
                   </svg>
                 </button>
                 
-                <div className="absolute top-full left-0 mt-2 w-48 bg-black/90 backdrop-blur-sm border border-white/10 rounded-lg py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                <div className="absolute top-full left-0 mt-2 w-56 bg-black/90 backdrop-blur-sm border border-white/10 rounded-lg py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
                   <button
                     onClick={() => navigate('/product/fiverflow')}
                     className="block w-full text-left px-4 py-2 text-sm text-white/60 hover:text-white hover:bg-white/5 transition-colors duration-200"
                   >
                     FiverFlow
+                  </button>
+                  <button
+                    onClick={() => navigate('/product/neuraledge')}
+                    className="block w-full text-left px-4 py-2 text-sm text-white/60 hover:text-white hover:bg-white/5 transition-colors duration-200 relative"
+                  >
+                    <div className="flex items-center justify-between">
+                      <span>NeuralEdge</span>
+                      <span className="text-[10px] text-white/40 font-medium bg-white/5 px-1.5 py-0.5 rounded">Soon</span>
+                    </div>
                   </button>
                 </div>
               </div>

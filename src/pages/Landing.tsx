@@ -295,26 +295,45 @@ const Landing: React.FC = () => {
 
           <div className="grid md:grid-cols-3 gap-8">
             {[
-              { t: 'FiverFlow', d: 'Automation platform for freelancers — AI & workflows.', h: EXTERNAL_LINKS.FIVERFLOW },
-              { t: 'Finance Dashboard', d: 'Custom admin, real‑time analytics, API integrations.', h: '#' },
-              { t: 'Marketing Sites', d: 'Ultra‑fast showcases, SEO, animations and branded assets.', h: '#' }
+              { t: 'FiverFlow', d: 'Automation platform for freelancers — AI & workflows.', h: EXTERNAL_LINKS.FIVERFLOW, comingSoon: false },
+              { t: 'NeuralEdge', d: 'The most advanced AI Business Operating System ever built.', h: '/product/neuraledge', comingSoon: true },
+              { t: 'Marketing Sites', d: 'Ultra‑fast showcases, SEO, animations and branded assets.', h: '#', comingSoon: false }
             ].map((w, i) => (
-              <motion.a
+              <motion.div
                 key={w.t}
-                href={w.h}
-                target={w.h.startsWith('http') ? '_blank' : undefined}
-                rel={w.h.startsWith('http') ? 'noopener noreferrer' : undefined}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: i * 0.1 }}
                 className="block group"
               >
-                <div className="aspect-video rounded-lg border border-white/10 bg-gradient-to-br from-white/5 to-white/0 group-hover:border-white/20 transition-colors" />
-                <div className="mt-4">
-                  <h3 className="text-lg font-semibold text-white">{w.t}</h3>
-                  <p className="text-white/60 text-sm mt-1">{w.d}</p>
-                </div>
-              </motion.a>
+                <a
+                  href={w.h}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    if (w.h !== '#') {
+                      navigate(w.h);
+                    }
+                  }}
+                  className="block cursor-pointer"
+                >
+                  <div className="aspect-video rounded-lg border border-white/10 bg-gradient-to-br from-white/5 to-white/0 group-hover:border-white/20 transition-colors relative">
+                    {w.comingSoon && (
+                      <div className="absolute top-3 right-3 px-2 py-1 rounded-md bg-white/10 border border-white/20 backdrop-blur-sm">
+                        <span className="text-xs text-white/60 font-medium">Coming Soon</span>
+                      </div>
+                    )}
+                  </div>
+                  <div className="mt-4">
+                    <div className="flex items-center gap-2">
+                      <h3 className="text-lg font-semibold text-white">{w.t}</h3>
+                      {w.comingSoon && (
+                        <span className="text-xs text-white/40 font-medium">Coming Soon</span>
+                      )}
+                    </div>
+                    <p className="text-white/60 text-sm mt-1">{w.d}</p>
+                  </div>
+                </a>
+              </motion.div>
             ))}
           </div>
         </div>
