@@ -11,7 +11,7 @@ const FeaturesSection: React.FC = () => {
     {
       icon: '💡',
       title: 'Unified Accounts',
-      description: 'One account across all OpenForge products. Seamless integration between FiverFlow and OpenForge platforms.',
+      description: 'One account across all StriveLabs products. Seamless integration between FiverFlow and StriveLabs platforms.',
       color: 'from-blue-500 to-cyan-500'
     },
     {

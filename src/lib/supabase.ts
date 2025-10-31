@@ -5,7 +5,7 @@ const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || 'https://arnuyyyryvbfcv
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFybnV5eXlyeXZiZmN2cWF1cXVyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTMyMjY5MjQsImV4cCI6MjA2ODgwMjkyNH0.mWzoWkBbQcCNR2BHueu8mQpV6hFMZUacbv4EobzOIZs';
 
 // Debug: Log the environment variables
-console.log('🔧 OpenForge Supabase Config:');
+console.log('🔧 StriveLabs Supabase Config:');
 console.log('URL:', supabaseUrl);
 console.log('Key (first 20 chars):', supabaseAnonKey?.substring(0, 20) + '...');
 

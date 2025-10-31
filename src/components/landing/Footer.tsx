@@ -25,9 +25,9 @@ const Footer: React.FC = () => {
       { name: 'GDPR', href: '/gdpr' }
     ],
     Community: [
-      { name: 'Discord', href: 'https://discord.gg/openforge' },
-      { name: 'GitHub', href: 'https://github.com/openforge' },
-      { name: 'Twitter', href: 'https://twitter.com/openforge' },
+      { name: 'Discord', href: 'https://discord.gg/strivelabs' },
+      { name: 'GitHub', href: 'https://github.com/strivelabs' },
+      { name: 'Twitter', href: 'https://twitter.com/strivelabs' },
       { name: 'Support', href: '/support' }
     ]
   };
@@ -51,7 +51,7 @@ const Footer: React.FC = () => {
               transition={{ duration: 0.6 }}
               className="mb-6"
             >
-              <h3 className="text-2xl font-bold text-white mb-4">OpenForge</h3>
+              <h3 className="text-2xl font-bold text-white mb-4">StriveLabs</h3>
               <p className="text-gray-400 leading-relaxed">
                 Empowering creators and developers to build next-generation platforms with cutting-edge tools and seamless integrations.
               </p>
@@ -65,9 +65,9 @@ const Footer: React.FC = () => {
               className="flex space-x-4"
             >
               {[
-                { name: 'Discord', href: 'https://discord.gg/openforge', icon: '💬' },
-                { name: 'GitHub', href: 'https://github.com/openforge', icon: '🐙' },
-                { name: 'Twitter', href: 'https://twitter.com/openforge', icon: '🐦' }
+                { name: 'Discord', href: 'https://discord.gg/strivelabs', icon: '💬' },
+                { name: 'GitHub', href: 'https://github.com/strivelabs', icon: '🐙' },
+                { name: 'Twitter', href: 'https://twitter.com/strivelabs', icon: '🐦' }
               ].map((social, index) => (
                 <motion.a
                   key={social.name}
@@ -123,7 +123,7 @@ const Footer: React.FC = () => {
         >
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="text-gray-400 text-sm mb-4 md:mb-0">
-              © 2024 OpenForge. All rights reserved.
+              © 2024 StriveLabs. All rights reserved.
             </div>
 
             {/* Language Switcher */}

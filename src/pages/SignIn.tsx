@@ -62,7 +62,7 @@ const SignIn: React.FC = () => {
           <div className="mb-8">
             <img 
               src={logo} 
-              alt="OpenForge Logo" 
+              alt="StriveLabs Logo" 
               className="h-8 w-auto"
             />
           </div>
@@ -195,7 +195,7 @@ const SignIn: React.FC = () => {
             Get Started
           </h2>
           <p className="text-gray-400 mb-6">
-            Create a new account and start building amazing applications with OpenForge.
+            Create a new account and start building amazing applications with StriveLabs.
           </p>
           <div className="space-y-4">
             <div className="flex items-center">

@@ -34,7 +34,7 @@ const LandingModern: React.FC = () => {
           </h1>
 
           <p className="text-xl text-gray-300 mb-12 max-w-3xl mx-auto leading-relaxed">
-            OpenForge is the all-in-one platform that empowers developers to build, deploy, and scale applications with unprecedented speed and efficiency.
+            StriveLabs is the all-in-one platform that empowers developers to build, deploy, and scale applications with unprecedented speed and efficiency.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
@@ -320,7 +320,7 @@ const LandingModern: React.FC = () => {
             Your Development?
           </h2>
           <p className="text-xl text-gray-300 mb-12 max-w-2xl mx-auto">
-            Join thousands of developers who are already building the future with OpenForge.
+            Join thousands of developers who are already building the future with StriveLabs.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button
@@ -344,7 +344,7 @@ const LandingModern: React.FC = () => {
         <div className="max-w-6xl mx-auto px-4 py-12">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="mb-6 md:mb-0">
-              <h3 className="text-2xl font-bold text-white mb-2">OpenForge</h3>
+              <h3 className="text-2xl font-bold text-white mb-2">StriveLabs</h3>
               <p className="text-gray-400">
                 The future of development is here.
               </p>
@@ -358,7 +358,7 @@ const LandingModern: React.FC = () => {
           </div>
           <div className="border-t border-gray-800 mt-8 pt-6 text-center">
             <p className="text-gray-400 text-sm">
-              © 2024 OpenForge. All rights reserved.
+              © 2024 StriveLabs. All rights reserved.
             </p>
           </div>
         </div>

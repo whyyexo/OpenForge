@@ -32,7 +32,7 @@ const Contact: React.FC = () => {
       ),
       title: 'Email',
       description: 'Send us an email anytime',
-      value: 'hello@openforge.com'
+      value: 'hello@strivelabs.com'
     },
     {
       icon: (
@@ -52,7 +52,7 @@ const Contact: React.FC = () => {
       ),
       title: 'Twitter',
       description: 'Follow us for updates',
-      value: '@openforge'
+      value: '@strivelabs'
     }
   ];
 

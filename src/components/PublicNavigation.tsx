@@ -75,7 +75,7 @@ const PublicNavigation: React.FC = () => {
       <nav className="bg-[#181B22]/90 backdrop-blur-sm border-b border-gray-700 px-6 py-3 fixed top-0 left-0 right-0 z-50">
         <div className="flex items-center justify-between w-full">
           <div className="flex items-center space-x-6">
-            <img src={logo} alt="OpenForge Logo" className="h-6 w-auto" />
+            <img src={logo} alt="StriveLabs Logo" className="h-6 w-auto" />
           </div>
           <div className="text-gray-400">Loading...</div>
         </div>
@@ -94,7 +94,7 @@ const PublicNavigation: React.FC = () => {
           >
             <img 
               src={logo} 
-              alt="OpenForge Logo" 
+              alt="StriveLabs Logo" 
               className="h-6 w-auto"
             />
           </a>

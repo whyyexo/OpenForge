@@ -28,19 +28,19 @@ const Pricing: React.FC = () => {
         <meta property="og:title" content="Pricing – StriveLabs" />
         <meta property="og:description" content="Flexible, transparent pricing for StriveLabs tools and suite. Choose the full StriveLabs Suite or subscribe per product." />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://openforge.com/pricing" />
-        <meta property="og:image" content="https://openforge.com/og-image-pricing.png" />
+        <meta property="og:url" content="https://strivelabs.com/pricing" />
+        <meta property="og:image" content="https://strivelabs.com/og-image-pricing.png" />
         
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Pricing – StriveLabs" />
         <meta name="twitter:description" content="Flexible, transparent pricing for StriveLabs tools and suite. Choose the full StriveLabs Suite or subscribe per product." />
-        <meta name="twitter:image" content="https://openforge.com/og-image-pricing.png" />
+        <meta name="twitter:image" content="https://strivelabs.com/og-image-pricing.png" />
         
         {/* Additional */}
         <meta name="robots" content="index, follow" />
         <meta name="author" content="StriveLabs" />
-        <link rel="canonical" href="https://openforge.com/pricing" />
+        <link rel="canonical" href="https://strivelabs.com/pricing" />
       </head>
 
       <div className="min-h-screen bg-[#0A0A0A] text-white">

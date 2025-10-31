@@ -31,7 +31,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   useEffect(() => {
     // Vider le cache local au démarrage
     console.log('🧹 Clearing auth cache...');
-    localStorage.removeItem('openforge-auth');
+    localStorage.removeItem('strivelabs-auth');
     sessionStorage.clear();
     
     // Timeout de sécurité pour éviter le loading infini

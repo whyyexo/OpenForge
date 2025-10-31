@@ -38,7 +38,7 @@ const LandingSimple: React.FC = () => {
           </h1>
 
           <p className="text-xl md:text-2xl text-gray-300 mb-12 max-w-3xl mx-auto leading-relaxed">
-            OpenForge empowers creators and developers to build next-generation platforms.
+            StriveLabs empowers creators and developers to build next-generation platforms.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
@@ -85,7 +85,7 @@ const LandingSimple: React.FC = () => {
               {
                 icon: '💡',
                 title: 'Unified Accounts',
-                description: 'One account across all OpenForge products. Seamless integration between FiverFlow and OpenForge platforms.'
+                description: 'One account across all StriveLabs products. Seamless integration between FiverFlow and StriveLabs platforms.'
               },
               {
                 icon: '⚙️',
@@ -283,14 +283,14 @@ const LandingSimple: React.FC = () => {
 
         <div className="relative z-10 max-w-4xl mx-auto px-4 text-center">
           <h2 className="text-5xl md:text-7xl font-bold text-white mb-8">
-            Join OpenForge{' '}
+            Join StriveLabs{' '}
             <span className="text-[#00E38C]">
               Today
             </span>
           </h2>
 
           <p className="text-xl md:text-2xl text-gray-300 mb-12 max-w-2xl mx-auto leading-relaxed">
-            Create your account and start building the future. Join thousands of developers already using OpenForge.
+            Create your account and start building the future. Join thousands of developers already using StriveLabs.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16">
@@ -333,15 +333,15 @@ const LandingSimple: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 py-16">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8">
             <div className="lg:col-span-2">
-              <h3 className="text-2xl font-bold text-white mb-4">OpenForge</h3>
+              <h3 className="text-2xl font-bold text-white mb-4">StriveLabs</h3>
               <p className="text-gray-400 leading-relaxed mb-6">
                 Empowering creators and developers to build next-generation platforms with cutting-edge tools and seamless integrations.
               </p>
               <div className="flex space-x-4">
                 {[
-                  { name: 'Discord', href: 'https://discord.gg/openforge', icon: '💬' },
-                  { name: 'GitHub', href: 'https://github.com/openforge', icon: '🐙' },
-                  { name: 'Twitter', href: 'https://twitter.com/openforge', icon: '🐦' }
+                  { name: 'Discord', href: 'https://discord.gg/strivelabs', icon: '💬' },
+                  { name: 'GitHub', href: 'https://github.com/strivelabs', icon: '🐙' },
+                  { name: 'Twitter', href: 'https://twitter.com/strivelabs', icon: '🐦' }
                 ].map((social, index) => (
                   <a
                     key={social.name}
@@ -387,9 +387,9 @@ const LandingSimple: React.FC = () => {
               {
                 category: 'Community',
                 links: [
-                  { name: 'Discord', href: 'https://discord.gg/openforge' },
-                  { name: 'GitHub', href: 'https://github.com/openforge' },
-                  { name: 'Twitter', href: 'https://twitter.com/openforge' },
+                  { name: 'Discord', href: 'https://discord.gg/strivelabs' },
+                  { name: 'GitHub', href: 'https://github.com/strivelabs' },
+                  { name: 'Twitter', href: 'https://twitter.com/strivelabs' },
                   { name: 'Support', href: '/support' }
                 ]
               }
@@ -415,7 +415,7 @@ const LandingSimple: React.FC = () => {
           <div className="border-t border-gray-800 mt-12 pt-8">
             <div className="flex flex-col md:flex-row justify-between items-center">
               <div className="text-gray-400 text-sm mb-4 md:mb-0">
-                © 2024 OpenForge. All rights reserved.
+                © 2024 StriveLabs. All rights reserved.
               </div>
             </div>
           </div>

@@ -72,7 +72,7 @@ const Signup: React.FC = () => {
           <div className="mb-8">
             <img 
               src={logo} 
-              alt="OpenForge Logo" 
+              alt="StriveLabs Logo" 
               className="h-8 w-auto"
             />
           </div>
@@ -217,7 +217,7 @@ const Signup: React.FC = () => {
       <div className="hidden lg:flex lg:flex-1 bg-gradient-to-br from-[#181B22] to-[#0f1117] items-center justify-center px-8">
         <div className="max-w-md">
           <h2 className="text-2xl font-bold text-[#EAEAEA] mb-4">
-            Welcome to OpenForge
+            Welcome to StriveLabs
           </h2>
           <p className="text-gray-400 mb-6">
             Join thousands of developers building the future with our powerful development platform.

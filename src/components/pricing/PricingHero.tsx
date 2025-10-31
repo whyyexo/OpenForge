@@ -20,7 +20,7 @@ const PricingHero: React.FC<PricingHeroProps> = ({ isAnnual, onToggle }) => {
             Simple, transparent pricing — built for creators and teams.
           </h1>
           <p className="text-xl text-white/60 max-w-2xl mx-auto">
-            Choose the full OpenForge Suite or subscribe per product. No hidden fees.
+            Choose the full StriveLabs Suite or subscribe per product. No hidden fees.
           </p>
           
           {/* Toggle */}

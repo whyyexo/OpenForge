@@ -105,7 +105,7 @@ const GlobalNavbar: React.FC = () => {
               >
                 <img 
                   src={logo} 
-                  alt="OpenForge Logo" 
+                  alt="StriveLabs Logo" 
                   className="h-6 w-auto"
                 />
               </a>

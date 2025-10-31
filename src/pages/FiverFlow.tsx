@@ -21,19 +21,19 @@ const FiverFlow: React.FC = () => {
         <meta property="og:title" content="FiverFlow | StriveLabs Product" />
         <meta property="og:description" content="The ultimate workspace automation platform - AI-powered automation, smart dashboard, and complete workflow management." />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://openforge.com/product/fiverflow" />
-        <meta property="og:image" content="https://openforge.com/og-image-fiverflow.png" />
+        <meta property="og:url" content="https://strivelabs.com/product/fiverflow" />
+        <meta property="og:image" content="https://strivelabs.com/og-image-fiverflow.png" />
         
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="FiverFlow | StriveLabs Product" />
         <meta name="twitter:description" content="The ultimate workspace automation platform - AI-powered automation, smart dashboard, and complete workflow management." />
-        <meta name="twitter:image" content="https://openforge.com/og-image-fiverflow.png" />
+        <meta name="twitter:image" content="https://strivelabs.com/og-image-fiverflow.png" />
         
         {/* Additional */}
         <meta name="robots" content="index, follow" />
         <meta name="author" content="StriveLabs" />
-        <link rel="canonical" href="https://openforge.com/product/fiverflow" />
+        <link rel="canonical" href="https://strivelabs.com/product/fiverflow" />
       </head>
 
       <div className="min-h-screen bg-[#0A0A0A] text-white">

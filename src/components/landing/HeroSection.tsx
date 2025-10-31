@@ -67,7 +67,7 @@ const HeroSection: React.FC = () => {
           transition={{ duration: 0.8, delay: 0.4 }}
           className="text-xl md:text-2xl text-gray-300 mb-12 max-w-3xl mx-auto leading-relaxed"
         >
-          OpenForge empowers creators and developers to build next-generation platforms.
+          StriveLabs empowers creators and developers to build next-generation platforms.
         </motion.p>
 
         <motion.div

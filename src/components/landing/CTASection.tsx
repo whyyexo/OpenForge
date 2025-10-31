@@ -45,7 +45,7 @@ const CTASection: React.FC = () => {
           transition={{ duration: 0.8 }}
         >
           <h2 className="text-5xl md:text-7xl font-bold text-white mb-8">
-            Join OpenForge{' '}
+            Join StriveLabs{' '}
             <motion.span
               className="text-[#00E38C]"
               animate={{ 
@@ -68,7 +68,7 @@ const CTASection: React.FC = () => {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="text-xl md:text-2xl text-gray-300 mb-12 max-w-2xl mx-auto leading-relaxed"
         >
-          Create your account and start building the future. Join thousands of developers already using OpenForge.
+          Create your account and start building the future. Join thousands of developers already using StriveLabs.
         </motion.p>
 
         <motion.div

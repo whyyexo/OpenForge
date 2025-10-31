@@ -37,7 +37,7 @@ const HeroSectionSimple: React.FC = () => {
         </h1>
 
         <p className="text-xl md:text-2xl text-gray-300 mb-12 max-w-3xl mx-auto leading-relaxed">
-          OpenForge empowers creators and developers to build next-generation platforms.
+          StriveLabs empowers creators and developers to build next-generation platforms.
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">

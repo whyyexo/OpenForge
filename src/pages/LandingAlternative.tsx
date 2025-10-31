@@ -31,7 +31,7 @@ const LandingAlternative: React.FC = () => {
                     is Here
                   </h1>
                   <p className="text-lg text-gray-400 max-w-md">
-                    OpenForge revolutionizes how developers build, deploy, and scale applications with cutting-edge AI and automation.
+                    StriveLabs revolutionizes how developers build, deploy, and scale applications with cutting-edge AI and automation.
                   </p>
                 </div>
 
@@ -103,7 +103,7 @@ const LandingAlternative: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Why Choose OpenForge?
+              Why Choose StriveLabs?
             </h2>
             <p className="text-gray-400 max-w-2xl mx-auto">
               Built for developers, by developers. Experience the next generation of development tools.
@@ -351,7 +351,7 @@ const LandingAlternative: React.FC = () => {
             Ready to Build the Future?
           </h2>
           <p className="text-lg text-gray-300 mb-8 max-w-2xl mx-auto">
-            Join thousands of developers who are already building the next generation of applications with OpenForge.
+            Join thousands of developers who are already building the next generation of applications with StriveLabs.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button
@@ -375,7 +375,7 @@ const LandingAlternative: React.FC = () => {
         <div className="max-w-6xl mx-auto px-4 py-12">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="mb-4 md:mb-0">
-              <h3 className="text-xl font-bold text-white mb-2">OpenForge</h3>
+              <h3 className="text-xl font-bold text-white mb-2">StriveLabs</h3>
               <p className="text-gray-400 text-sm">
                 The future of development is here.
               </p>
@@ -388,7 +388,7 @@ const LandingAlternative: React.FC = () => {
           </div>
           <div className="border-t border-gray-800 mt-8 pt-6 text-center">
             <p className="text-gray-400 text-sm">
-              © 2024 OpenForge. All rights reserved.
+              © 2024 StriveLabs. All rights reserved.
             </p>
           </div>
         </div>

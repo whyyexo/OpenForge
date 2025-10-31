@@ -1,4 +1,4 @@
-# OpenForge Dashboard
+# StriveLabs Dashboard
 
 A dashboard application connected to the same Supabase database as FiverFlow, featuring role-based access control.
 

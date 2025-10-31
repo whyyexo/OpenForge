@@ -214,7 +214,7 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
   useEffect(() => {
     // Load language from localStorage
-    const savedLanguage = localStorage.getItem('openforge-language') as Language;
+    const savedLanguage = localStorage.getItem('strivelabs-language') as Language;
     if (savedLanguage && translations[savedLanguage]) {
       setLanguage(savedLanguage);
     }
@@ -222,7 +222,7 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
   const handleSetLanguage = (lang: Language) => {
     setLanguage(lang);
-    localStorage.setItem('openforge-language', lang);
+    localStorage.setItem('strivelabs-language', lang);
   };
 
   const t = translations[language];
