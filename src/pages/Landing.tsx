@@ -86,8 +86,7 @@ const Landing: React.FC = () => {
             </div>
 
             <h1 className="text-5xl lg:text-7xl font-bold text-white leading-tight tracking-tight">
-              We craft AI‑first web apps
-              <span className="text-white/50"> — built for what’s next.</span>
+              We build the AI Software of Tomorrow
             </h1>
 
             <p className="text-xl text-white/70 max-w-3xl mx-auto leading-relaxed">
