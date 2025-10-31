@@ -222,7 +222,7 @@ const Landing: React.FC = () => {
               { 
                 t: 'FiverFlow', 
                 d: 'Automation platform for freelancers — AI & workflows.', 
-                h: EXTERNAL_LINKS.FIVERFLOW, 
+                h: '/product/fiverflow', 
                 comingSoon: false,
                 preview: (
                   <div className="w-full h-full bg-gradient-to-br from-purple-500/10 via-blue-500/10 to-transparent rounded-lg p-3 backdrop-blur-sm border border-white/10 flex flex-col">
@@ -300,10 +300,8 @@ const Landing: React.FC = () => {
                 transition={{ duration: 0.6, delay: i * 0.1 }}
                 className="block group"
               >
-                <a
-                  href={w.h}
+                <div
                   onClick={(e) => {
-                    e.preventDefault();
                     if (w.h !== '#') {
                       navigate(w.h);
                     }
@@ -333,7 +331,7 @@ const Landing: React.FC = () => {
                     </div>
                     <p className="text-white/60 text-sm mt-1">{w.d}</p>
                   </div>
-                </a>
+                </div>
               </motion.div>
             ))}
           </div>
