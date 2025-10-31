@@ -53,6 +53,8 @@ const Landing: React.FC = () => {
           <span className="h-4 w-px bg-white/10" />
           <a href="#work" className="px-3 py-1.5 text-sm text-white/80 hover:text-white transition-colors">Work</a>
           <span className="h-4 w-px bg-white/10" />
+          <a href="#faq" className="px-3 py-1.5 text-sm text-white/80 hover:text-white transition-colors">FAQ</a>
+          <span className="h-4 w-px bg-white/10" />
           <button
             onClick={() => navigate('/contact')}
             className="px-3 py-1.5 text-sm text-white/80 hover:text-white transition-colors"
@@ -118,6 +120,38 @@ const Landing: React.FC = () => {
                 Contact us
               </button>
             </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Stats Section */}
+      <section className="py-16 px-6 bg-transparent border-y border-white/10">
+        <div className="max-w-6xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12"
+          >
+            {[
+              { value: '50+', label: 'Projects Delivered' },
+              { value: '99.9%', label: 'Uptime SLA' },
+              { value: '24/7', label: 'Support' },
+              { value: '5+', label: 'Years Experience' }
+            ].map((stat, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5, delay: idx * 0.1 }}
+                viewport={{ once: true }}
+                className="text-center"
+              >
+                <div className="text-3xl md:text-5xl font-bold text-white mb-2">{stat.value}</div>
+                <div className="text-sm md:text-base text-white/60">{stat.label}</div>
+              </motion.div>
+            ))}
           </motion.div>
         </div>
       </section>
@@ -191,6 +225,55 @@ const Landing: React.FC = () => {
                       </p>
                     </div>
                   </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Technologies Section */}
+      <section className="py-24 px-6 bg-transparent">
+        <div className="max-w-6xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Built with Modern Stack</h2>
+            <p className="text-lg text-white/60 max-w-2xl mx-auto">
+              We leverage cutting-edge technologies to build fast, scalable, and secure applications.
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
+            {[
+              { name: 'React', icon: '⚛️' },
+              { name: 'TypeScript', icon: '📘' },
+              { name: 'Supabase', icon: '🔷' },
+              { name: 'Stripe', icon: '💳' },
+              { name: 'Vercel', icon: '▲' },
+              { name: 'OpenAI', icon: '🤖' },
+              { name: 'Tailwind', icon: '🎨' },
+              { name: 'Framer', icon: '✨' },
+              { name: 'GitHub', icon: '🐙' },
+              { name: 'Postgres', icon: '🐘' },
+              { name: 'Redis', icon: '🔴' },
+              { name: 'Docker', icon: '🐳' }
+            ].map((tech, idx) => (
+              <motion.div
+                key={tech.name}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: idx * 0.05 }}
+                viewport={{ once: true }}
+                className="group"
+              >
+                <div className="bg-white/5 border border-white/10 rounded-lg p-6 text-center hover:border-white/20 hover:bg-white/10 transition-all duration-300">
+                  <div className="text-3xl mb-2">{tech.icon}</div>
+                  <div className="text-sm text-white/80 font-medium">{tech.name}</div>
                 </div>
               </motion.div>
             ))}
@@ -274,6 +357,86 @@ const Landing: React.FC = () => {
         </div>
       </section>
 
+      {/* Benefits Section */}
+      <section className="py-24 px-6 bg-transparent">
+        <div className="max-w-6xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Why Choose Us</h2>
+            <p className="text-lg text-white/60 max-w-2xl mx-auto">
+              We combine technical excellence with design thinking to deliver exceptional results.
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 gap-8">
+            {[
+              {
+                title: 'Rapid Development',
+                description: 'Ship features in weeks, not months. Our agile process ensures fast iteration and delivery.',
+                icon: (
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                  </svg>
+                )
+              },
+              {
+                title: 'Scalable Architecture',
+                description: 'Built to grow with your business. Our solutions handle millions of users without breaking a sweat.',
+                icon: (
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                  </svg>
+                )
+              },
+              {
+                title: 'Security First',
+                description: 'Enterprise-grade security with encryption, authentication, and compliance built-in from day one.',
+                icon: (
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                  </svg>
+                )
+              },
+              {
+                title: '24/7 Support',
+                description: 'Round-the-clock assistance. We\'re here when you need us, ensuring your app stays online and optimized.',
+                icon: (
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z" />
+                  </svg>
+                )
+              }
+            ].map((benefit, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, x: idx % 2 === 0 ? -20 : 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, delay: idx * 0.1 }}
+                viewport={{ once: true }}
+                className="group"
+              >
+                <div className="bg-white/5 border border-white/10 rounded-lg p-8 hover:border-white/20 transition-all duration-300 h-full">
+                  <div className="flex items-start gap-4">
+                    <div className="flex-shrink-0 text-white/40 group-hover:text-white/60 transition-colors duration-300">
+                      {benefit.icon}
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="text-xl font-semibold text-white mb-2">{benefit.title}</h3>
+                      <p className="text-white/60 leading-relaxed">{benefit.description}</p>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Testimonials */}
       <section className="py-24 px-6 bg-transparent">
         <div className="max-w-5xl mx-auto">
@@ -292,6 +455,61 @@ const Landing: React.FC = () => {
               >
                 <div className="text-white/80">“{t.quote}”</div>
                 <div className="text-white/40 text-sm mt-3">{t.author}</div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section id="faq" className="py-24 px-6 bg-transparent">
+        <div className="max-w-4xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Frequently Asked Questions</h2>
+            <p className="text-lg text-white/60 max-w-xl mx-auto">
+              Everything you need to know about working with us.
+            </p>
+          </motion.div>
+
+          <div className="space-y-4">
+            {[
+              {
+                question: 'How long does a typical project take?',
+                answer: 'Project timelines vary based on scope and complexity. Most MVP projects take 4-8 weeks, while full-featured applications typically require 8-16 weeks. We provide detailed timelines during our initial consultation.'
+              },
+              {
+                question: 'What technologies do you specialize in?',
+                answer: 'We specialize in modern web technologies including React, TypeScript, Node.js, Supabase, and AI integrations. Our stack is optimized for performance, scalability, and developer experience.'
+              },
+              {
+                question: 'Do you provide ongoing support?',
+                answer: 'Yes, we offer comprehensive support packages including maintenance, updates, monitoring, and 24/7 assistance. Support can be tailored to your specific needs and budget.'
+              },
+              {
+                question: 'Can you work with our existing team?',
+                answer: 'Absolutely. We are experienced in collaborating with in-house teams, providing technical leadership, code reviews, and knowledge transfer to ensure seamless integration.'
+              },
+              {
+                question: 'What is your pricing model?',
+                answer: 'We offer flexible pricing models including fixed-price projects, time-based billing, and retainer agreements. Contact us for a custom quote tailored to your project requirements.'
+              }
+            ].map((faq, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: idx * 0.1 }}
+                viewport={{ once: true }}
+                className="bg-white/5 border border-white/10 rounded-lg p-6 hover:border-white/20 transition-all duration-300"
+              >
+                <h3 className="text-lg font-semibold text-white mb-2">{faq.question}</h3>
+                <p className="text-white/60 leading-relaxed">{faq.answer}</p>
               </motion.div>
             ))}
           </div>
