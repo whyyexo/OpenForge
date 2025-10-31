@@ -225,54 +225,54 @@ const Landing: React.FC = () => {
                 h: EXTERNAL_LINKS.FIVERFLOW, 
                 comingSoon: false,
                 preview: (
-                  <div className="h-full bg-gradient-to-br from-purple-500/10 via-blue-500/10 to-transparent rounded-lg p-4 backdrop-blur-sm border border-white/10">
-                    <div className="bg-black/60 rounded-lg p-4 space-y-3 h-full">
-                      <div className="flex items-center gap-2 mb-3">
+                  <div className="w-full h-full bg-gradient-to-br from-purple-500/10 via-blue-500/10 to-transparent rounded-lg p-3 backdrop-blur-sm border border-white/10 flex flex-col">
+                    <div className="bg-black/60 rounded-lg p-3 space-y-2 flex-1 flex flex-col">
+                      <div className="flex items-center gap-2">
                         <div className="flex gap-1.5">
-                          <div className="w-2.5 h-2.5 rounded-full bg-red-500/80"></div>
-                          <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/80"></div>
-                          <div className="w-2.5 h-2.5 rounded-full bg-green-500/80"></div>
+                          <div className="w-2 h-2 rounded-full bg-red-500/80"></div>
+                          <div className="w-2 h-2 rounded-full bg-yellow-500/80"></div>
+                          <div className="w-2 h-2 rounded-full bg-green-500/80"></div>
                         </div>
-                        <span className="text-xs text-white/40 ml-2">preview</span>
+                        <span className="text-[10px] text-white/40 ml-1">preview</span>
                       </div>
-                      <div className="space-y-2.5">
-                        <div className="flex items-center gap-3 bg-white/5 rounded-lg p-3 border border-white/10">
-                          <div className="w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center">
-                            <div className="w-6 h-6 rounded-full bg-blue-500/40"></div>
+                      <div className="space-y-2 flex-1">
+                        <div className="flex items-center gap-2 bg-white/5 rounded-lg p-2 border border-white/10">
+                          <div className="w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center flex-shrink-0">
+                            <div className="w-5 h-5 rounded-full bg-blue-500/40"></div>
                           </div>
-                          <div className="flex-1">
-                            <div className="text-xs font-semibold text-white">Active Tasks</div>
-                            <div className="text-[10px] text-white/50">12 in progress</div>
+                          <div className="flex-1 min-w-0">
+                            <div className="text-[10px] font-semibold text-white truncate">Active Tasks</div>
+                            <div className="text-[9px] text-white/50">12 in progress</div>
                           </div>
-                          <svg className="w-4 h-4 text-white/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <svg className="w-3 h-3 text-white/40 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                           </svg>
                         </div>
-                        <div className="flex items-center gap-3 bg-white/5 rounded-lg p-3 border border-white/10">
-                          <div className="w-10 h-10 rounded-full bg-purple-500/20 flex items-center justify-center">
-                            <div className="w-6 h-6 rounded-full bg-purple-500/40"></div>
+                        <div className="flex items-center gap-2 bg-white/5 rounded-lg p-2 border border-white/10">
+                          <div className="w-8 h-8 rounded-full bg-purple-500/20 flex items-center justify-center flex-shrink-0">
+                            <div className="w-5 h-5 rounded-full bg-purple-500/40"></div>
                           </div>
-                          <div className="flex-1">
-                            <div className="text-xs font-semibold text-white">Client Management</div>
-                            <div className="text-[10px] text-white/50">45 clients</div>
+                          <div className="flex-1 min-w-0">
+                            <div className="text-[10px] font-semibold text-white truncate">Client Management</div>
+                            <div className="text-[9px] text-white/50">45 clients</div>
                           </div>
-                          <svg className="w-4 h-4 text-white/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <svg className="w-3 h-3 text-white/40 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                           </svg>
                         </div>
-                        <div className="flex items-center gap-3 bg-white/5 rounded-lg p-3 border border-white/10">
-                          <div className="w-10 h-10 rounded-full bg-teal-500/20 flex items-center justify-center">
-                            <div className="w-6 h-6 rounded-full bg-teal-500/40"></div>
+                        <div className="flex items-center gap-2 bg-white/5 rounded-lg p-2 border border-white/10">
+                          <div className="w-8 h-8 rounded-full bg-teal-500/20 flex items-center justify-center flex-shrink-0">
+                            <div className="w-5 h-5 rounded-full bg-teal-500/40"></div>
                           </div>
-                          <div className="flex-1">
-                            <div className="text-xs font-semibold text-white">Revenue This Month</div>
-                            <div className="text-[10px] text-white/50">$12,450</div>
+                          <div className="flex-1 min-w-0">
+                            <div className="text-[10px] font-semibold text-white truncate">Revenue This Month</div>
+                            <div className="text-[9px] text-white/50">$12,450</div>
                           </div>
-                          <div className="flex items-center gap-1">
-                            <svg className="w-3 h-3 text-teal-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <div className="flex items-center gap-0.5 flex-shrink-0">
+                            <svg className="w-2.5 h-2.5 text-teal-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" />
                             </svg>
-                            <span className="text-[10px] text-teal-400 font-semibold">32%</span>
+                            <span className="text-[9px] text-teal-400 font-semibold">32%</span>
                           </div>
                         </div>
                       </div>
@@ -312,7 +312,7 @@ const Landing: React.FC = () => {
                 >
                   <div className="aspect-video rounded-lg border border-white/10 bg-gradient-to-br from-white/5 to-white/0 group-hover:border-white/20 transition-colors relative overflow-hidden">
                     {w.preview ? (
-                      <div className="absolute inset-0 p-1">
+                      <div className="absolute inset-0">
                         {w.preview}
                       </div>
                     ) : (
