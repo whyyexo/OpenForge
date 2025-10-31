@@ -64,7 +64,7 @@ const Landing: React.FC = () => {
         </nav>
       </div>
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      <section className="relative z-10 min-h-screen flex items-center justify-center overflow-hidden">
         {/* Subtle background elements */}
         <div className="absolute inset-0">
           <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-white/2 rounded-full blur-3xl"></div>
@@ -125,7 +125,7 @@ const Landing: React.FC = () => {
       </section>
 
       {/* Stats Section */}
-      <section className="py-16 px-6 bg-transparent border-y border-white/10">
+      <section className="relative z-10 py-16 px-6 bg-transparent border-y border-white/10">
         <div className="max-w-6xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -157,7 +157,7 @@ const Landing: React.FC = () => {
       </section>
 
       {/* Services Section */}
-      <section id="capabilities" className="py-24 px-6 bg-transparent">
+      <section id="capabilities" className="relative z-10 py-24 px-6 bg-transparent">
         <div className="max-w-6xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -233,7 +233,7 @@ const Landing: React.FC = () => {
       </section>
 
       {/* Technologies Section */}
-      <section className="py-24 px-6 bg-transparent">
+      <section className="relative z-10 py-24 px-6 bg-transparent">
         <div className="max-w-6xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -282,7 +282,7 @@ const Landing: React.FC = () => {
       </section>
 
       {/* Selected Work */}
-      <section id="work" className="py-24 px-6 bg-transparent">
+      <section id="work" className="relative z-10 py-24 px-6 bg-transparent">
         <div className="max-w-6xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -322,7 +322,7 @@ const Landing: React.FC = () => {
       </section>
 
       {/* Process */}
-      <section className="py-24 px-6 bg-transparent">
+      <section className="relative z-10 py-24 px-6 bg-transparent">
         <div className="max-w-5xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -358,7 +358,7 @@ const Landing: React.FC = () => {
       </section>
 
       {/* Benefits Section */}
-      <section className="py-24 px-6 bg-transparent">
+      <section className="relative z-10 py-24 px-6 bg-transparent">
         <div className="max-w-6xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -438,7 +438,7 @@ const Landing: React.FC = () => {
       </section>
 
       {/* Testimonials */}
-      <section className="py-24 px-6 bg-transparent">
+      <section className="relative z-10 py-24 px-6 bg-transparent">
         <div className="max-w-5xl mx-auto">
           <div className="grid md:grid-cols-3 gap-6">
             {[
@@ -462,7 +462,7 @@ const Landing: React.FC = () => {
       </section>
 
       {/* FAQ Section */}
-      <section id="faq" className="py-24 px-6 bg-transparent">
+      <section id="faq" className="relative z-10 py-24 px-6 bg-transparent">
         <div className="max-w-4xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -517,7 +517,7 @@ const Landing: React.FC = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-24 px-6 bg-transparent">
+      <section className="relative z-10 py-24 px-6 bg-transparent">
         <div className="max-w-4xl mx-auto text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
